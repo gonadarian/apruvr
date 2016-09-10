@@ -1,0 +1,19 @@
+{
+    "language": {
+        "javascript": {
+            "linting.prefer": ["ESLint"],
+            "linting.usePreferredOnly": true
+        }
+    },
+    "language.fileNames": {
+        ".babelrc": "json",
+        ".eslintrc": "json",
+        ".todo": "json"
+    },
+    "jwolfe.file-tree-exclude.list": [
+        "node_modules",
+        ".git",
+        "dist",
+        "vendor"
+    ]
+}
