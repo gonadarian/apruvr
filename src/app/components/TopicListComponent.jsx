@@ -12,17 +12,6 @@ const TopicListComponent = ({ root, ...other }) =>
         level={1}
         topics={root.topics} />;
 
-function getItemStyle(selected, path) {
-    const sufix = selected === path
-        ? 'primary'
-        : selected.startsWith(path)
-            ? 'info'
-            : 'default';
-
-    const style = 'btn btn-block btn-' + sufix;
-    return style;
-}
-
 const TopicList = ({ topics, path, ...other }) =>
     <div className="btn-group-vertical btn-group-justified">
         {map(topics, (topic, key) =>
@@ -34,9 +23,21 @@ const TopicList = ({ topics, path, ...other }) =>
         )}
     </div>;
 
+function getItemClass(selected, path) {
+    const className = selected === path
+        ? 'btn-primary'
+        : selected.startsWith(path)
+            ? 'btn-info'
+            : 'btn-default';
+
+    const style = 'btn btn-block ' + className;
+    return style;
+}
+
 const TopicItem = ({ topic, path, selected, level, onChoose }) =>
     <div>
-        <div className={getItemStyle(selected, path)}
+        <div
+            className={getItemClass(selected, path)}
             style={{ textAlign: 'left', paddingLeft: (level * 20) + 'px' }}
             onClick={(event) => {
                 event.stopPropagation();

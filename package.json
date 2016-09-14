@@ -35,6 +35,8 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.13.0",
     "css-loader": "^0.24.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "style-loader": "^0.13.1",
     "uglify-js": "^2.7.3",
     "webpack": "^1.13.2"

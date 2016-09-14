@@ -18,7 +18,11 @@ const config = {
             },
             {
                 test:       /\.css$/,
-                loader:     'style-loader!css-loader',
+                loader:     'style!css',
+            },
+            {
+                test:       /\.less$/,
+                loader:     'style!css?modules!less',
             },
         ],
     },

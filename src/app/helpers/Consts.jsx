@@ -104,7 +104,7 @@ const NAMES = {
     Scratchpad: 'scratchpads',
 };
 
-const Consts = {
+export {
     CONTENTS,
     LANGUAGES,
     VISIBILITIES,
@@ -112,5 +112,3 @@ const Consts = {
     TYPES,
     NAMES,
 };
-
-export default Consts;

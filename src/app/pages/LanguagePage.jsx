@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 import Spinner from 'react-spinkit';
@@ -7,7 +7,8 @@ import ContentListComponent from '../components/ContentListComponent.jsx';
 import ButtonChoiceComponent from '../components/ButtonChoiceComponent.jsx';
 import ButtonGroupComponent from '../components/ButtonGroupComponent.jsx';
 import TopicListComponent from '../components/TopicListComponent.jsx';
-import Consts from '../helpers/Consts.jsx';
+
+import { CONTENTS, LANGUAGES, VISIBILITIES, PICKS, NAMES } from '../helpers/Consts.jsx';
 
 import map from 'lodash/map';
 import size from 'lodash/size';
@@ -19,9 +20,9 @@ import forEach from 'lodash/forEach';
 import transform from 'lodash/transform';
 import mapValues from 'lodash/mapValues';
 
-const { CONTENTS, LANGUAGES, VISIBILITIES, PICKS, NAMES } = Consts;
+import styles from '../styles/main.less';
 
-class LanguagePage extends React.Component {
+class LanguagePage extends Component {
 
     constructor(props) {
         super(props);
@@ -229,7 +230,7 @@ class LanguagePage extends React.Component {
 
         return (
             <div>
-                <div className="jumbotron text-center">
+                <div className={`jumbotron text-center ${styles.dark}`}>
                     <h1>Khan Academy Apruvr</h1>
                     <p>Approval workflow for Khan Academy translations.</p>
                 </div>

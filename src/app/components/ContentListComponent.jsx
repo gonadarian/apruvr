@@ -3,12 +3,11 @@ import React from 'react';
 import CrowdinComponent from './CrowdinComponent.jsx';
 import VideoComponent from './VideoComponent.jsx';
 import Apruvr from '../helpers/Apruvr.jsx';
-import Consts from '../helpers/Consts.jsx';
+
+import { TYPES } from '../helpers/Consts.jsx';
 
 import map from 'lodash/map';
 import filter from 'lodash/filter';
-
-const { TYPES } = Consts;
 
 function visibleCrowdin(content, visibility) {
     const totl = content.wordCount;

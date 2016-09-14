@@ -2,7 +2,7 @@ import React from 'react';
 
 const ButtonComponent = ({ name, isActive, onClick }) =>
     <div
-        className={'btn btn-' + (isActive ? 'primary' : 'default')}
+        className={'btn ' + (isActive ? 'btn-primary' : 'btn-default')}
         onClick={onClick}>
             {name}
     </div>;

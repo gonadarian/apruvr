@@ -12,8 +12,19 @@ const config = {
     },
     module: {
         loaders: [
-            { test: /\.jsx?/, loader: 'babel', include: APP_DIR },
-            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            {
+                test:       /\.jsx?/,
+                loader:     'babel',
+                include:    APP_DIR,
+            },
+            {
+                test:       /\.css$/,
+                loader:     'style!css',
+            },
+            {
+                test:       /\.less$/,
+                loader:     'style!css?modules!less',
+            },
         ],
     },
     plugins: [
