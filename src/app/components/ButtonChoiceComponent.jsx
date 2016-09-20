@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ButtonComponent from './ButtonComponent.jsx';
-import Apruvr from '../helpers/Apruvr.jsx';
+import ButtonComponent from './ButtonComponent';
+import Apruvr from '../helpers/apruvr';
 
 import map from 'lodash/map';
 import pick from 'lodash/pick';

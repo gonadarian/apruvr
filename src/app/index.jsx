@@ -2,10 +2,20 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 
-import LanguagePage from './pages/LanguagePage.jsx';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import promise from 'redux-promise';
+
+import reducers from './reducers';
+import LanguagePage from './pages/LanguagePage';
+
+const store = applyMiddleware(thunk, promise)(createStore)(reducers);
 
 render((
-    <Router history={hashHistory}>
-        <Route path="/" component={LanguagePage} />
-    </Router>
+    <Provider store={store}>
+        <Router history={hashHistory}>
+            <Route path="/" component={LanguagePage} />
+        </Router>
+    </Provider>
 ), document.getElementById('app'));

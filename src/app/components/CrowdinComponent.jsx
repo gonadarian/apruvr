@@ -1,7 +1,7 @@
 import React from 'react';
 import { sprintf } from 'sprintf-js';
 
-import Apruvr from '../helpers/Apruvr.jsx';
+import Apruvr from '../helpers/apruvr';
 
 const CrowdinComponent = ({ content, language, code }) => {
     const { slug, title, wordCount, translatedWordCount, approvedWordCount } = content;

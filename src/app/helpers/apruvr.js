@@ -21,7 +21,7 @@ const topic =
 const topics =
     React.PropTypes.objectOf(topic);
 
-const Apruvr = {
+export default {
     PropTypes: {
         item,
         items,
@@ -30,5 +30,3 @@ const Apruvr = {
         topics,
     },
 };
-
-export default Apruvr;

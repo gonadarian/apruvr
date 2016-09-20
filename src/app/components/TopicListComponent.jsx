@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Apruvr from '../helpers/Apruvr.jsx';
+import Apruvr from '../helpers/apruvr';
 
 import map from 'lodash/map';
 import size from 'lodash/size';

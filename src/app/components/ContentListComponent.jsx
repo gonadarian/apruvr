@@ -1,10 +1,10 @@
 import React from 'react';
 
-import CrowdinComponent from './CrowdinComponent.jsx';
-import VideoComponent from './VideoComponent.jsx';
-import Apruvr from '../helpers/Apruvr.jsx';
+import CrowdinComponent from './CrowdinComponent';
+import VideoComponent from './VideoComponent';
 
-import { TYPES } from '../helpers/Consts.jsx';
+import Apruvr from '../helpers/apruvr';
+import { TYPES } from '../helpers/consts';
 
 import map from 'lodash/map';
 import filter from 'lodash/filter';
@@ -22,7 +22,7 @@ function visibleCrowdin(content, visibility) {
     return isTrns || isAppr || isFrsh || isDoin;
 }
 
-const CrowdinList = ({ type, contents, visibility, ...other }) =>
+const CrowdinList = ({ type, nodes, visibility, ...other }) =>
     <div>
         <table className="table">
             <thead>
@@ -35,7 +35,7 @@ const CrowdinList = ({ type, contents, visibility, ...other }) =>
             <tbody>
                 {map(
                     filter(
-                        contents,
+                        nodes,
                         (content) => visibleCrowdin(content, visibility)
                     ),
                     (content, key) =>
@@ -57,7 +57,7 @@ function visibleVideo(content, visibility) {
     return isSubd || isDubd || isFrsh;
 }
 
-const VideoList = ({ contents, visibility, ...other }) =>
+const VideoList = ({ nodes, visibility, ...other }) =>
     <div>
         <table className="table">
             <thead>
@@ -70,7 +70,7 @@ const VideoList = ({ contents, visibility, ...other }) =>
             <tbody>
                 {map(
                     filter(
-                        contents,
+                        nodes,
                         (content) => visibleVideo(content, visibility)
                     ),
                     (content, key) =>
@@ -100,13 +100,13 @@ ContentListComponent.propTypes = {
 };
 
 CrowdinList.propTypes = {
-    contents:   React.PropTypes.objectOf(React.PropTypes.object).isRequired,
+    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
     type:       React.PropTypes.string.isRequired,
     visibility: Apruvr.PropTypes.choices.isRequired,
 };
 
 VideoList.propTypes = {
-    contents:   React.PropTypes.objectOf(React.PropTypes.object).isRequired,
+    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
     visibility: Apruvr.PropTypes.choices.isRequired,
 };
 
