@@ -73,7 +73,7 @@ function mapStateToProps(state) {
 
 ExporterButton.propTypes = {
     content:    Apruvr.PropTypes.item.isRequired,
-    topic:      Apruvr.PropTypes.topic.isRequired,
+    topic:      React.PropTypes.string.isRequired,
     nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
 };
 
