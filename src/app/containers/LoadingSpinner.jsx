@@ -15,14 +15,12 @@ const LoadingSpinner = ({ loading }) => {
     );
 };
 
-function mapStateToProps(state) {
-    return {
-        loading:    state.loading,
-    };
-}
-
 LoadingSpinner.propTypes = {
     loading:    React.PropTypes.bool.isRequired,
 };
 
-export default connect(mapStateToProps)(LoadingSpinner);
+export default connect(
+    (state) => ({
+        loading: state.loading,
+    })
+)(LoadingSpinner);

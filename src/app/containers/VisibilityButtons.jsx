@@ -15,17 +15,12 @@ const VisibilityButtons = (props) =>
             names={VISIBILITIES} />
     </div>;
 
-function mapStateToProps(state) {
-    return {
+export default connect(
+    (state) => ({
         choices:    state.visibility,
         used:       PICKS[state.content.code],
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        onChoose: filterVisibility,
-    }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(VisibilityButtons);
+    }),
+    (dispatch) => bindActionCreators({
+        onChoose:   filterVisibility,
+    }, dispatch)
+)(VisibilityButtons);

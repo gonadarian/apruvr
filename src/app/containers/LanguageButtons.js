@@ -14,17 +14,12 @@ const LanguageButtons = (props) =>
             {...props} />
     </div>;
 
-function mapStateToProps(state) {
-    return {
+export default connect(
+    (state) => ({
         buttons:    LANGUAGES,
         current:    state.language,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        onChoose: chooseLanguage,
-    }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LanguageButtons);
+    }),
+    (dispatch) => bindActionCreators({
+        onChoose:   chooseLanguage,
+    }, dispatch)
+)(LanguageButtons);

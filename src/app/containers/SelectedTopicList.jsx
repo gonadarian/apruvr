@@ -12,17 +12,12 @@ const SelectedTopicList = (props) =>
             {...props} />
     </div>;
 
-function mapStateToProps(state) {
-    return {
+export default connect(
+    (state) => ({
         root:       state.tree.root,
         selected:   state.topic,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        onChoose: filterTopic,
-    }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedTopicList);
+    }),
+    (dispatch) => bindActionCreators({
+        onChoose:   filterTopic,
+    }, dispatch)
+)(SelectedTopicList);

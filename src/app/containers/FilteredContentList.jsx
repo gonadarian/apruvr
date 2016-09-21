@@ -22,8 +22,13 @@ const FilteredContentList = ({ content, nodes, ...props }) =>
             title={content.name} />
     </div>;
 
-function mapStateToProps(state) {
-    return {
+FilteredContentList.propTypes = {
+    content:    Apruvr.PropTypes.item.isRequired,
+    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
+};
+
+export default connect(
+    (state) => ({
         content:    state.content,
         language:   state.language,
         visibility: state.visibility,
@@ -33,12 +38,5 @@ function mapStateToProps(state) {
             state.tree,
             state.content
         ),
-    };
-}
-
-FilteredContentList.propTypes = {
-    content:    Apruvr.PropTypes.item.isRequired,
-    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
-};
-
-export default connect(mapStateToProps)(FilteredContentList);
+    })
+)(FilteredContentList);

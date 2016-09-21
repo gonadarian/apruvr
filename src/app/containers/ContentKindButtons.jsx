@@ -14,17 +14,12 @@ const ContentKindButtons = (props) =>
             {...props} />
     </div>;
 
-function mapStateToProps(state) {
-    return {
+export default connect(
+    (state) => ({
         buttons:    CONTENTS,
         current:    state.content,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
+    }),
+    (dispatch) => bindActionCreators({
         onChoose: filterContentKind,
-    }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContentKindButtons);
+    }, dispatch)
+)(ContentKindButtons);

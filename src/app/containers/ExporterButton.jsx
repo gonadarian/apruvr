@@ -58,8 +58,14 @@ const ExporterButton = ({ content, topic, nodes }) =>
         </a>
     </div>;
 
-function mapStateToProps(state) {
-    return {
+ExporterButton.propTypes = {
+    content:    Apruvr.PropTypes.item.isRequired,
+    topic:      React.PropTypes.string.isRequired,
+    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
+};
+
+export default connect(
+    (state) => ({
         content:    state.content,
         topic:      state.topic,
         nodes:      filterNodes(
@@ -68,13 +74,5 @@ function mapStateToProps(state) {
             state.tree,
             state.content
         ),
-    };
-}
-
-ExporterButton.propTypes = {
-    content:    Apruvr.PropTypes.item.isRequired,
-    topic:      React.PropTypes.string.isRequired,
-    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
-};
-
-export default connect(mapStateToProps)(ExporterButton);
+    })
+)(ExporterButton);
