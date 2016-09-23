@@ -2,18 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from 'react-spinkit';
+import Optional from '../components/Optional';
 
-const LoadingSpinner = ({ loading }) => {
-    if (!loading) {
-        return null;
-    }
-    return (
-        <div className="col-md-12">
-            <h2>Loading</h2>
-            <Spinner spinnerName="three-bounce" />
-        </div>
-    );
-};
+const LoadingSpinner = ({ loading }) =>
+    <Optional visible={loading} className="col-md-12">
+        <h2>Loading</h2>
+        <Spinner spinnerName="three-bounce" />
+    </Optional>;
 
 LoadingSpinner.propTypes = {
     loading:    React.PropTypes.bool.isRequired,

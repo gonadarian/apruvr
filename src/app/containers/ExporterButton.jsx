@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Apruvr from '../helpers/apruvr';
-import filterNodes from '../helpers/filter';
+import { TYPE_GROUPS } from '../helpers/consts';
+import { getFilteredNodes } from '../selectors';
 
 import map from 'lodash/map';
 import reduce from 'lodash/reduce';
@@ -30,25 +31,30 @@ function exporterVideo(key, content) {
     return data;
 }
 
+const EXPORTERS = {
+    videos:     exporterVideo,
+    crowdin:    exporterCrowdin,
+};
+
+const COLUMNS = {
+    videos:     ['slug', 'title', 'subbed', 'dubbed', 'subject', 'topic', 'subtopic', 'tutorial'],
+    crowdin:    ['slug', 'title', 'total', 'translated', 'approved', 'subject', 'topic', 'subtopic', 'tutorial'],
+};
+
 function exporter(code, nodes) {
     const data = reduce(
         map(
             nodes,
-            (content, key) =>
-                code === 'videos'
-                    ? exporterVideo(key, content)
-                    : exporterCrowdin(key, content)
+            (content, key) => EXPORTERS[TYPE_GROUPS[code]](key, content)
         ),
         (result, row) => result + '\n' + row,
-        code === 'videos'
-            ? 'slug\ttitle\tsubbed\tdubbed\tsubject\ttopic\tsubtopic\ttutorial'
-            : 'slug\ttitle\ttotal\ttranslated\tapproved\tsubject\ttopic\tsubtopic\ttutorial');
+        COLUMNS[TYPE_GROUPS[code]].join('\t'));
 
     return 'data:attachment/csv,' + encodeURIComponent(data);
 }
 
 const ExporterButton = ({ content, topic, nodes }) =>
-    <div className="col-md-4">
+    <div className="col-md-2 col-sm-2 col-xs-12">
         <h2>Export</h2>
         <a className="btn btn-primary"
             href={exporter(content.code, nodes)}
@@ -68,11 +74,6 @@ export default connect(
     (state) => ({
         content:    state.content,
         topic:      state.topic,
-        nodes:      filterNodes(
-            state.nodes,
-            state.topic,
-            state.tree,
-            state.content
-        ),
+        nodes:      getFilteredNodes(state),
     })
 )(ExporterButton);

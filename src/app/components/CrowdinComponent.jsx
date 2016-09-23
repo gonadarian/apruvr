@@ -37,7 +37,7 @@ const CrowdinComponent = ({ content, language, code }) => {
                     className="btn btn-default"
                     href={`https://translate.khanacademy.org/${code}/${slug}`}
                     target="_blank">
-                        translate
+                        go
                         {' '}
                         <span className="badge">
                             {translatedWordCount} ({sprintf('%.0f', trnsp)}%)
@@ -50,7 +50,7 @@ const CrowdinComponent = ({ content, language, code }) => {
                     className="btn btn-default"
                     href={`https://crowdin.com/proofread/khanacademy/all/enus-${language.code}#q=/${slug}`}
                     target="_blank">
-                        approve
+                        go
                         {' '}
                         <span className="badge">
                             {approvedWordCount} ({sprintf('%.0f', apprp)}%)

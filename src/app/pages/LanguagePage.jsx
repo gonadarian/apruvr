@@ -15,7 +15,7 @@ const LanguagePage = () =>
     <div>
         <div className={`jumbotron text-center ${styles.dark}`}>
             <h1>Khan Academy Apruvr</h1>
-            <p>Approval workflow for Khan Academy translations.</p>
+            <h3>Approval workflow for Khan Academy translations</h3>
         </div>
 
         <div className="container-fluid">

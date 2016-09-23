@@ -1,5 +1,5 @@
 import handleReducers from './handler';
-import { FILTER_VISIBIITY } from '../actions/index';
+import { FILTER_VISIBIITY } from '../actions/types';
 
 import mapValues from 'lodash/mapValues';
 

@@ -1,5 +1,5 @@
 import handleReducers from './handler';
-import { CHANGE_LANGUAGE, FETCH_NODES } from '../actions/index';
+import { CHANGE_LANGUAGE, FETCH_NODES } from '../actions/types';
 
 const handlers = {
     [CHANGE_LANGUAGE]:  () => null,

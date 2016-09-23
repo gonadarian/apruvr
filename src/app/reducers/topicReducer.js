@@ -1,5 +1,5 @@
 import handleReducers from './handler';
-import { FILTER_TOPIC } from '../actions/index';
+import { FILTER_TOPIC } from '../actions/types';
 
 const handlers = {
     [FILTER_TOPIC]: (state, action) => action.payload,

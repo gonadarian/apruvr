@@ -1,16 +1,17 @@
 import React from 'react';
 
 import Apruvr from '../helpers/apruvr';
+import styles from '../styles/main.less';
 
 import map from 'lodash/map';
 import size from 'lodash/size';
 
-const TopicListComponent = ({ root, ...other }) =>
+const TopicListComponent = ({ tree, ...other }) =>
     <TopicList
         {...other}
         path="root"
         level={1}
-        topics={root.topics} />;
+        topics={tree.root.topics} />;
 
 const TopicList = ({ topics, path, ...other }) =>
     <div className="btn-group-vertical btn-group-justified">
@@ -30,7 +31,7 @@ function getItemClass(selected, path) {
             ? 'btn-info'
             : 'btn-default';
 
-    const style = 'btn btn-block ' + className;
+    const style = `btn btn-block ${styles.btnText} ${className}`;
     return style;
 }
 
@@ -57,7 +58,7 @@ const TopicItem = ({ topic, path, selected, level, onChoose }) =>
     </div>;
 
 TopicListComponent.propTypes = {
-    root:       Apruvr.PropTypes.topic.isRequired,
+    tree:       Apruvr.PropTypes.topic.isRequired,
     selected:   React.PropTypes.string.isRequired,
     onChoose:   React.PropTypes.func.isRequired,
 };

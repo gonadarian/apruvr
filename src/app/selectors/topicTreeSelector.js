@@ -1,5 +1,4 @@
-import handleReducers from './handler';
-import { FETCH_NODES } from '../actions/index';
+import { createSelector } from 'reselect';
 
 import size from 'lodash/size';
 import forIn from 'lodash/forIn';
@@ -61,16 +60,18 @@ function handleTopic(tree, item) {
     }
 }
 
-const handlers = {
-    [FETCH_NODES]: (state, action) => {
-        const newState = {};
-        forEach(
-            action.payload.data.nodes.topics,
-            (topic) => handleTopic(newState, topic)
-        );
-        return newState;
-    },
-};
+function createTopicTree(nodes) {
+    const topicTree = {};
+    forEach(
+        nodes.topics,
+        (topic) => handleTopic(topicTree, topic)
+    );
+    return topicTree;
+}
 
-export default (state = null, action) =>
-    handleReducers(handlers, state, action);
+export default createSelector(
+    [
+        (state) => state.nodes,
+    ],
+    (nodes) => createTopicTree(nodes)
+);

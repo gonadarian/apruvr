@@ -1,4 +1,7 @@
+import { createSelector } from 'reselect';
+
 import { NAMES } from '../helpers/consts';
+import topicTreeSelector from './topicTreeSelector';
 
 import forIn from 'lodash/forIn';
 import reduce from 'lodash/reduce';
@@ -34,4 +37,12 @@ function filterNodes(nodes, topic, tree, content) {
     return filtered;
 }
 
-export default filterNodes;
+export default createSelector(
+    [
+        (state) => state.nodes,
+        (state) => state.topic,
+        (state) => state.content,
+        topicTreeSelector,
+    ],
+    (nodes, topic, content, tree) => filterNodes(nodes, topic, tree, content)
+);

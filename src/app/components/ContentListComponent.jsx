@@ -27,9 +27,9 @@ const CrowdinList = ({ type, nodes, visibility, ...other }) =>
         <table className="table">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Translate</th>
-                    <th>Approve</th>
+                    <th className="col-md-8">Name</th>
+                    <th className="col-md-2">Translate</th>
+                    <th className="col-md-8">Approve</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,9 +62,9 @@ const VideoList = ({ nodes, visibility, ...other }) =>
         <table className="table">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Subtitling</th>
-                    <th>Dubbing</th>
+                    <th className="col-md-8">Name</th>
+                    <th className="col-md-2">Subtitling</th>
+                    <th className="col-md-2">Dubbing</th>
                 </tr>
             </thead>
             <tbody>

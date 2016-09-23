@@ -8,7 +8,7 @@ import ButtonChoiceComponent from '../components/ButtonChoiceComponent';
 import { VISIBILITIES, PICKS } from '../helpers/consts';
 
 const VisibilityButtons = (props) =>
-    <div className="col-md-4">
+    <div className="col-md-5 col-sm-5 col-xs-12">
         <h2>States</h2>
         <ButtonChoiceComponent
             {...props}

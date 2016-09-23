@@ -97,6 +97,13 @@ export const TYPES = {
     videos:         'v',
 };
 
+export const TYPE_GROUPS = {
+    exercises:      'crowdin',
+    articles:       'crowdin',
+    scratchpads:    'crowdin',
+    videos:         'videos',
+};
+
 export const NAMES = {
     Exercise:   'exercises',
     Article:    'articles',

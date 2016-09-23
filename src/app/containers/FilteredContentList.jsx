@@ -1,16 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ContentListComponent from '../components/ContentListComponent';
 import Apruvr from '../helpers/apruvr';
-import filterNodes from '../helpers/filter';
+import ContentListComponent from '../components/ContentListComponent';
+import { getFilteredNodes } from '../selectors';
 
 import size from 'lodash/size';
 
 const FilteredContentList = ({ content, nodes, ...props }) =>
-    <div className="col-md-8">
+    <div className="col-md-9 col-sm-12 col-xs-12">
         <h2>
-            {content.name}&nbsp;
+            {content.name}
+            {' '}
             <span className="badge">
                 {size(nodes)}
             </span>
@@ -32,11 +33,6 @@ export default connect(
         content:    state.content,
         language:   state.language,
         visibility: state.visibility,
-        nodes:      filterNodes(
-            state.nodes,
-            state.topic,
-            state.tree,
-            state.content
-        ),
+        nodes:      getFilteredNodes(state),
     })
 )(FilteredContentList);
