@@ -1,10 +1,8 @@
 import React from 'react';
-
-import Apruvr from '../helpers/apruvr';
-import styles from '../styles/main.less';
-
 import map from 'lodash/map';
 import size from 'lodash/size';
+import Apruvr from '../helpers/apruvr';
+import styles from '../styles/main.less';
 
 const TopicTree = ({ tree, ...other }) =>
     <TopicList

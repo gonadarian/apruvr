@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-
 import size from 'lodash/size';
 import forIn from 'lodash/forIn';
 import filter from 'lodash/filter';

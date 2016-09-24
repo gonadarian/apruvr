@@ -1,6 +1,5 @@
 import React from 'react';
 import { sprintf } from 'sprintf-js';
-
 import Apruvr from '../helpers/apruvr';
 
 const CrowdinItem = ({ content, language, code }) => {

@@ -1,13 +1,10 @@
 import React from 'react';
-
-import CrowdinItem from './CrowdinItem';
-import VideoItem from './VideoItem';
-
-import Apruvr from '../helpers/apruvr';
-import { TYPES } from '../helpers/consts';
-
 import map from 'lodash/map';
 import filter from 'lodash/filter';
+import Apruvr from '../helpers/apruvr';
+import { TYPES } from '../helpers/consts';
+import CrowdinItem from './CrowdinItem';
+import VideoItem from './VideoItem';
 
 function visibleCrowdin(content, visibility) {
     const totl = content.wordCount;

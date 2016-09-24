@@ -1,10 +1,8 @@
 import React from 'react';
-
-import Button from './Button';
-import Apruvr from '../helpers/apruvr';
-
 import map from 'lodash/map';
 import isNil from 'lodash/isNil';
+import Apruvr from '../helpers/apruvr';
+import Button from './Button';
 
 const ButtonGroup = ({ buttons, current, onChoose }) =>
     <div className="btn-group">

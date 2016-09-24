@@ -2,10 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { filterContentKind } from '../actions';
-
-import ButtonGroup from '../components/ButtonGroup';
-
 import { CONTENTS } from '../helpers/consts';
+import ButtonGroup from '../components/ButtonGroup';
 
 const ContentKindButtons = (props) =>
     <div className="col-md-5 col-sm-5 col-xs-12">

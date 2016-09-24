@@ -1,12 +1,10 @@
 import { createSelector } from 'reselect';
-
-import { NAMES } from '../helpers/consts';
-import topicTreeSelector from './topicTreeSelector';
-
 import forIn from 'lodash/forIn';
 import reduce from 'lodash/reduce';
 import forEach from 'lodash/forEach';
 import transform from 'lodash/transform';
+import { NAMES } from '../helpers/consts';
+import topicTreeSelector from './topicTreeSelector';
 
 function loadSlugs(topic, slugs, path) {
     forEach(

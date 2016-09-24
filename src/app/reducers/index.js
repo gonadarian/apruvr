@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-
 import languageReducer from './languageReducer';
 import loadingReducer from './loadingReducer';
 import nodesReducer from './nodesReducer';

@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import { chooseLanguage } from '../actions/index';
 import { LANGUAGES } from '../helpers/consts';
-
+import { chooseLanguage } from '../actions/index';
 import ButtonGroup from '../components/ButtonGroup';
 
 const LanguageButtons = (props) =>

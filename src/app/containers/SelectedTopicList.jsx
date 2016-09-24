@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { filterTopic } from '../actions';
 import { getTopicTree } from '../selectors';
-
 import TopicTree from '../components/TopicTree';
 
 const SelectedTopicList = (props) =>

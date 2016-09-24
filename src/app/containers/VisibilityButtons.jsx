@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { filterVisibility } from '../actions';
-
-import ButtonChoice from '../components/ButtonChoice';
-
 import { VISIBILITIES, PICKS } from '../helpers/consts';
+import { filterVisibility } from '../actions';
+import ButtonChoice from '../components/ButtonChoice';
 
 const VisibilityButtons = (props) =>
     <div className="col-md-5 col-sm-5 col-xs-12">

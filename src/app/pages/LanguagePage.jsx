@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Content from '../containers/Content';
 import LanguageButtons from '../containers/LanguageButtons';
 import LoadingSpinner from '../containers/LoadingSpinner';
@@ -8,7 +7,6 @@ import VisibilityButtons from '../containers/VisibilityButtons';
 import SelectedTopicList from '../containers/SelectedTopicList';
 import FilteredContentList from '../containers/FilteredContentList';
 import ExporterButton from '../containers/ExporterButton';
-
 import styles from '../styles/main.less';
 
 const LanguagePage = () =>
@@ -17,9 +15,7 @@ const LanguagePage = () =>
             <h1>Khan Academy Apruvr</h1>
             <h3>Approval workflow for Khan Academy translations</h3>
         </div>
-
         <div className="container-fluid">
-
             <LanguageButtons />
             <LoadingSpinner />
             <Content>
@@ -29,7 +25,6 @@ const LanguagePage = () =>
                 <SelectedTopicList />
                 <FilteredContentList />
             </Content>
-
         </div>
     </div>;
 

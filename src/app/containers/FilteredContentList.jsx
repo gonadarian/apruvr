@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import Apruvr from '../helpers/apruvr';
-import ContentList from '../components/ContentList';
-import { getFilteredNodes } from '../selectors';
-
 import size from 'lodash/size';
+import Apruvr from '../helpers/apruvr';
+import { getFilteredNodes } from '../selectors';
+import ContentList from '../components/ContentList';
 
 const FilteredContentList = ({ content, nodes, ...props }) =>
     <div className="col-md-9 col-sm-12 col-xs-12">

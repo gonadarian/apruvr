@@ -1,10 +1,8 @@
 import React from 'react';
-
-import Button from './Button';
-import Apruvr from '../helpers/apruvr';
-
 import map from 'lodash/map';
 import pick from 'lodash/pick';
+import Apruvr from '../helpers/apruvr';
+import Button from './Button';
 
 const ButtonChoice = ({ choices, used, names, onChoose }) =>
     <div className="btn-group">

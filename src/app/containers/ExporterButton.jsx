@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import map from 'lodash/map';
+import reduce from 'lodash/reduce';
 import Apruvr from '../helpers/apruvr';
 import { TYPE_GROUPS } from '../helpers/consts';
 import { getFilteredNodes } from '../selectors';
-
-import map from 'lodash/map';
-import reduce from 'lodash/reduce';
 
 function exporterCrowdin(key, content) {
     const data =
