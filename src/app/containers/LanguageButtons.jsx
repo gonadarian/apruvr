@@ -5,12 +5,12 @@ import { bindActionCreators } from 'redux';
 import { chooseLanguage } from '../actions/index';
 import { LANGUAGES } from '../helpers/consts';
 
-import ButtonGroupComponent from '../components/ButtonGroupComponent';
+import ButtonGroup from '../components/ButtonGroup';
 
 const LanguageButtons = (props) =>
     <div className="col-md-12">
         <h2>Languages</h2>
-        <ButtonGroupComponent
+        <ButtonGroup
             {...props} />
     </div>;
 

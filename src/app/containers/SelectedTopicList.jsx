@@ -5,12 +5,12 @@ import { bindActionCreators } from 'redux';
 import { filterTopic } from '../actions';
 import { getTopicTree } from '../selectors';
 
-import TopicListComponent from '../components/TopicListComponent';
+import TopicTree from '../components/TopicTree';
 
 const SelectedTopicList = (props) =>
     <div className="col-md-3 col-sm-12 col-xs-12">
         <h2>Topics</h2>
-        <TopicListComponent
+        <TopicTree
             {...props} />
     </div>;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Apruvr from '../helpers/apruvr';
-import ContentListComponent from '../components/ContentListComponent';
+import ContentList from '../components/ContentList';
 import { getFilteredNodes } from '../selectors';
 
 import size from 'lodash/size';
@@ -16,7 +16,7 @@ const FilteredContentList = ({ content, nodes, ...props }) =>
                 {size(nodes)}
             </span>
         </h2>
-        <ContentListComponent
+        <ContentList
             {...props}
             nodes={nodes}
             type={content.code}

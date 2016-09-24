@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CrowdinComponent from './CrowdinComponent';
-import VideoComponent from './VideoComponent';
+import CrowdinItem from './CrowdinItem';
+import VideoItem from './VideoItem';
 
 import Apruvr from '../helpers/apruvr';
 import { TYPES } from '../helpers/consts';
@@ -39,7 +39,7 @@ const CrowdinList = ({ type, nodes, visibility, ...other }) =>
                         (content) => visibleCrowdin(content, visibility)
                     ),
                     (content, key) =>
-                        <CrowdinComponent
+                        <CrowdinItem
                             {...other}
                             key={key}
                             code={TYPES[type]}
@@ -74,7 +74,7 @@ const VideoList = ({ nodes, visibility, ...other }) =>
                         (content) => visibleVideo(content, visibility)
                     ),
                     (content, key) =>
-                        <VideoComponent
+                        <VideoItem
                             {...other}
                             key={key}
                             content={content} />
@@ -90,12 +90,12 @@ const listStrategy = {
     videos:         VideoList,
 };
 
-const ContentListComponent = ({ type, ...other }) => {
+const ContentList = ({ type, ...other }) => {
     const strategy = listStrategy[type];
     return strategy({ ...other, type });
 };
 
-ContentListComponent.propTypes = {
+ContentList.propTypes = {
     type:       React.PropTypes.string.isRequired,
 };
 
@@ -110,4 +110,4 @@ VideoList.propTypes = {
     visibility: Apruvr.PropTypes.choices.isRequired,
 };
 
-export default ContentListComponent;
+export default ContentList;

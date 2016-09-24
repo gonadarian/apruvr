@@ -1,6 +1,6 @@
 import React from 'react';
 
-const VideoComponent = ({ content }) => {
+const VideoItem = ({ content }) => {
     const { slug, title, subbed, dubbed } = content;
 
     const className = dubbed
@@ -25,7 +25,7 @@ const VideoComponent = ({ content }) => {
                     className="btn btn-default"
                     href={`https://translate.khanacademy.org/v/${slug}`}
                     target="_blank">
-                        subbed
+                        sub
                         {' '}
                         <span className="badge">
                             {subbed ? 'yes' : 'no'}
@@ -38,7 +38,7 @@ const VideoComponent = ({ content }) => {
                     className="btn btn-default"
                     href={`v/${slug}`}
                     target="_blank">
-                        dubbed
+                        dub
                         {' '}
                         <span className="badge">
                             {dubbed ? 'yes' : 'no'}
@@ -49,7 +49,7 @@ const VideoComponent = ({ content }) => {
     );
 };
 
-VideoComponent.propTypes = {
+VideoItem.propTypes = {
     content:    React.PropTypes.shape({
         slug:       React.PropTypes.string.isRequired,
         title:      React.PropTypes.string.isRequired,
@@ -58,4 +58,4 @@ VideoComponent.propTypes = {
     }).isRequired,
 };
 
-export default VideoComponent;
+export default VideoItem;

@@ -3,7 +3,7 @@ import { sprintf } from 'sprintf-js';
 
 import Apruvr from '../helpers/apruvr';
 
-const CrowdinComponent = ({ content, language, code }) => {
+const CrowdinItem = ({ content, language, code }) => {
     const { slug, title, wordCount, translatedWordCount, approvedWordCount } = content;
 
     const trnsp = wordCount === 0 ? 0 : translatedWordCount / wordCount * 100;
@@ -61,7 +61,7 @@ const CrowdinComponent = ({ content, language, code }) => {
     );
 };
 
-CrowdinComponent.propTypes = {
+CrowdinItem.propTypes = {
     code:       React.PropTypes.string.isRequired,
     language:   Apruvr.PropTypes.item.isRequired,
     content:    React.PropTypes.shape({
@@ -73,4 +73,4 @@ CrowdinComponent.propTypes = {
     }).isRequired,
 };
 
-export default CrowdinComponent;
+export default CrowdinItem;

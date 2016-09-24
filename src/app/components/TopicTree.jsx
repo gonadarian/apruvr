@@ -6,7 +6,7 @@ import styles from '../styles/main.less';
 import map from 'lodash/map';
 import size from 'lodash/size';
 
-const TopicListComponent = ({ tree, ...other }) =>
+const TopicTree = ({ tree, ...other }) =>
     <TopicList
         {...other}
         path="root"
@@ -57,7 +57,7 @@ const TopicItem = ({ topic, path, selected, level, onChoose }) =>
         }
     </div>;
 
-TopicListComponent.propTypes = {
+TopicTree.propTypes = {
     tree:       Apruvr.PropTypes.topic.isRequired,
     selected:   React.PropTypes.string.isRequired,
     onChoose:   React.PropTypes.func.isRequired,
@@ -76,4 +76,4 @@ TopicItem.propTypes = {
     onChoose:   React.PropTypes.func.isRequired,
 };
 
-export default TopicListComponent;
+export default TopicTree;

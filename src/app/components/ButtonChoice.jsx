@@ -1,15 +1,15 @@
 import React from 'react';
 
-import ButtonComponent from './ButtonComponent';
+import Button from './Button';
 import Apruvr from '../helpers/apruvr';
 
 import map from 'lodash/map';
 import pick from 'lodash/pick';
 
-const ButtonChoiceComponent = ({ choices, used, names, onChoose }) =>
+const ButtonChoice = ({ choices, used, names, onChoose }) =>
     <div className="btn-group">
         {map(pick(choices, used), (choice, key) =>
-            <ButtonComponent
+            <Button
                 key={key}
                 name={names[key]}
                 isActive={choice}
@@ -17,11 +17,11 @@ const ButtonChoiceComponent = ({ choices, used, names, onChoose }) =>
         )}
     </div>;
 
-ButtonChoiceComponent.propTypes = {
+ButtonChoice.propTypes = {
     choices:    Apruvr.PropTypes.choices.isRequired,
     used:       React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
     names:      React.PropTypes.objectOf(React.PropTypes.string).isRequired,
     onChoose:   React.PropTypes.func.isRequired,
 };
 
-export default ButtonChoiceComponent;
+export default ButtonChoice;
