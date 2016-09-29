@@ -1,6 +1,6 @@
 import mapValues from 'lodash/mapValues';
-import handleReducers from './handler';
 import { FILTER_VISIBIITY } from '../actions/types';
+import handleReducers from './handler';
 
 const INITIAL_VISIBILITY = {
     fresh:      true,

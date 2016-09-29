@@ -2,7 +2,7 @@ import React from 'react';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
 import Apruvr from '../helpers/apruvr';
-import { TYPES } from '../helpers/consts';
+import { TYPES, TYPE_GROUPS } from '../helpers/consts';
 import CrowdinItem from './CrowdinItem';
 import VideoItem from './VideoItem';
 
@@ -80,16 +80,14 @@ const VideoList = ({ nodes, visibility, ...other }) =>
         </table>
     </div>;
 
-const listStrategy = {
-    exercises:      CrowdinList,
-    articles:       CrowdinList,
-    scratchpads:    CrowdinList,
-    videos:         VideoList,
+const STRATEGY = {
+    videos:     VideoList,
+    crowdin:    CrowdinList,
 };
 
 const ContentList = ({ type, ...other }) => {
-    const strategy = listStrategy[type];
-    return strategy({ ...other, type });
+    const listComponent = STRATEGY[TYPE_GROUPS[type]];
+    return listComponent({ ...other, type });
 };
 
 ContentList.propTypes = {
