@@ -3,7 +3,7 @@
     "plugins": [
         "babel",
         "react",
-        "import"
+        "import",
     ],
     "ecmaFeatures": {
         "arrowFunctions": true,
@@ -29,18 +29,24 @@
         "unicodePointEscapes": true,
         "globalReturn": false,
         "jsx": true,
-        "experimentalObjectRestSpread": true
+        "experimentalObjectRestSpread": true,
     },
     "env": {
         "browser": true,
-        "node": true
+        "node": true,
     },
     settings: {
         'import/resolver': {
-            node: {extensions: ['.js', '.jsx']}
+            node: {extensions: ['.js', '.jsx']},
         },
         'import/extensions': ['.js', '.jsx'],
         'import/core-modules': [],
+    },
+    "globals": {
+        "describe": true,
+        "it": true,
+        "beforeEach": true,
+        "before": true,
     },
     "rules": {
         "comma-dangle": [1, "always-multiline"],
