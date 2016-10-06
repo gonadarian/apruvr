@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import map from 'lodash/map';
 import size from 'lodash/size';
-import Apruvr from '../helpers/apruvr';
+import ApruvrTypes from '../helpers/apruvr';
 import styles from '../styles/main.less';
 
 const TopicTree = ({ tree, ...other }) =>
@@ -56,22 +56,22 @@ const TopicItem = ({ topic, path, selected, level, onChoose }) =>
     </div>;
 
 TopicTree.propTypes = {
-    tree:       Apruvr.PropTypes.topic.isRequired,
-    selected:   React.PropTypes.string.isRequired,
-    onChoose:   React.PropTypes.func.isRequired,
+    tree:       ApruvrTypes.topic.isRequired,
+    selected:   PropTypes.string.isRequired,
+    onChoose:   PropTypes.func.isRequired,
 };
 
 TopicList.propTypes = {
-    topics:     Apruvr.PropTypes.topics.isRequired,
-    path:       React.PropTypes.string.isRequired,
+    topics:     ApruvrTypes.topics.isRequired,
+    path:       PropTypes.string.isRequired,
 };
 
 TopicItem.propTypes = {
-    topic:      Apruvr.PropTypes.topic.isRequired,
-    path:       React.PropTypes.string.isRequired,
-    selected:   React.PropTypes.string.isRequired,
-    level:      React.PropTypes.number.isRequired,
-    onChoose:   React.PropTypes.func.isRequired,
+    topic:      ApruvrTypes.topic.isRequired,
+    path:       PropTypes.string.isRequired,
+    selected:   PropTypes.string.isRequired,
+    level:      PropTypes.number.isRequired,
+    onChoose:   PropTypes.func.isRequired,
 };
 
 export default TopicTree;

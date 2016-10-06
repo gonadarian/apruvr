@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import map from 'lodash/map';
 import pick from 'lodash/pick';
-import Apruvr from '../helpers/apruvr';
+import ApruvrTypes from '../helpers/apruvr';
 import Button from './Button';
 
 const ButtonChoice = ({ choices, used, names, onChoose }) =>
@@ -16,10 +16,10 @@ const ButtonChoice = ({ choices, used, names, onChoose }) =>
     </div>;
 
 ButtonChoice.propTypes = {
-    choices:    Apruvr.PropTypes.choices.isRequired,
-    used:       React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    names:      React.PropTypes.objectOf(React.PropTypes.string).isRequired,
-    onChoose:   React.PropTypes.func.isRequired,
+    choices:    ApruvrTypes.choices.isRequired,
+    used:       PropTypes.arrayOf(PropTypes.string).isRequired,
+    names:      PropTypes.objectOf(PropTypes.string).isRequired,
+    onChoose:   PropTypes.func.isRequired,
 };
 
 export default ButtonChoice;

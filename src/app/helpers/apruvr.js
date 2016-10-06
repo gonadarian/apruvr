@@ -1,32 +1,30 @@
-import React from 'react';
+import { PropTypes } from 'react';
 
 const item =
-    React.PropTypes.shape({
-        code: React.PropTypes.string.isRequired,
-        name: React.PropTypes.string.isRequired,
-        note: React.PropTypes.string,
+    PropTypes.shape({
+        code: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        note: PropTypes.string,
     });
 
 const items =
-    React.PropTypes.arrayOf(item);
+    PropTypes.arrayOf(item);
 
 const choices =
-    React.PropTypes.objectOf(React.PropTypes.bool.isRequired);
+    PropTypes.objectOf(PropTypes.bool.isRequired);
 
 const topic =
-    React.PropTypes.shape({
-        topics: React.PropTypes.object,
+    PropTypes.shape({
+        topics: PropTypes.object,
     });
 
 const topics =
-    React.PropTypes.objectOf(topic);
+    PropTypes.objectOf(topic);
 
 export default {
-    PropTypes: {
-        item,
-        items,
-        choices,
-        topic,
-        topics,
-    },
+    item,
+    items,
+    choices,
+    topic,
+    topics,
 };

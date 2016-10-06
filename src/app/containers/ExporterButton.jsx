@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import map from 'lodash/map';
 import reduce from 'lodash/reduce';
-import Apruvr from '../helpers/apruvr';
+import ApruvrTypes from '../helpers/apruvr';
 import { TYPE_GROUPS } from '../helpers/consts';
 import { getFilteredNodes } from '../selectors';
 
@@ -63,9 +63,9 @@ const ExporterButton = ({ content, topic, nodes }) =>
     </div>;
 
 ExporterButton.propTypes = {
-    content:    Apruvr.PropTypes.item.isRequired,
-    topic:      React.PropTypes.string.isRequired,
-    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
+    content:    ApruvrTypes.item.isRequired,
+    topic:      PropTypes.string.isRequired,
+    nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(

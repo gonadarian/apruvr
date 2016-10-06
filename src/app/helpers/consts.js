@@ -110,3 +110,8 @@ export const NAMES = {
     Video:      'videos',
     Scratchpad: 'scratchpads',
 };
+
+export const STATUSES = {
+    crowdin:    ['translating', 'translated', 'revising', 'rejected', 'approved', null],
+    video:      ['captioning', 'captioned', 'revising', 'rejected', 'approved', null],
+};

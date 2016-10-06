@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { sprintf } from 'sprintf-js';
-import Apruvr from '../helpers/apruvr';
+import { STATUSES } from '../helpers/consts';
+import ApruvrTypes from '../helpers/apruvr';
+import StatusPicker from '../containers/StatusPicker';
 
 const CrowdinItem = ({ content, language, code }) => {
     const { slug, title, wordCount, translatedWordCount, approvedWordCount } = content;
@@ -29,6 +31,12 @@ const CrowdinItem = ({ content, language, code }) => {
                             {wordCount}
                         </span>
                 </a>
+            </td>
+
+            <td>
+                <StatusPicker
+                    slug={slug}
+                    statuses={STATUSES.crowdin} />
             </td>
 
             <td>
@@ -61,14 +69,14 @@ const CrowdinItem = ({ content, language, code }) => {
 };
 
 CrowdinItem.propTypes = {
-    code:       React.PropTypes.string.isRequired,
-    language:   Apruvr.PropTypes.item.isRequired,
-    content:    React.PropTypes.shape({
-        slug:                   React.PropTypes.string.isRequired,
-        title:                  React.PropTypes.string.isRequired,
-        wordCount:              React.PropTypes.number.isRequired,
-        translatedWordCount:    React.PropTypes.number.isRequired,
-        approvedWordCount:      React.PropTypes.number.isRequired,
+    code:           PropTypes.string.isRequired,
+    language:       ApruvrTypes.item.isRequired,
+    content:        PropTypes.shape({
+        slug:                   PropTypes.string.isRequired,
+        title:                  PropTypes.string.isRequired,
+        wordCount:              PropTypes.number.isRequired,
+        translatedWordCount:    PropTypes.number.isRequired,
+        approvedWordCount:      PropTypes.number.isRequired,
     }).isRequired,
 };
 

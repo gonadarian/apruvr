@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Spinner from 'react-spinkit';
 import Optional from '../components/Optional';
@@ -10,7 +10,7 @@ const LoadingSpinner = ({ loading }) =>
     </Optional>;
 
 LoadingSpinner.propTypes = {
-    loading:    React.PropTypes.bool.isRequired,
+    loading:    PropTypes.bool.isRequired,
 };
 
 export default connect(

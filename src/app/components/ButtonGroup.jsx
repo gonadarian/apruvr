@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import map from 'lodash/map';
 import isNil from 'lodash/isNil';
-import Apruvr from '../helpers/apruvr';
+import ApruvrTypes from '../helpers/apruvr';
 import Button from './Button';
 
 const ButtonGroup = ({ buttons, current, onChoose }) =>
@@ -16,9 +16,9 @@ const ButtonGroup = ({ buttons, current, onChoose }) =>
     </div>;
 
 ButtonGroup.propTypes = {
-    buttons:    Apruvr.PropTypes.items.isRequired,
-    current:    Apruvr.PropTypes.item,
-    onChoose:   React.PropTypes.func.isRequired,
+    buttons:    ApruvrTypes.items.isRequired,
+    current:    ApruvrTypes.item,
+    onChoose:   PropTypes.func.isRequired,
 };
 
 export default ButtonGroup;

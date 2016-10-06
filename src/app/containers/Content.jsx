@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Optional from '../components/Optional';
 
@@ -8,8 +8,8 @@ const Content = ({ visible, children }) =>
     </Optional>;
 
 Content.propTypes = {
-    visible:    React.PropTypes.bool.isRequired,
-    children:   React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
+    visible:    PropTypes.bool.isRequired,
+    children:   PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
 export default connect(

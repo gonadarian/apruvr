@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
-import Apruvr from '../helpers/apruvr';
+import ApruvrTypes from '../helpers/apruvr';
 import { TYPES, TYPE_GROUPS } from '../helpers/consts';
 import CrowdinItem from './CrowdinItem';
 import VideoItem from './VideoItem';
@@ -24,9 +24,10 @@ const CrowdinList = ({ type, nodes, visibility, ...other }) =>
         <table className="table">
             <thead>
                 <tr>
-                    <th className="col-md-8">Name</th>
+                    <th className="col-md-6">Name</th>
+                    <th className="col-md-2">Status</th>
                     <th className="col-md-2">Translate</th>
-                    <th className="col-md-8">Approve</th>
+                    <th className="col-md-2">Approve</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,7 +60,8 @@ const VideoList = ({ nodes, visibility, ...other }) =>
         <table className="table">
             <thead>
                 <tr>
-                    <th className="col-md-8">Name</th>
+                    <th className="col-md-6">Name</th>
+                    <th className="col-md-2">Status</th>
                     <th className="col-md-2">Subtitling</th>
                     <th className="col-md-2">Dubbing</th>
                 </tr>
@@ -91,18 +93,18 @@ const ContentList = ({ type, ...other }) => {
 };
 
 ContentList.propTypes = {
-    type:       React.PropTypes.string.isRequired,
+    type:       PropTypes.string.isRequired,
 };
 
 CrowdinList.propTypes = {
-    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
-    type:       React.PropTypes.string.isRequired,
-    visibility: Apruvr.PropTypes.choices.isRequired,
+    nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
+    type:       PropTypes.string.isRequired,
+    visibility: ApruvrTypes.choices.isRequired,
 };
 
 VideoList.propTypes = {
-    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
-    visibility: Apruvr.PropTypes.choices.isRequired,
+    nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
+    visibility: ApruvrTypes.choices.isRequired,
 };
 
 export default ContentList;

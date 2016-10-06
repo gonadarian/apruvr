@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const Optional = ({ visible, element = 'div', children, ...props }) => {
     if (!visible) {
@@ -12,9 +12,9 @@ const Optional = ({ visible, element = 'div', children, ...props }) => {
 };
 
 Optional.propTypes = {
-    visible:    React.PropTypes.bool.isRequired,
-    element:    React.PropTypes.string,
-    children:   React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
+    visible:    PropTypes.bool.isRequired,
+    element:    PropTypes.string,
+    children:   PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
 export default Optional;

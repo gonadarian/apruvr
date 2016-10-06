@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { CHANGE_LANGUAGE, FETCH_NODES, FILTER_CONTENT_KIND, FILTER_TOPIC, FILTER_VISIBIITY } from './types';
+import {
+    CHANGE_LANGUAGE,
+    FETCH_NODES,
+    FILTER_CONTENT_KIND,
+    FILTER_TOPIC,
+    FILTER_VISIBIITY,
+    FIREBASE_FETCH_ONCE,
+} from './types';
 
 const API_TRANSLATE_NOW = 'https://www.khanacademy.org/api/internal/translate_now?';
 
@@ -32,3 +39,11 @@ export const filterVisibility = (key) => ({
     type:       FILTER_VISIBIITY,
     payload:    key,
 });
+
+export const firebaseFetchOnce = (snapshot) => ({
+    type:       FIREBASE_FETCH_ONCE,
+    payload:    snapshot,
+});
+
+export const firebaseSetStatus = (db, language, slug, status) => () =>
+    db.ref(`${language}/${slug}`).set(status);

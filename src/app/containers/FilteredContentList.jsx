@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import size from 'lodash/size';
-import Apruvr from '../helpers/apruvr';
+import ApruvrTypes from '../helpers/apruvr';
 import { getFilteredNodes } from '../selectors';
+import { firebaseFetchOnce } from '../actions';
+import fireduxed from '../hocs/fireduxed';
 import ContentList from '../components/ContentList';
 
 const FilteredContentList = ({ content, nodes, ...props }) =>
@@ -22,8 +25,8 @@ const FilteredContentList = ({ content, nodes, ...props }) =>
     </div>;
 
 FilteredContentList.propTypes = {
-    content:    Apruvr.PropTypes.item.isRequired,
-    nodes:      React.PropTypes.objectOf(React.PropTypes.object).isRequired,
+    content:    ApruvrTypes.item.isRequired,
+    nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(
@@ -32,5 +35,10 @@ export default connect(
         language:   state.language,
         visibility: state.visibility,
         nodes:      getFilteredNodes(state),
-    })
-)(FilteredContentList);
+    }),
+    (dispatch) => bindActionCreators({
+        onFire: firebaseFetchOnce,
+    }, dispatch)
+)(fireduxed(
+    ({ language }) => language.code
+)(FilteredContentList));

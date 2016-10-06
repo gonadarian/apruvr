@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const Button = ({ name, isActive = false, onClick }) =>
     <div
@@ -8,9 +8,9 @@ const Button = ({ name, isActive = false, onClick }) =>
     </div>;
 
 Button.propTypes = {
-    name:       React.PropTypes.string.isRequired,
-    isActive:   React.PropTypes.bool,
-    onClick:    React.PropTypes.func.isRequired,
+    name:       PropTypes.string.isRequired,
+    isActive:   PropTypes.bool,
+    onClick:    PropTypes.func.isRequired,
 };
 
 export default Button;
