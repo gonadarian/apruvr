@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
-import ApruvrTypes from '../helpers/apruvr';
-import { TYPES, TYPE_GROUPS } from '../helpers/consts';
+import ApruvrTypes from '../types';
+import { TYPES, TYPE_GROUPS } from '../consts';
 import CrowdinItem from './CrowdinItem';
 import VideoItem from './VideoItem';
 

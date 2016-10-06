@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { filterContentKind } from '../actions';
-import { CONTENTS } from '../helpers/consts';
+import { CONTENTS } from '../consts';
 import ButtonGroup from '../components/ButtonGroup';
 
 const ContentKindButtons = (props) =>

@@ -1,5 +1,5 @@
 import { FILTER_CONTENT_KIND } from '../actions/types';
-import { CONTENTS } from '../helpers/consts';
+import { CONTENTS } from '../consts';
 import handleReducers from './handler';
 
 const handlers = {

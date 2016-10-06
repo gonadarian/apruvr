@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { LANGUAGES } from '../helpers/consts';
+import { LANGUAGES } from '../consts';
 import { chooseLanguage } from '../actions/index';
 import ButtonGroup from '../components/ButtonGroup';
 

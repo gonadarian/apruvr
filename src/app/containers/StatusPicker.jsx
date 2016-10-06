@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { firebaseSetStatus } from '../actions';
-import ApruvrTypes from '../helpers/apruvr';
+import ApruvrTypes from '../types';
 import StatePicker from '../components/StatePicker';
 
 const StatusPicker = (

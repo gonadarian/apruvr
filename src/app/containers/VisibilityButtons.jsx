@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { VISIBILITIES, PICKS } from '../helpers/consts';
+import { VISIBILITIES, PICKS } from '../consts';
 import { filterVisibility } from '../actions';
 import ButtonChoice from '../components/ButtonChoice';
 

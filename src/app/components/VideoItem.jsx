@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { STATUSES } from '../helpers/consts';
+import { STATUSES } from '../consts';
 import StatusPicker from '../containers/StatusPicker';
 
 const VideoItem = ({ content }) => {

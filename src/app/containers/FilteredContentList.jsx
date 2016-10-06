@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import size from 'lodash/size';
-import ApruvrTypes from '../helpers/apruvr';
+import ApruvrTypes from '../types';
 import { getFilteredNodes } from '../selectors';
 import { firebaseFetchOnce } from '../actions';
 import fireduxed from '../hocs/fireduxed';

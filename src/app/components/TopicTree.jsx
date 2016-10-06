@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import map from 'lodash/map';
 import size from 'lodash/size';
-import ApruvrTypes from '../helpers/apruvr';
+import ApruvrTypes from '../types';
 import styles from '../styles/main.less';
 
 const TopicTree = ({ tree, ...other }) =>

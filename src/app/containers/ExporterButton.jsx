@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import map from 'lodash/map';
 import reduce from 'lodash/reduce';
-import ApruvrTypes from '../helpers/apruvr';
-import { TYPE_GROUPS } from '../helpers/consts';
+import ApruvrTypes from '../types';
+import { TYPE_GROUPS } from '../consts';
 import { getFilteredNodes } from '../selectors';
 
 function exporterCrowdin(key, content) {

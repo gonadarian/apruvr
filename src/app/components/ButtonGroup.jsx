@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import map from 'lodash/map';
 import isNil from 'lodash/isNil';
-import ApruvrTypes from '../helpers/apruvr';
+import ApruvrTypes from '../types';
 import Button from './Button';
 
 const ButtonGroup = ({ buttons, current, onChoose }) =>

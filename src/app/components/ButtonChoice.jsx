@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import map from 'lodash/map';
 import pick from 'lodash/pick';
-import ApruvrTypes from '../helpers/apruvr';
+import ApruvrTypes from '../types';
 import Button from './Button';
 
 const ButtonChoice = ({ choices, used, names, onChoose }) =>

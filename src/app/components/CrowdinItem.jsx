@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { sprintf } from 'sprintf-js';
-import { STATUSES } from '../helpers/consts';
-import ApruvrTypes from '../helpers/apruvr';
+import { STATUSES } from '../consts';
+import ApruvrTypes from '../types';
 import StatusPicker from '../containers/StatusPicker';
 
 const CrowdinItem = ({ content, language, code }) => {
