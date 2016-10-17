@@ -4,10 +4,13 @@ const BUILD_DIR = path.resolve(__dirname, 'src/public');
 const APP_DIR = path.resolve(__dirname, 'src/app');
 
 const config = {
-    entry:  APP_DIR + '/index.jsx',
+    entry: [
+        APP_DIR + '/index.jsx',
+    ],
     output: {
         path:       BUILD_DIR,
         filename:   'bundle.js',
+        publicPath: '/public/',
     },
     resolve: {
         extensions: [
@@ -32,6 +35,9 @@ const config = {
                 loader:     'style!css?modules!less',
             },
         ],
+    },
+    devServer: {
+        contentBase: './src/',
     },
 };
 
