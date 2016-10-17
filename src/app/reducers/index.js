@@ -6,6 +6,7 @@ import topicReducer from './topicReducer';
 import contentKindReducer from './contentKindReducer';
 import visibilityReducer from './visibilityReducer';
 import workflowReducer from './workflowReducer';
+import userReducer from './userReducer';
 
 const RootReducer = combineReducers({
     language:   languageReducer,
@@ -15,6 +16,7 @@ const RootReducer = combineReducers({
     content:    contentKindReducer,
     visibility: visibilityReducer,
     workflow:   workflowReducer,
+    user:       userReducer,
 });
 
 export default RootReducer;

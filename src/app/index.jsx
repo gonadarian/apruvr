@@ -1,17 +1,26 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
-import Firebase from 'firebase';
+import firebase from 'firebase';
 import reducers from './reducers';
 import Fireduxed from './components/Fireduxed';
 import LanguagePage from './pages/LanguagePage';
+import { FIREBASE_AUTH } from './actions/types';
 
-const firebase = Firebase.initializeApp({
+const logger = createLogger();
+
+const store = applyMiddleware(
+    logger,
+    thunk,
+    promise,
+)(createStore)(reducers);
+
+firebase.initializeApp({
     apiKey:             'AIzaSyBXjOncuS3h9Fz9Boar8t3OcJhiDZL_sgE',
     authDomain:         'apruvr.firebaseapp.com',
     databaseURL:        'https://apruvr.firebaseio.com',
@@ -19,14 +28,17 @@ const firebase = Firebase.initializeApp({
     messagingSenderId:  '1081977594498',
 });
 
-const logger = createLogger();
-
-const store = applyMiddleware(logger, thunk, promise)(createStore)(reducers);
+firebase.auth().onAuthStateChanged((user) => {
+    store.dispatch({
+        type:       FIREBASE_AUTH,
+        payload:    user,
+    });
+});
 
 render((
     <Provider store={store}>
         <Fireduxed firebase={firebase}>
-            <Router history={hashHistory}>
+            <Router history={browserHistory}>
                 <Route path="/" component={LanguagePage} />
             </Router>
         </Fireduxed>

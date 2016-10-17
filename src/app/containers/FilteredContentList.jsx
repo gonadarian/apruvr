@@ -9,7 +9,7 @@ import fireduxed from '../hocs/fireduxed';
 import ContentList from '../components/ContentList';
 
 const FilteredContentList = ({ content, nodes, ...props }) =>
-    <div className="col-md-9 col-sm-12 col-xs-12">
+    <div className="col-xs-12 col-md-9">
         <h2>
             {content.name}
             {' '}
@@ -40,5 +40,5 @@ export default connect(
         onFire: firebaseFetchOnce,
     }, dispatch)
 )(fireduxed(
-    ({ language }) => language.code
+    ({ language }) => `status/${language.code}`
 )(FilteredContentList));

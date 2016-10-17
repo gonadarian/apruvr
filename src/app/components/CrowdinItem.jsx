@@ -3,6 +3,7 @@ import { sprintf } from 'sprintf-js';
 import { STATUSES } from '../consts';
 import ApruvrTypes from '../types';
 import StatusPicker from '../containers/StatusPicker';
+import StatusAgent from '../containers/StatusAgent';
 
 const CrowdinItem = ({ content, language, code }) => {
     const { slug, title, wordCount, translatedWordCount, approvedWordCount } = content;
@@ -31,6 +32,11 @@ const CrowdinItem = ({ content, language, code }) => {
                             {wordCount}
                         </span>
                 </a>
+            </td>
+
+            <td>
+                <StatusAgent
+                    slug={slug} />
             </td>
 
             <td>

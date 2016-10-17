@@ -1,6 +1,7 @@
 import React from 'react';
 import Content from '../containers/Content';
 import LanguageButtons from '../containers/LanguageButtons';
+import SignInButton from '../containers/SignInButton';
 import LoadingSpinner from '../containers/LoadingSpinner';
 import ContentKindButtons from '../containers/ContentKindButtons';
 import VisibilityButtons from '../containers/VisibilityButtons';
@@ -17,6 +18,7 @@ const LanguagePage = () =>
         </div>
         <div className="container-fluid">
             <LanguageButtons />
+            <SignInButton />
             <LoadingSpinner />
             <Content>
                 <ContentKindButtons />
