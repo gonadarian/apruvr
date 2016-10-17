@@ -6,7 +6,7 @@ import { getTopicTree } from '../selectors';
 import TopicTree from '../components/TopicTree';
 
 const SelectedTopicList = (props) =>
-    <div className="col-md-3 col-sm-12 col-xs-12">
+    <div className="col-xs-12 col-md-3">
         <h2>Topics</h2>
         <TopicTree
             {...props} />

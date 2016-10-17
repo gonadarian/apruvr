@@ -4,7 +4,7 @@ import Spinner from 'react-spinkit';
 import Optional from '../components/Optional';
 
 const LoadingSpinner = ({ loading }) =>
-    <Optional visible={loading} className="col-md-12">
+    <Optional visible={loading} className="col-xs-12">
         <h2>Loading</h2>
         <Spinner spinnerName="three-bounce" />
     </Optional>;

@@ -6,7 +6,7 @@ import { chooseLanguage } from '../actions/index';
 import ButtonGroup from '../components/ButtonGroup';
 
 const LanguageButtons = (props) =>
-    <div className="col-md-12">
+    <div className="col-xs-10">
         <h2>Languages</h2>
         <ButtonGroup
             {...props} />

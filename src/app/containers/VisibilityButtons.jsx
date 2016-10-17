@@ -6,7 +6,7 @@ import { filterVisibility } from '../actions';
 import ButtonChoice from '../components/ButtonChoice';
 
 const VisibilityButtons = (props) =>
-    <div className="col-md-5 col-sm-5 col-xs-12">
+    <div className="col-xs-12 col-sm-5">
         <h2>States</h2>
         <ButtonChoice
             {...props}

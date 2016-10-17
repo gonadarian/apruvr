@@ -6,7 +6,7 @@ import { CONTENTS } from '../consts';
 import ButtonGroup from '../components/ButtonGroup';
 
 const ContentKindButtons = (props) =>
-    <div className="col-md-5 col-sm-5 col-xs-12">
+    <div className="col-xs-12 col-sm-5">
         <h2>Content</h2>
         <ButtonGroup
             {...props} />

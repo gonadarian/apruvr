@@ -52,7 +52,7 @@ function exporter(code, nodes) {
 }
 
 const ExporterButton = ({ content, topic, nodes }) =>
-    <div className="col-md-2 col-sm-2 col-xs-12">
+    <div className="col-xs-12 col-sm-2">
         <h2>Export</h2>
         <a className="btn btn-primary"
             href={exporter(content.code, nodes)}
