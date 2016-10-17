@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Optional from '../components/Optional';
 
 const Content = ({ visible, children }) =>
-    <Optional visible={visible}>
-        {children}
-    </Optional>;
+    visible &&
+        <div>
+            {children}
+        </div>;
 
 Content.propTypes = {
     visible:    PropTypes.bool.isRequired,
