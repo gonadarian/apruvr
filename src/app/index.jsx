@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, hashHistory } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createLogger from 'redux-logger';
@@ -38,7 +38,7 @@ firebase.auth().onAuthStateChanged((user) => {
 render((
     <Provider store={store}>
         <Fireduxed firebase={firebase}>
-            <Router history={browserHistory}>
+            <Router history={hashHistory}>
                 <Route path="/" component={LanguagePage} />
             </Router>
         </Fireduxed>
