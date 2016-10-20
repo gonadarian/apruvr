@@ -14,6 +14,7 @@ export const LANGUAGES = [
     { code: 'it', name: 'Italian' },
     { code: 'ko', name: 'Korean' },
     { code: 'pl', name: 'Polish' },
+    { code: 'pt', name: 'Portuguese' },
     { code: 'pt-pt', name: 'Portuguese', note: 'Portugal' },
     { code: 'ru', name: 'Russian' },
     { code: 'sr', name: 'Serbian', note: 'Cyrillic' },
