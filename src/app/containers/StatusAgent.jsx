@@ -1,18 +1,13 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-const StatusAgent = ({ slug, workflow }) => {
-    if (!workflow || !workflow[slug]) {
-        return null;
-    }
-    return (
+const StatusAgent = ({ slug, workflow }) =>
+    workflow !== null && slug in workflow &&
         <div className="badge">
             <span className="glyphicon glyphicon-user" />
             {' '}
             {workflow[slug].agent.name}
-        </div>
-    );
-};
+        </div>;
 
 StatusAgent.propTypes = {
     slug:       PropTypes.string.isRequired,
@@ -20,8 +15,8 @@ StatusAgent.propTypes = {
 };
 
 export default connect(
-    (state, ownProps) => ({
-        slug:       ownProps.slug,
+    (state, props) => ({
+        slug:       props.slug,
         workflow:   state.workflow,
     })
 )(StatusAgent);
