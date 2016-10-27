@@ -5,8 +5,11 @@ import ApruvrTypes from '../types';
 import StatusPicker from '../containers/StatusPicker';
 import StatusAgent from '../containers/StatusAgent';
 
-const CrowdinItem = ({ content, language, code }) => {
-    const { slug, title, wordCount, translatedWordCount, approvedWordCount } = content;
+const CrowdinItem = ({
+    content: { slug, title, wordCount, translatedWordCount, approvedWordCount },
+    language,
+    code,
+}) => {
 
     const trnsp = wordCount === 0 ? 0 : translatedWordCount / wordCount * 100;
     const apprp = wordCount === 0 ? 0 : approvedWordCount / wordCount * 100;

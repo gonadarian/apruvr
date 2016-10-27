@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { STATUSES } from '../consts';
 import StatusPicker from '../containers/StatusPicker';
+import StatusAgent from '../containers/StatusAgent';
 
-const VideoItem = ({ content }) => {
-    const { slug, title, subbed, dubbed } = content;
+const VideoItem = ({ content: { slug, title, subbed, dubbed } }) => {
 
     const className = dubbed
         ? 'success'
@@ -20,6 +20,11 @@ const VideoItem = ({ content }) => {
                     target="_blank">
                         {title}
                 </a>
+            </td>
+
+            <td>
+                <StatusAgent
+                    slug={slug} />
             </td>
 
             <td>
