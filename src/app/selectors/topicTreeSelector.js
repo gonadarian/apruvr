@@ -19,7 +19,8 @@ function handleTopicList(topicList, topic) {
     forEach(
         filter(
             topicList,
-            (item) => !isEmpty(item)),
+            (item) => !isEmpty(item)
+        ),
         (item) => {
             if (handleTopicList(item.topics, topic)) {
                 success = true;
@@ -37,7 +38,8 @@ function handleTopic(tree, item) {
     forEach(
         filter(
             item.children,
-            (child) => child[0] === 'Topic'),
+            (child) => child[0] === 'Topic'
+        ),
         (topic) => {item.topics[topic[1]] = {};});
 
     item.children = filter(

@@ -9,11 +9,13 @@ import topicTreeSelector from './topicTreeSelector';
 function loadSlugs(topic, slugs, path) {
     forEach(
         topic.children,
-        (child) => {slugs[NAMES[child[0]]][child[1]] = path;});
+        (child) => {slugs[NAMES[child[0]]][child[1]] = path;}
+    );
 
     forIn(
         topic.topics,
-        (current) => loadSlugs(current, slugs, [...path, current.slug]));
+        (current) => loadSlugs(current, slugs, [...path, current.slug])
+    );
 }
 
 function filterNodes(nodes, topic, tree, content) {
@@ -21,7 +23,8 @@ function filterNodes(nodes, topic, tree, content) {
     const localTopic = reduce(
         startPath,
         (currTopic, slug) => currTopic.topics[slug],
-        tree.root);
+        tree.root
+    );
 
     const slugs = { exercises: {}, articles: {}, videos: {}, scratchpads: {} };
     loadSlugs(localTopic, slugs, startPath);
@@ -30,7 +33,8 @@ function filterNodes(nodes, topic, tree, content) {
     const filtered = transform(
         slugs[content.code],
         (result, path, slug) => {result[slug] = { ...contentNodes[slug], path };},
-        {});
+        {}
+    );
 
     return filtered;
 }
