@@ -1,4 +1,4 @@
-import { PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { TYPE_GROUPS } from '../consts';
 import CrowdinList from './CrowdinList';
 import VideoList from './VideoList';
@@ -9,8 +9,8 @@ const STRATEGY = {
 };
 
 const ContentList = ({ type, ...other }) => {
-    const listComponent = STRATEGY[TYPE_GROUPS[type]];
-    return listComponent({ ...other, type });
+    const List = STRATEGY[TYPE_GROUPS[type]];
+    return <List type={type} { ...other } />;
 };
 
 ContentList.propTypes = {
