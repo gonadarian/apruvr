@@ -4,7 +4,7 @@ import map from 'lodash/map';
 import reduce from 'lodash/reduce';
 import ApruvrTypes from '../types';
 import { TYPE_GROUPS } from '../consts';
-import { getFilteredNodes } from '../selectors';
+import { getVisibleNodes } from '../selectors';
 
 function exporterCrowdin(key, content) {
     const data =
@@ -72,6 +72,6 @@ export default connect(
     (state) => ({
         content:    state.content,
         topic:      state.topic,
-        nodes:      getFilteredNodes(state),
+        nodes:      getVisibleNodes(state),
     })
 )(ExporterButton);

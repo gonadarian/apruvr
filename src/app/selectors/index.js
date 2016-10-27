@@ -1,7 +1,9 @@
-import getFilteredNodes from './filteredNodesSelector';
 import getTopicTree from './topicTreeSelector';
+import getFilteredNodes from './filteredNodesSelector';
+import getVisibleNodes from './visibleNodesSelector';
 
 export {
-    getFilteredNodes,
     getTopicTree,
+    getFilteredNodes,
+    getVisibleNodes,
 };

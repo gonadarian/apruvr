@@ -1,18 +1,8 @@
 import React, { PropTypes } from 'react';
 import map from 'lodash/map';
-import filter from 'lodash/filter';
-import ApruvrTypes from '../types';
 import VideoItem from './VideoItem';
 
-function visibleVideo(content, visibility) {
-    const isDubd = content.dubbed && visibility.dubbed;
-    const isSubd = content.subbed && !content.dubbed && visibility.subtitled;
-    const isFrsh = !content.subbed && !content.dubbed && visibility.fresh;
-
-    return isSubd || isDubd || isFrsh;
-}
-
-const VideoList = ({ nodes, visibility, ...other }) =>
+const VideoList = ({ nodes, ...other }) =>
     <div>
         <table className="table">
             <thead>
@@ -26,10 +16,7 @@ const VideoList = ({ nodes, visibility, ...other }) =>
             </thead>
             <tbody>
                 {map(
-                    filter(
-                        nodes,
-                        (content) => visibleVideo(content, visibility)
-                    ),
+                    nodes,
                     (content, key) =>
                         <VideoItem
                             {...other}
@@ -42,7 +29,6 @@ const VideoList = ({ nodes, visibility, ...other }) =>
 
 VideoList.propTypes = {
     nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
-    visibility: ApruvrTypes.choices.isRequired,
 };
 
 export default VideoList;

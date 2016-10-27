@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import size from 'lodash/size';
 import ApruvrTypes from '../types';
-import { getFilteredNodes } from '../selectors';
+import { getVisibleNodes } from '../selectors';
 import { firebaseFetchOnce } from '../actions';
 import fireduxed from '../hocs/fireduxed';
 import ContentList from '../components/ContentList';
@@ -33,8 +33,7 @@ export default connect(
     (state) => ({
         content:    state.content,
         language:   state.language,
-        visibility: state.visibility,
-        nodes:      getFilteredNodes(state),
+        nodes:      getVisibleNodes(state),
     }),
     (dispatch) => bindActionCreators({
         onFire: firebaseFetchOnce,
