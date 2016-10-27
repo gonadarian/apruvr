@@ -12,14 +12,12 @@ const INITIAL_VISIBILITY = {
 };
 
 const handlers = {
-    [FILTER_VISIBIITY]: (state, action) => {
-        const newState = mapValues(
+    [FILTER_VISIBIITY]: (state, action) =>
+        mapValues(
             state,
             (visible, key) =>
                 key === action.payload ? !visible : visible
-        );
-        return newState;
-    },
+        ),
 };
 
 export default (state = INITIAL_VISIBILITY, action) =>
