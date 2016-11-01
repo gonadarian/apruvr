@@ -1,9 +1,13 @@
 import React, { PropTypes } from 'react';
 import { STATUSES } from '../consts';
+import ApruvrTypes from '../types';
 import StatusPicker from '../containers/StatusPicker';
 import StatusAgent from '../containers/StatusAgent';
 
-const VideoItem = ({ content: { slug, title, subbed, dubbed } }) => {
+const VideoItem = ({
+    content: { slug, title, subbed, dubbed },
+    language,
+}) => {
 
     const className = dubbed
         ? 'success'
@@ -36,7 +40,7 @@ const VideoItem = ({ content: { slug, title, subbed, dubbed } }) => {
             <td>
                 <a
                     className="btn btn-default"
-                    href={`https://translate.khanacademy.org/v/${slug}`}
+                    href={`https://www.khanacademy.org/translate/videos/${slug}/subtitle?lang=${language.code}`}
                     target="_blank">
                         sub
                         {' '}
@@ -63,6 +67,7 @@ const VideoItem = ({ content: { slug, title, subbed, dubbed } }) => {
 };
 
 VideoItem.propTypes = {
+    language:   ApruvrTypes.item.isRequired,
     content:    PropTypes.shape({
         slug:       PropTypes.string.isRequired,
         title:      PropTypes.string.isRequired,
