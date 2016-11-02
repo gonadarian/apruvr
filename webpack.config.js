@@ -1,43 +1,34 @@
 const path = require('path');
 
-const BUILD_DIR = path.resolve(__dirname, 'src/public');
 const APP_DIR = path.resolve(__dirname, 'src/app');
+const BUILD_DIR = path.resolve(__dirname, 'src/public');
 
 const config = {
-    entry: [
-        APP_DIR + '/index.jsx',
-    ],
-    output: {
-        path:       BUILD_DIR,
-        filename:   'bundle.js',
-        publicPath: '/public/',
+    entry:      APP_DIR + '/index.jsx',
+    output:     {
+        path:               BUILD_DIR,
+        filename:           'bundle.js',
+        publicPath:         '/public/',
     },
-    resolve: {
-        extensions: [
-            '',
-            '.js',
-            '.jsx',
-        ],
+    resolve:    {
+        extensions: ['', '.js', '.jsx'],
     },
-    module: {
+    module:     {
         loaders: [
             {
-                test:       /\.jsx?/,
                 loader:     'babel',
+                test:       /\.jsx?/,
                 include:    APP_DIR,
             },
             {
-                test:       /\.css$/,
                 loader:     'style!css',
+                test:       /\.css$/,
             },
             {
-                test:       /\.less$/,
                 loader:     'style!css?modules!less',
+                test:       /\.less$/,
             },
         ],
-    },
-    devServer: {
-        contentBase: './src/',
     },
 };
 

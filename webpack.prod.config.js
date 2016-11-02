@@ -1,12 +1,29 @@
 const webpack = require('webpack');
-const devConfig = require('./webpack.config');
+const commonConfig = require('./webpack.config');
 
 const config = Object.assign(
-    devConfig,
+    commonConfig,
     {
+        output: Object.assign(
+            commonConfig.output,
+            {
+                filename:   'bundle.min.js',
+            }
+        ),
         plugins: [
+            new webpack.DefinePlugin({
+                'process.env': {
+                    'NODE_ENV': JSON.stringify('production'),
+                },
+            }),
             new webpack.optimize.UglifyJsPlugin({
-                compress: { warnings: false },
+                minimize:   true,
+                output:     {
+                    comments:   false,
+                },
+                compress:   {
+                    warnings:   false,
+                },
             }),
         ],
     }
