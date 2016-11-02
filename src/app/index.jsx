@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
+import persistState from 'redux-localstorage';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
@@ -10,14 +11,20 @@ import firebase from 'firebase';
 import reducers from './reducers';
 import Fireduxed from './components/Fireduxed';
 import LanguagePage from './pages/LanguagePage';
-import { FIREBASE_AUTH } from './actions/types';
+import { firebaseAuth, chooseLanguage } from './actions';
 
 const logger = createLogger();
 
-const store = applyMiddleware(
-    logger,
-    thunk,
-    promise,
+const store = compose(
+    applyMiddleware(
+        logger,
+        thunk,
+        promise,
+    ),
+    persistState(
+        ['language', 'content', 'topic', 'visibility'],
+        { key: 'apruvr' },
+    ),
 )(createStore)(reducers);
 
 firebase.initializeApp({
@@ -28,12 +35,15 @@ firebase.initializeApp({
     messagingSenderId:  '1081977594498',
 });
 
+// initialize user session
 firebase.auth().onAuthStateChanged((user) => {
-    store.dispatch({
-        type:       FIREBASE_AUTH,
-        payload:    user,
-    });
+    store.dispatch(firebaseAuth(user));
 });
+
+// initialize language data if language choice is kept in localStorage
+if (store.getState().language) {
+    chooseLanguage(store.getState().language)(store.dispatch);
+}
 
 render((
     <Provider store={store}>

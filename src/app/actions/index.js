@@ -6,6 +6,7 @@ import {
     FILTER_TOPIC,
     FILTER_VISIBIITY,
     FIREBASE_FETCH_ONCE,
+    FIREBASE_AUTH,
 } from './types';
 
 const API_TRANSLATE_NOW = 'https://www.khanacademy.org/api/internal/translate_now?';
@@ -58,6 +59,16 @@ export const filterVisibility = (key) => ({
 export const firebaseFetchOnce = (snapshot) => ({
     type:       FIREBASE_FETCH_ONCE,
     payload:    snapshot,
+});
+
+/**
+ * Sets user session object to the store.
+ * @param  {firebase.User} user session object
+ * @return {Object}      Redux action.
+ */
+export const firebaseAuth = (user) => ({
+    type:       FIREBASE_AUTH,
+    payload:    user,
 });
 
 export const firebaseSetStatus = (firebase, language, slug, status) => () => {
