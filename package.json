@@ -25,9 +25,10 @@
     "scripts": {
         "test": "mocha --compilers js:babel-core/register --require ./test/helper.jsx --recursive ./test",
         "test:watch": "npm run test -- --watch",
-        "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-        "dev": "webpack -d --watch",
-        "build": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors --config webpack.prod.config.js"
+        "start": "webpack-dev-server --config webpack.dev.config.js",
+        "dev": "webpack --watch --config webpack.dev.config.js",
+        "analyzer": "webpack --json --config webpack.prod.config.js | webpack-bundle-size-analyzer",
+        "build": "webpack --progress --colors --config webpack.prod.config.js"
     },
     "dependencies": {
         "axios": "^0.13.1",
@@ -68,6 +69,7 @@
         "style-loader": "^0.13.1",
         "uglify-js": "^2.7.3",
         "webpack": "^1.13.2",
+        "webpack-bundle-size-analyzer": "^2.2.0",
         "webpack-dev-server": "^1.16.2"
     }
 }
