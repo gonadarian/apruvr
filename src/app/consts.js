@@ -9,6 +9,7 @@ export const LANGUAGES = [
     { code: 'bg', name: 'Bulgarian' },
     { code: 'nl', name: 'Dutch' },
     { code: 'fr', name: 'French' },
+    { code: 'ka', name: 'Georgian' },
     { code: 'de', name: 'German' },
     { code: 'gr', name: 'Greek' },
     { code: 'it', name: 'Italian' },
