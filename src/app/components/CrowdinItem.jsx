@@ -22,6 +22,9 @@ const CrowdinItem = ({
                 ? 'warning'
                 : 'danger';
 
+    // Crowdin uses different language codes then Khan Academy
+    const crowdin = language.crowdin ? language.crowdin : language.code;
+
     return (
         <tr className={className}>
             <td>
@@ -64,7 +67,7 @@ const CrowdinItem = ({
             <td>
                 <a
                     className="btn btn-default"
-                    href={`https://crowdin.com/proofread/khanacademy/all/enus-${language.code}#q=/${slug}`}
+                    href={`https://crowdin.com/proofread/khanacademy/all/enus-${crowdin}#q=/${slug}`}
                     target="_blank">
                         go
                         {' '}
