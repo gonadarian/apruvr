@@ -4,7 +4,6 @@ import ButtonGroup from './ButtonGroup';
 import ContentList from './ContentList';
 import CrowdinItem from './CrowdinItem';
 import CrowdinList from './CrowdinList';
-import Fireduxed from './Fireduxed';
 import StatePicker from './StatePicker';
 import TopicTree from './TopicTree';
 import VideoItem from './VideoItem';
@@ -17,7 +16,6 @@ export {
     ContentList,
     CrowdinItem,
     CrowdinList,
-    Fireduxed,
     StatePicker,
     TopicTree,
     VideoItem,
