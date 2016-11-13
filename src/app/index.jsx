@@ -9,9 +9,9 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import firebase from 'firebase';
 import reducers from './reducers';
-import Fireduxed from './components/Fireduxed';
-import LanguagePage from './pages/LanguagePage';
-import { firebaseAuth, chooseLanguage } from './actions';
+import { Fireduxed } from './components';
+import { LanguagePage } from './pages';
+import { firebaseAuth, chooseLanguage, firebaseGetUsers } from './actions';
 
 const logger = createLogger();
 
@@ -35,10 +35,13 @@ firebase.initializeApp({
     messagingSenderId:  '1081977594498',
 });
 
-// initialize user session
+// initialize user session, store user data in database
 firebase.auth().onAuthStateChanged((user) => {
-    store.dispatch(firebaseAuth(user));
+    firebaseAuth(firebase.database(), user)(store.dispatch);
 });
+
+// get list of users
+firebaseGetUsers(firebase.database())(store.dispatch);
 
 // initialize language data if language choice is kept in localStorage
 if (store.getState().language) {

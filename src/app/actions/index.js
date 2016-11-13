@@ -7,29 +7,11 @@ import {
     FILTER_VISIBIITY,
     FIREBASE_FETCH_ONCE,
     FIREBASE_AUTH,
+    FIREBASE_ROLES,
+    FIREBASE_USERS,
 } from './types';
 
 const API_TRANSLATE_NOW = 'https://www.khanacademy.org/api/internal/translate_now?';
-
-/**
- * Action for fetching Khan Academy content from their internal API.
- * @param  {Object} language structure containing language name and code.
- * @return {Object}          Redux action.
- */
-const fetchNodes = (language) => ({
-    type:       FETCH_NODES,
-    payload:    axios.get(`${API_TRANSLATE_NOW}lang=${language.code}`),
-});
-
-/**
- * Action for changing the language in the state.
- * @param  {Object} language structure containing language name and code.
- * @return {Object}          Redux action.
- */
-const changeLanguage = (language) => ({
-    type:       CHANGE_LANGUAGE,
-    payload:    language,
-});
 
 /**
  * Activated by the user. Triggers other actions, does nothing by itself.
@@ -37,48 +19,95 @@ const changeLanguage = (language) => ({
  * @return {undefined}
  */
 export const chooseLanguage = (language) => (dispatch) => {
-    dispatch(changeLanguage(language));
-    dispatch(fetchNodes(language));
+    // change the chosen language in the state
+    dispatch({
+        type:       CHANGE_LANGUAGE,
+        payload:    language,
+    });
+
+    // get translation data from Khan Academy API and set in state
+    dispatch({
+        type:       FETCH_NODES,
+        payload:    axios.get(`${API_TRANSLATE_NOW}lang=${language.code}`),
+    });
 };
 
-export const filterContentKind = (contentKind) => ({
-    type:       FILTER_CONTENT_KIND,
-    payload:    contentKind,
-});
+export const filterContentKind = (contentKind) => (dispatch) => {
+    // change the chosen content type in the store
+    dispatch({
+        type:       FILTER_CONTENT_KIND,
+        payload:    contentKind,
+    });
+};
 
-export const filterTopic = (topic) => ({
-    type:       FILTER_TOPIC,
-    payload:    topic,
-});
+export const filterTopic = (topic) => (dispatch) => {
+    // change the chosen topic in the store
+    dispatch({
+        type:       FILTER_TOPIC,
+        payload:    topic,
+    });
+};
 
-export const filterVisibility = (key) => ({
-    type:       FILTER_VISIBIITY,
-    payload:    key,
-});
+export const filterVisibility = (key) => (dispatch) => {
+    // change the chosen visibility in the store
+    dispatch({
+        type:       FILTER_VISIBIITY,
+        payload:    key,
+    });
+};
 
-export const firebaseFetchOnce = (snapshot) => ({
-    type:       FIREBASE_FETCH_ONCE,
-    payload:    snapshot,
-});
+export const firebaseGetUsers = (db) => (dispatch) => {
+    db.ref('users').on(
+        'value',
+        (snapshot) => dispatch({
+            type:       FIREBASE_USERS,
+            payload:    snapshot,
+        })
+    );
+};
 
-/**
- * Sets user session object to the store.
- * @param  {firebase.User} user session object
- * @return {Object}      Redux action.
- */
-export const firebaseAuth = (user) => ({
-    type:       FIREBASE_AUTH,
-    payload:    user,
-});
+export const firebaseFetchOnce = (snapshot) => (dispatch) => {
+    // change the content workflow data as obtained from backend
+    dispatch({
+        type:       FIREBASE_FETCH_ONCE,
+        payload:    snapshot,
+    });
+};
+
+export const firebaseAuth = (db, user) => (dispatch) => {
+    // user can be null in case of logout event
+    dispatch({
+        type:       FIREBASE_AUTH,
+        payload:    user,
+    });
+
+    // if user was logged out, nothing more to be done
+    if (!user) {
+        return;
+    }
+
+    const { uid, displayName, email, photoURL } = user;
+
+    // get user roles if there are any
+    db.ref(`roles/${uid}`).on(
+        'value',
+        (snapshot) => dispatch({
+            type:       FIREBASE_ROLES,
+            payload:    snapshot,
+        })
+    );
+
+    // save user data on server for future reference
+    db.ref(`users/${uid}`).set(
+        { displayName, email, photoURL }
+    );
+};
 
 export const firebaseSetStatus = (firebase, language, slug, status) => () => {
-    const user = firebase.auth().currentUser;
+    const { uid } = firebase.auth().currentUser;
     const value = {
         status,
-        agent: {
-            name:   user.displayName,
-            email:  user.email,
-        },
+        uid,
     };
     firebase.database().ref(`status/${language}/${slug}`).set(value);
 };
