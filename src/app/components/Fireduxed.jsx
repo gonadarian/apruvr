@@ -1,6 +1,6 @@
 import { PropTypes, Children, Component } from 'react';
 
-export default class Fireduxed extends Component {
+class Fireduxed extends Component {
     constructor(props, context) {
         super(props, context);
         this.firebase = props.firebase;
@@ -26,3 +26,5 @@ Fireduxed.propTypes = {
 Fireduxed.childContextTypes = {
     firebase: PropTypes.object.isRequired,
 };
+
+export default Fireduxed;
