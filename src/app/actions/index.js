@@ -1,4 +1,5 @@
 import axios from 'axios';
+import firebase from 'firebase';
 import {
     CHANGE_LANGUAGE,
     FETCH_NODES,
@@ -56,8 +57,8 @@ export const filterVisibility = (key) => (dispatch) => {
     });
 };
 
-export const firebaseGetUsers = (db) => (dispatch) => {
-    db.ref('users').on(
+export const firebaseGetUsers = () => (dispatch) => {
+    firebase.database().ref('users').on(
         'value',
         (snapshot) => dispatch({
             type:       FIREBASE_USERS,
@@ -74,7 +75,7 @@ export const firebaseFetchOnce = (snapshot) => (dispatch) => {
     });
 };
 
-export const firebaseAuth = (db, user) => (dispatch) => {
+export const firebaseAuth = (user) => (dispatch) => {
     // user can be null in case of logout event
     dispatch({
         type:       FIREBASE_AUTH,
@@ -89,7 +90,7 @@ export const firebaseAuth = (db, user) => (dispatch) => {
     const { uid, displayName, email, photoURL } = user;
 
     // get user roles if there are any
-    db.ref(`roles/${uid}`).on(
+    firebase.database().ref(`roles/${uid}`).on(
         'value',
         (snapshot) => dispatch({
             type:       FIREBASE_ROLES,
@@ -98,12 +99,12 @@ export const firebaseAuth = (db, user) => (dispatch) => {
     );
 
     // save user data on server for future reference
-    db.ref(`users/${uid}`).set(
+    firebase.database().ref(`users/${uid}`).set(
         { displayName, email, photoURL }
     );
 };
 
-export const firebaseSetStatus = (firebase, language, slug, status) => () => {
+export const firebaseSetStatus = (language, slug, status) => () => {
     const { uid } = firebase.auth().currentUser;
     const value = {
         status,
@@ -119,7 +120,7 @@ export const firebaseSetStatus = (firebase, language, slug, status) => () => {
  * @param  {Object} firebase central object used for Firebase auth service.
  * @return {undefined}
  */
-export const firebaseSignIn = (firebase) => () =>
+export const firebaseSignIn = () => () =>
     firebase.auth().signInWithPopup(
         new firebase.auth.GoogleAuthProvider()
     );
@@ -130,5 +131,5 @@ export const firebaseSignIn = (firebase) => () =>
  * @param  {Object} firebase central object used for Firebase auth service.
  * @return {undefined}
  */
-export const firebaseSignOut = (firebase) => () =>
+export const firebaseSignOut = () => () =>
     firebase.auth().signOut();

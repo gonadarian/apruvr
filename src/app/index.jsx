@@ -9,7 +9,6 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import firebase from 'firebase';
 import reducers from './reducers';
-import { Fireduxed } from './components';
 import { LanguagePage } from './pages';
 import { firebaseAuth, chooseLanguage, firebaseGetUsers } from './actions';
 
@@ -37,11 +36,11 @@ firebase.initializeApp({
 
 // initialize user session, store user data in database
 firebase.auth().onAuthStateChanged((user) => {
-    firebaseAuth(firebase.database(), user)(store.dispatch);
+    firebaseAuth(user)(store.dispatch);
 });
 
 // get list of users
-firebaseGetUsers(firebase.database())(store.dispatch);
+firebaseGetUsers()(store.dispatch);
 
 // initialize language data if language choice is kept in localStorage
 if (store.getState().language) {
@@ -50,10 +49,8 @@ if (store.getState().language) {
 
 render((
     <Provider store={store}>
-        <Fireduxed firebase={firebase}>
-            <Router history={hashHistory}>
-                <Route path="/" component={LanguagePage} />
-            </Router>
-        </Fireduxed>
+        <Router history={hashHistory}>
+            <Route path="/" component={LanguagePage} />
+        </Router>
     </Provider>
 ), document.getElementById('app'));

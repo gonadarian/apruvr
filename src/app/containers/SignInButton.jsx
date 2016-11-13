@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { firebaseSignIn, firebaseSignOut } from '../actions';
 
-const SignInButton = ({ user, signIn, signOut }, context) =>
+const SignInButton = ({ user, signIn, signOut }) =>
     <div className="col-xs-2">
         <h2>
             {user ? user.displayName : 'User'}
@@ -12,16 +12,12 @@ const SignInButton = ({ user, signIn, signOut }, context) =>
             className="btn btn-primary"
             onClick={
                 () => user
-                    ? signOut(context.firebase)
-                    : signIn(context.firebase)
+                    ? signOut()
+                    : signIn()
             }>
             {user ? 'Sign out' : 'Sign in'}
         </a>
     </div>;
-
-SignInButton.contextTypes = {
-    firebase: PropTypes.object.isRequired,
-};
 
 SignInButton.propTypes = {
     user:       PropTypes.object,

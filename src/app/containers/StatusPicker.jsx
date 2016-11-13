@@ -6,24 +6,16 @@ import { firebaseSetStatus } from '../actions';
 import ApruvrTypes from '../types';
 import { StatePicker } from '../components';
 
-const StatusPicker = (
-    { slug, statuses, language, workflow, user, onChoose, ...other },
-    context,
-) =>
+const StatusPicker = ({ slug, statuses, language, workflow, user, onChoose }) =>
     <StatePicker
         states={statuses}
         current={workflow && workflow[slug] ? workflow[slug].status : null}
         pickable={!isNil(user)}
         onChoose={(state) => onChoose(
-            context.firebase,
             language.code,
             slug,
             state,
         )} />;
-
-StatusPicker.contextTypes = {
-    firebase:   PropTypes.object,
-};
 
 StatusPicker.propTypes = {
     slug:       PropTypes.string.isRequired,
