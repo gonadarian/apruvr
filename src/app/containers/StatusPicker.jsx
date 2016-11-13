@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isNil } from 'lodash';
-import { firebaseSetStatus } from '../actions';
+import { setWorkflowStatus } from '../actions';
 import ApruvrTypes from '../types';
 import { StatePicker } from '../components';
 
@@ -35,6 +35,6 @@ export default connect(
         user:       state.user,
     }),
     (dispatch) => bindActionCreators({
-        onChoose: firebaseSetStatus,
+        onChoose: setWorkflowStatus,
     }, dispatch)
 )(StatusPicker);

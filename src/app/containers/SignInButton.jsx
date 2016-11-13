@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { firebaseSignIn, firebaseSignOut } from '../actions';
+import { userSignIn, userSignOut } from '../actions';
 
 const SignInButton = ({ user, signIn, signOut }) =>
     <div className="col-xs-2">
@@ -10,11 +10,7 @@ const SignInButton = ({ user, signIn, signOut }) =>
         </h2>
         <a
             className="btn btn-primary"
-            onClick={
-                () => user
-                    ? signOut()
-                    : signIn()
-            }>
+            onClick={() => user ? signOut() : signIn() }>
             {user ? 'Sign out' : 'Sign in'}
         </a>
     </div>;
@@ -30,7 +26,7 @@ export default connect(
         user:       state.user,
     }),
     (dispatch) => bindActionCreators({
-        signIn:     firebaseSignIn,
-        signOut:    firebaseSignOut,
+        signIn:     userSignIn,
+        signOut:    userSignOut,
     }, dispatch)
 )(SignInButton);

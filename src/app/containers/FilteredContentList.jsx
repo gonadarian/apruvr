@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import size from 'lodash/size';
 import ApruvrTypes from '../types';
 import { getVisibleNodes } from '../selectors';
-import { firebaseFetchOnce } from '../actions';
+import { fetchWorkflow } from '../actions';
 import { fireduxed } from '../hocs';
 import { ContentList } from '../components';
 
@@ -36,7 +36,7 @@ export default connect(
         nodes:      getVisibleNodes(state),
     }),
     (dispatch) => bindActionCreators({
-        onFire: firebaseFetchOnce,
+        onFire: fetchWorkflow,
     }, dispatch)
 )(fireduxed(
     ({ language }) => `status/${language.code}`

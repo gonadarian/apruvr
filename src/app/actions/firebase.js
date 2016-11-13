@@ -6,7 +6,7 @@ import {
     FIREBASE_USERS,
 } from './types';
 
-export const firebaseGetUsers = () => (dispatch) => {
+export const fetchUsers = () => (dispatch) => {
     firebase.database().ref('users').on(
         'value',
         (snapshot) => dispatch({
@@ -16,7 +16,7 @@ export const firebaseGetUsers = () => (dispatch) => {
     );
 };
 
-export const firebaseFetchOnce = (snapshot) => (dispatch) => {
+export const fetchWorkflow = (snapshot) => (dispatch) => {
     // change the content workflow data as obtained from backend
     dispatch({
         type:       FIREBASE_FETCH_ONCE,
@@ -24,7 +24,7 @@ export const firebaseFetchOnce = (snapshot) => (dispatch) => {
     });
 };
 
-export const firebaseAuth = (user) => (dispatch) => {
+export const userAuth = (user) => (dispatch) => {
     // user can be null in case of logout event
     dispatch({
         type:       FIREBASE_AUTH,
@@ -53,7 +53,7 @@ export const firebaseAuth = (user) => (dispatch) => {
     );
 };
 
-export const firebaseSetStatus = (language, slug, status) => () => {
+export const setWorkflowStatus = (language, slug, status) => () => {
     const { uid } = firebase.auth().currentUser;
     const value = {
         status,
@@ -69,7 +69,7 @@ export const firebaseSetStatus = (language, slug, status) => () => {
  * @param  {Object} firebase central object used for Firebase auth service.
  * @return {undefined}
  */
-export const firebaseSignIn = () => () =>
+export const userSignIn = () => () =>
     firebase.auth().signInWithPopup(
         new firebase.auth.GoogleAuthProvider()
     );
@@ -80,5 +80,5 @@ export const firebaseSignIn = () => () =>
  * @param  {Object} firebase central object used for Firebase auth service.
  * @return {undefined}
  */
-export const firebaseSignOut = () => () =>
+export const userSignOut = () => () =>
     firebase.auth().signOut();

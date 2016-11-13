@@ -10,7 +10,7 @@ import promise from 'redux-promise';
 import firebase from 'firebase';
 import reducers from './reducers';
 import { LanguagePage } from './pages';
-import { firebaseAuth, chooseLanguage, firebaseGetUsers } from './actions';
+import { userAuth, chooseLanguage, fetchUsers } from './actions';
 
 const logger = createLogger();
 
@@ -36,11 +36,11 @@ firebase.initializeApp({
 
 // initialize user session, store user data in database
 firebase.auth().onAuthStateChanged((user) => {
-    firebaseAuth(user)(store.dispatch);
+    userAuth(user)(store.dispatch);
 });
 
 // get list of users
-firebaseGetUsers()(store.dispatch);
+fetchUsers()(store.dispatch);
 
 // initialize language data if language choice is kept in localStorage
 if (store.getState().language) {
