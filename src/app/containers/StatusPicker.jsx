@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { isNil } from 'lodash';
 import { firebaseSetStatus } from '../actions';
 import ApruvrTypes from '../types';
-import StatePicker from '../components/StatePicker';
+import { StatePicker } from '../components';
 
 const StatusPicker = (
     { slug, statuses, language, workflow, user, onChoose, ...other },

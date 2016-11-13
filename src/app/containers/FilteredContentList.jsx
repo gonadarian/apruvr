@@ -5,8 +5,8 @@ import size from 'lodash/size';
 import ApruvrTypes from '../types';
 import { getVisibleNodes } from '../selectors';
 import { firebaseFetchOnce } from '../actions';
-import fireduxed from '../hocs/fireduxed';
-import ContentList from '../components/ContentList';
+import { fireduxed } from '../hocs';
+import { ContentList } from '../components';
 
 const FilteredContentList = ({ content, nodes, ...props }) =>
     <div className="col-xs-12 col-md-9">

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { VISIBILITIES, PICKS } from '../consts';
 import { filterVisibility } from '../actions';
-import ButtonChoice from '../components/ButtonChoice';
+import { ButtonChoice } from '../components';
 
 const VisibilityButtons = (props) =>
     <div className="col-xs-12 col-sm-5">

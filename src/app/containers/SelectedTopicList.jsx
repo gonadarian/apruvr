@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { filterTopic } from '../actions';
 import { getTopicTree } from '../selectors';
-import TopicTree from '../components/TopicTree';
+import { TopicTree } from '../components';
 
 const SelectedTopicList = (props) =>
     <div className="col-xs-12 col-md-3">

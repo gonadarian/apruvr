@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LANGUAGES } from '../consts';
-import { chooseLanguage } from '../actions/index';
-import ButtonGroup from '../components/ButtonGroup';
+import { chooseLanguage } from '../actions';
+import { ButtonGroup } from '../components';
 
 const LanguageButtons = (props) =>
     <div className="col-xs-10">
