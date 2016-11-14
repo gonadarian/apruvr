@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import {
-    FIREBASE_FETCH_ONCE,
+    FIREBASE_WORKFLOW,
     FIREBASE_AUTH,
     FIREBASE_ROLES,
     FIREBASE_USERS,
@@ -19,7 +19,7 @@ export const fetchUsers = () => (dispatch) => {
 export const fetchWorkflow = (snapshot) => (dispatch) => {
     // change the content workflow data as obtained from backend
     dispatch({
-        type:       FIREBASE_FETCH_ONCE,
+        type:       FIREBASE_WORKFLOW,
         payload:    snapshot,
     });
 };
