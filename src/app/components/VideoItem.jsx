@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { STATUSES } from '../consts';
 import ApruvrTypes from '../types';
-import StatusPicker from '../containers/StatusPicker';
-import StatusAgent from '../containers/StatusAgent';
+import { StatusPicker } from '../containers';
+import { StatusAgent } from '../containers';
 
 const VideoItem = ({
     content: { slug, title, subbed, dubbed },

@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { sprintf } from 'sprintf-js';
 import { STATUSES } from '../consts';
 import ApruvrTypes from '../types';
-import StatusPicker from '../containers';
-import StatusAgent from '../containers';
+import { StatusPicker } from '../containers';
+import { StatusAgent } from '../containers';
 
 const CrowdinItem = ({
     content: { slug, title, wordCount, translatedWordCount, approvedWordCount },
