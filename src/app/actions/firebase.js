@@ -33,6 +33,10 @@ export const userAuth = (user) => (dispatch) => {
 
     // if user was logged out, nothing more to be done
     if (!user) {
+        dispatch({
+            type:       FIREBASE_ROLES,
+            payload:    null,
+        });
         return;
     }
 
@@ -43,7 +47,7 @@ export const userAuth = (user) => (dispatch) => {
         'value',
         (snapshot) => dispatch({
             type:       FIREBASE_ROLES,
-            payload:    snapshot,
+            payload:    snapshot.val(),
         })
     );
 
@@ -60,6 +64,10 @@ export const setWorkflowStatus = (language, slug, status) => () => {
         uid,
     };
     firebase.database().ref(`status/${language}/${slug}`).set(value);
+};
+
+export const setWorkflowAgent = (language, slug, uid) => () => {
+    firebase.database().ref(`status/${language}/${slug}/uid`).set(uid);
 };
 
 /**
