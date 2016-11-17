@@ -4,7 +4,7 @@ import map from 'lodash/map';
 const getName = (state, nameMap) =>
     nameMap && state in nameMap ? nameMap[state] : state;
 
-const StatePicker = ({ states, current, pickable = false, nameMap, onChoose }) =>
+const Picker = ({ states, current, pickable = false, nameMap, onChoose }) =>
     <div className="btn-group" role="group">
         <button type="button" className="btn btn-info">
             <span className="badge">
@@ -40,7 +40,7 @@ const StatePicker = ({ states, current, pickable = false, nameMap, onChoose }) =
         }
     </div>;
 
-StatePicker.propTypes = {
+Picker.propTypes = {
     states:     PropTypes.arrayOf(PropTypes.string).isRequired,
     current:    PropTypes.string,
     pickable:   PropTypes.bool,
@@ -48,4 +48,4 @@ StatePicker.propTypes = {
     onChoose:   PropTypes.func.isRequired,
 };
 
-export default StatePicker;
+export default Picker;

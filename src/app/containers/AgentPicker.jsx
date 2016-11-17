@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import reduce from 'lodash/reduce';
 import { setWorkflowAgent } from '../actions';
-import { StatePicker } from '../components';
+import { Picker } from '../components';
 
 const getNameMap = (users) =>
     reduce(
@@ -30,14 +30,14 @@ const getUIDs = (workflow) => {
     return uids;
 };
 
-const AgentPicker = ({ slug, workflow, users, roles, language, onChoose }) => {
+const AgentPicker = ({ slug, workflow, users, roles, onChoose }) => {
     return workflow !== null && slug in workflow &&
-        <StatePicker
+        <Picker
             states={getUIDs(workflow)}
             current={workflow[slug].uid}
             pickable={roles === 'advocate'}
             nameMap={getNameMap(users)}
-            onChoose={(uid) => onChoose(language, slug, uid)} />;
+            onChoose={(uid) => onChoose(slug, uid)} />;
 };
 
 AgentPicker.propTypes = {
@@ -54,7 +54,6 @@ export default connect(
         workflow:   state.workflow,
         users:      state.users,
         roles:      state.roles,
-        language:   state.language.code,
     }),
     (dispatch) => bindActionCreators({
         onChoose: setWorkflowAgent,

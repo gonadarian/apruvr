@@ -4,7 +4,7 @@ import ButtonGroup from './ButtonGroup';
 import ContentList from './ContentList';
 import CrowdinItem from './CrowdinItem';
 import CrowdinList from './CrowdinList';
-import StatePicker from './StatePicker';
+import Picker from './Picker';
 import TopicTree from './TopicTree';
 import VideoItem from './VideoItem';
 import VideoList from './VideoList';
@@ -16,7 +16,7 @@ export {
     ContentList,
     CrowdinItem,
     CrowdinList,
-    StatePicker,
+    Picker,
     TopicTree,
     VideoItem,
     VideoList,

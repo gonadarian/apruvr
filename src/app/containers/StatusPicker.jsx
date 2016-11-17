@@ -3,24 +3,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isNil } from 'lodash';
 import { setWorkflowStatus } from '../actions';
-import ApruvrTypes from '../types';
-import { StatePicker } from '../components';
+import { Picker } from '../components';
 
-const StatusPicker = ({ slug, statuses, language, workflow, user, onChoose }) =>
-    <StatePicker
+const StatusPicker = ({ slug, statuses, workflow, user, onChoose }) =>
+    <Picker
         states={statuses}
         current={workflow && workflow[slug] ? workflow[slug].status : null}
         pickable={!isNil(user)}
-        onChoose={(state) => onChoose(
-            language.code,
-            slug,
-            state,
-        )} />;
+        onChoose={(status) => onChoose(slug, status)} />;
 
 StatusPicker.propTypes = {
     slug:       PropTypes.string.isRequired,
     statuses:   PropTypes.arrayOf(PropTypes.string).isRequired,
-    language:   ApruvrTypes.item.isRequired,
     workflow:   PropTypes.object,
     user:       PropTypes.object,
     onChoose:   PropTypes.func.isRequired,
@@ -30,7 +24,6 @@ export default connect(
     (state, ownProps) => ({
         slug:       ownProps.slug,
         statuses:   ownProps.statuses,
-        language:   state.language,
         workflow:   state.workflow,
         user:       state.user,
     }),

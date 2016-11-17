@@ -57,17 +57,19 @@ export const userAuth = (user) => (dispatch) => {
     );
 };
 
-export const setWorkflowStatus = (language, slug, status) => () => {
+export const setWorkflowStatus = (slug, status) => (dispatch, getState) => {
+    const { language } = getState();
     const { uid } = firebase.auth().currentUser;
     const value = {
         status,
         uid,
     };
-    firebase.database().ref(`status/${language}/${slug}`).set(value);
+    firebase.database().ref(`status/${language.code}/${slug}`).set(value);
 };
 
-export const setWorkflowAgent = (language, slug, uid) => () => {
-    firebase.database().ref(`status/${language}/${slug}/uid`).set(uid);
+export const setWorkflowAgent = (slug, uid) => (dispatch, getState) => {
+    const { language } = getState();
+    firebase.database().ref(`status/${language.code}/${slug}/uid`).set(uid);
 };
 
 /**
