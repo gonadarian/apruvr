@@ -15,8 +15,8 @@ const getNameMap = (users) =>
         {}
     );
 
-const getUIDs = (workflow) => {
-    const uids = reduce(
+const getUIDs = (workflow) =>
+    reduce(
         workflow,
         (memo, content) => {
             if ('uid' in content && !memo.includes(content.uid)) {
@@ -26,19 +26,15 @@ const getUIDs = (workflow) => {
         },
         []
     );
-    uids.push(null);
-    return uids;
-};
 
-const AgentPicker = ({ slug, workflow, users, roles, onChoose }) => {
-    return workflow !== null && slug in workflow &&
+const AgentPicker = ({ slug, workflow, users, roles, onChoose }) =>
+    workflow !== null && slug in workflow &&
         <Picker
-            states={getUIDs(workflow)}
+            states={[...getUIDs(workflow), null]}
             current={workflow[slug].uid}
             pickable={roles === 'advocate'}
             nameMap={getNameMap(users)}
             onChoose={(uid) => onChoose(slug, uid)} />;
-};
 
 AgentPicker.propTypes = {
     slug:       PropTypes.string.isRequired,

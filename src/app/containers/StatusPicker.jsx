@@ -7,7 +7,7 @@ import { Picker } from '../components';
 
 const StatusPicker = ({ slug, statuses, workflow, user, onChoose }) =>
     <Picker
-        states={statuses}
+        states={[...statuses, null]}
         current={workflow && workflow[slug] ? workflow[slug].status : null}
         pickable={!isNil(user)}
         onChoose={(status) => onChoose(slug, status)} />;

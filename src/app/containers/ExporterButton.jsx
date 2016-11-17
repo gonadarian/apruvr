@@ -6,28 +6,24 @@ import ApruvrTypes from '../types';
 import { TYPE_GROUPS } from '../consts';
 import { getVisibleNodes } from '../selectors';
 
-function exporterCrowdin(key, content) {
-    const data =
-          key + '\t' +
-          content.title + '\t' +
-          content.wordCount + '\t' +
-          content.translatedWordCount + '\t' +
-          content.approvedWordCount + '\t' +
-          content.path.join('\t');
+const exporterCrowdin = (key, content) =>
+    [
+        key,
+        content.title,
+        content.wordCount,
+        content.translatedWordCount,
+        content.approvedWordCount,
+        ...content.path,
+    ].join('\t');
 
-    return data;
-}
-
-function exporterVideo(key, content) {
-    const data =
-          key + '\t' +
-          content.title + '\t' +
-          content.subbed + '\t' +
-          content.dubbed + '\t' +
-          content.path.join('\t');
-
-    return data;
-}
+const exporterVideo = (key, content) =>
+    [
+        key,
+        content.title,
+        content.subbed,
+        content.dubbed,
+        ...content.path,
+    ].join('\t');
 
 const EXPORTERS = {
     videos:     exporterVideo,
@@ -39,17 +35,17 @@ const COLUMNS = {
     crowdin:    ['slug', 'title', 'total', 'translated', 'approved', 'subject', 'topic', 'subtopic', 'tutorial'],
 };
 
-function exporter(code, nodes) {
-    const data = reduce(
-        map(
-            nodes,
-            (content, key) => EXPORTERS[TYPE_GROUPS[code]](key, content)
-        ),
-        (result, row) => result + '\n' + row,
-        COLUMNS[TYPE_GROUPS[code]].join('\t'));
-
-    return 'data:attachment/csv,' + encodeURIComponent(data);
-}
+const exporter = (code, nodes) =>
+    'data:attachment/csv,' + encodeURIComponent(
+        reduce(
+            map(
+                nodes,
+                (content, key) => EXPORTERS[TYPE_GROUPS[code]](key, content)
+            ),
+            (result, row) => result + '\n' + row,
+            COLUMNS[TYPE_GROUPS[code]].join('\t')
+        )
+    );
 
 const ExporterButton = ({ content, topic, nodes }) =>
     <div className="col-xs-12 col-sm-2">
