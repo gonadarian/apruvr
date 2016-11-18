@@ -10,10 +10,7 @@ const fireduxed = (calcPath) => (WrappedComponent) =>
         componentDidMount() {
             const path = calcPath(this.props);
             this.ref = firebase.database().ref(path);
-            this.ref.on(
-                'value',
-                (snapshot) => this.props.onFire(snapshot)
-            );
+            this.ref.on('value', this.props.onFire);
         }
 
         componentWillUnmount() {

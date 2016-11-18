@@ -33,10 +33,6 @@ export const userAuth = (user) => (dispatch) => {
 
     // if user was logged out, nothing more to be done
     if (!user) {
-        dispatch({
-            type:       FIREBASE_ROLES,
-            payload:    null,
-        });
         return;
     }
 
@@ -58,12 +54,8 @@ export const userAuth = (user) => (dispatch) => {
 };
 
 export const setWorkflowStatus = (slug, status) => (dispatch, getState) => {
-    const { language } = getState();
-    const { uid } = firebase.auth().currentUser;
-    const value = {
-        status,
-        uid,
-    };
+    const { language, user: { uid } } = getState();
+    const value = { status, uid };
     firebase.database().ref(`status/${language.code}/${slug}`).set(value);
 };
 
@@ -79,10 +71,11 @@ export const setWorkflowAgent = (slug, uid) => (dispatch, getState) => {
  * @param  {Object} firebase central object used for Firebase auth service.
  * @return {undefined}
  */
-export const userSignIn = () => () =>
+export const userSignIn = () => () => {
     firebase.auth().signInWithPopup(
         new firebase.auth.GoogleAuthProvider()
     );
+};
 
 /**
  * Signs out the user. Returns no action, as Firebase has a listener for
@@ -90,5 +83,6 @@ export const userSignIn = () => () =>
  * @param  {Object} firebase central object used for Firebase auth service.
  * @return {undefined}
  */
-export const userSignOut = () => () =>
+export const userSignOut = () => () => {
     firebase.auth().signOut();
+};

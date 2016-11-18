@@ -12,6 +12,7 @@ const INITIAL_VISIBILITY = {
 };
 
 const handlers = {
+    // one of the visiblity filters has been switched
     [FILTER_VISIBIITY]: (state, action) =>
         mapValues(
             state,
