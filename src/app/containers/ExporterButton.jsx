@@ -6,23 +6,37 @@ import ApruvrTypes from '../types';
 import { TYPE_GROUPS } from '../consts';
 import { getVisibleNodes } from '../selectors';
 
-const exporterCrowdin = (key, content) =>
+const getStatus = (slug, workflow) =>
+    workflow && slug in workflow
+        ? workflow[slug].status
+        : 'x';
+
+const getAgent = (slug, workflow, users) =>
+    workflow && users && slug in workflow
+        ? users[workflow[slug].uid].displayName
+        : 'x';
+
+const exporterCrowdin = (slug, node, workflow, users) =>
     [
-        key,
-        content.title,
-        content.wordCount,
-        content.translatedWordCount,
-        content.approvedWordCount,
-        ...content.path,
+        slug,
+        node.title,
+        getStatus(slug, workflow),
+        getAgent(slug, workflow, users),
+        node.wordCount,
+        node.translatedWordCount,
+        node.approvedWordCount,
+        ...node.path,
     ].join('\t');
 
-const exporterVideo = (key, content) =>
+const exporterVideo = (slug, node, workflow, users) =>
     [
-        key,
-        content.title,
-        content.subbed,
-        content.dubbed,
-        ...content.path,
+        slug,
+        node.title,
+        getStatus(slug, workflow),
+        getAgent(slug, workflow, users),
+        node.subbed,
+        node.dubbed,
+        ...node.path,
     ].join('\t');
 
 const EXPORTERS = {
@@ -31,28 +45,38 @@ const EXPORTERS = {
 };
 
 const COLUMNS = {
-    videos:     ['slug', 'title', 'subbed', 'dubbed', 'subject', 'topic', 'subtopic', 'tutorial'],
-    crowdin:    ['slug', 'title', 'total', 'translated', 'approved', 'subject', 'topic', 'subtopic', 'tutorial'],
+    videos:     [
+        'slug', 'title', 'agent', 'status', 'subbed', 'dubbed', 'subject',
+        'topic', 'subtopic', 'tutorial',
+    ],
+    crowdin:    [
+        'slug', 'title', 'agent', 'status', 'total', 'translated', 'approved',
+        'subject', 'topic', 'subtopic', 'tutorial',
+    ],
 };
 
-const exporter = (code, nodes) =>
-    'data:attachment/csv,' + encodeURIComponent(
+const generateExport = (code, nodes, workflow, users) => {
+    const exporter = EXPORTERS[TYPE_GROUPS[code]];
+    const columns = COLUMNS[TYPE_GROUPS[code]];
+    const encoded = encodeURIComponent(
         reduce(
             map(
                 nodes,
-                (content, key) => EXPORTERS[TYPE_GROUPS[code]](key, content)
+                (node, slug) => exporter(slug, node, workflow, users)
             ),
             (result, row) => result + '\n' + row,
-            COLUMNS[TYPE_GROUPS[code]].join('\t')
+            columns.join('\t')
         )
     );
+    return 'data:attachment/csv,' + encoded;
+};
 
-const ExporterButton = ({ content, topic, nodes }) =>
+const ExporterButton = ({ content, topic, nodes, workflow, users }) =>
     <div className="col-xs-12 col-sm-2">
         <h2>Export</h2>
         <a className="btn btn-primary"
-            href={exporter(content.code, nodes)}
             download={content.name + ' ' + topic + '.csv'}
+            href={generateExport(content.code, nodes, workflow, users)}
             target="_blank">
                 Generate CSV
         </a>
@@ -62,6 +86,8 @@ ExporterButton.propTypes = {
     content:    ApruvrTypes.item.isRequired,
     topic:      PropTypes.string.isRequired,
     nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
+    workflow:   PropTypes.object,
+    users:      PropTypes.object,
 };
 
 export default connect(
@@ -69,5 +95,7 @@ export default connect(
         content:    state.content,
         topic:      state.topic,
         nodes:      getVisibleNodes(state),
+        workflow:   state.workflow,
+        users:      state.users,
     })
 )(ExporterButton);
