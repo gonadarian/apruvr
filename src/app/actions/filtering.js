@@ -21,6 +21,11 @@ export const chooseLanguage = (language) => (dispatch) => {
         payload:    language,
     });
 
+    // if language was deselected, there is nothing more to do
+    if (!language) {
+        return;
+    }
+
     // get translation data from Khan Academy API and set in state
     dispatch({
         type:       FETCH_NODES,
