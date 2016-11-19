@@ -78,7 +78,7 @@ const ExporterButton = ({ content, topic, nodes, workflow, users }) =>
             download={content.name + ' ' + topic + '.csv'}
             href={generateExport(content.code, nodes, workflow, users)}
             target="_blank">
-                Generate CSV
+                Generate Report
         </a>
     </div>;
 

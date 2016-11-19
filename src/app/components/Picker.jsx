@@ -6,7 +6,7 @@ const getName = (state, nameMap) =>
 
 const Picker = ({ states, current, pickable = false, nameMap, onChoose }) =>
     <div className="btn-group" role="group">
-        <button type="button" className="btn btn-info">
+        <button type="button" className="btn btn-primary">
             <span className="badge">
                 {current ? getName(current, nameMap) : '...'}
             </span>
@@ -25,7 +25,7 @@ const Picker = ({ states, current, pickable = false, nameMap, onChoose }) =>
                             <button
                                 type="button"
                                 className={current && state === current
-                                    ? 'btn btn-info'
+                                    ? 'btn btn-primary'
                                     : 'btn btn-default'}
                                 style={{ width: '100%' }}
                                 onClick={() => onChoose(state)}>
