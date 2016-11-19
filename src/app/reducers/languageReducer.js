@@ -3,7 +3,7 @@ import handleReducers from './handler';
 
 const handlers = {
     // language has been chosen
-    [CHANGE_LANGUAGE]: (state, action) => action.payload,
+    [CHANGE_LANGUAGE]: (state, action) => action.payload || null,
 };
 
 export default (state = null, action) =>

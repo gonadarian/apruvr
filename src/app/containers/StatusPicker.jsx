@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { isNil } from 'lodash';
+import isNil from 'lodash/isNil';
 import { setWorkflowStatus } from '../actions';
 import { Picker } from '../components';
 

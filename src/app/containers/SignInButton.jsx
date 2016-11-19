@@ -4,12 +4,11 @@ import { bindActionCreators } from 'redux';
 import { userSignIn, userSignOut } from '../actions';
 
 const SignInButton = ({ user, signIn, signOut }) =>
-    <div className="col-xs-2">
+    <div className="pull-right col-xs-2">
         <h2>
             {user ? user.displayName : 'User'}
         </h2>
-        <a
-            className="btn btn-primary"
+        <a className="btn btn-primary"
             onClick={() => user ? signOut() : signIn() }>
             {user ? 'Sign out' : 'Sign in'}
         </a>

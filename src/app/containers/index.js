@@ -4,6 +4,7 @@ import ContentKindButtons from './ContentKindButtons';
 import ExporterButton from './ExporterButton';
 import FilteredContentList from './FilteredContentList';
 import LanguageButtons from './LanguageButtons';
+import LanguagePicker from './LanguagePicker';
 import LoadingSpinner from './LoadingSpinner';
 import SelectedTopicList from './SelectedTopicList';
 import SignInButton from './SignInButton';
@@ -17,6 +18,7 @@ export {
     ExporterButton,
     FilteredContentList,
     LanguageButtons,
+    LanguagePicker,
     LoadingSpinner,
     SelectedTopicList,
     SignInButton,

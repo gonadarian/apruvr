@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     Content,
-    LanguageButtons,
+    LanguagePicker,
     SignInButton,
     LoadingSpinner,
     ContentKindButtons,
@@ -19,7 +19,7 @@ const LanguagePage = () =>
             <h3>Approval workflow for Khan Academy translations</h3>
         </div>
         <div className="container-fluid">
-            <LanguageButtons />
+            <LanguagePicker />
             <SignInButton />
             <LoadingSpinner />
             <Content>
