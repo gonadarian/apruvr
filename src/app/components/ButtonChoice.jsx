@@ -1,25 +1,26 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import map from 'lodash/map';
 import pick from 'lodash/pick';
-import ApruvrTypes from '../types';
 import Button from './Button';
 
-const ButtonChoice = ({ choices, used, names, onChoose }) =>
+type PropsType = {
+    choices: {[id: string]: boolean},
+    used: boolean[],
+    names: {[id: string]: string},
+    onChoose: () => void
+};
+
+const ButtonChoice = ({ choices, used, names, onChoose }: PropsType): ReactElement =>
     <div className="btn-group">
-        {map(pick(choices, used), (choice, key) =>
-            <Button
-                key={key}
-                name={names[key]}
-                isActive={choice}
-                onClick={() => onChoose(key)} />
+        {map(
+            pick(choices, used),
+            (choice: boolean, key: string): ReactElement =>
+                <Button
+                    key={key}
+                    name={names[key]}
+                    isActive={choice}
+                    onClick={(): void => onChoose(key)} />
         )}
     </div>;
-
-ButtonChoice.propTypes = {
-    choices:    ApruvrTypes.choices.isRequired,
-    used:       PropTypes.arrayOf(PropTypes.string).isRequired,
-    names:      PropTypes.objectOf(PropTypes.string).isRequired,
-    onChoose:   PropTypes.func.isRequired,
-};
 
 export default ButtonChoice;

@@ -1,3 +1,4 @@
+/* @flow */
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
@@ -11,6 +12,7 @@ import firebase from 'firebase';
 import reducers from './reducers';
 import { LanguagePage } from './pages';
 import { userAuth, chooseLanguage, fetchUsers } from './actions';
+import type { UserType } from './flows';
 
 const logger = createLogger();
 
@@ -35,7 +37,7 @@ firebase.initializeApp({
 });
 
 // initialize user session, store user data in database
-firebase.auth().onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged((user: UserType) => {
     userAuth(user)(store.dispatch);
 });
 

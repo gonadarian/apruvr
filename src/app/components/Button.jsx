@@ -1,16 +1,16 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
-const Button = ({ name, isActive = false, onClick }) =>
+type PropsType = {
+    name: string,
+    isActive: ?boolean,
+    onClick: () => void
+};
+
+const Button = ({ name, isActive = false, onClick }: PropsType): ReactElement =>
     <div
         className={'btn ' + (isActive ? 'btn-primary' : 'btn-default')}
         onClick={onClick}>
             {name}
     </div>;
-
-Button.propTypes = {
-    name:       PropTypes.string.isRequired,
-    isActive:   PropTypes.bool,
-    onClick:    PropTypes.func.isRequired,
-};
 
 export default Button;
