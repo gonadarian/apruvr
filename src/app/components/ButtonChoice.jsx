@@ -5,7 +5,7 @@ import Button from './Button';
 
 type PropsType = {
     choices: {[id: string]: boolean},
-    used: boolean[],
+    used: string[],
     names: {[id: string]: string},
     onChoose: () => void
 };
