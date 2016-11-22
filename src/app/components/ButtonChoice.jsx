@@ -1,4 +1,6 @@
+/* @flow */
 import React from 'react';
+import type { Element } from 'react';
 import map from 'lodash/map';
 import pick from 'lodash/pick';
 import Button from './Button';
@@ -7,14 +9,14 @@ type PropsType = {
     choices: {[id: string]: boolean},
     used: string[],
     names: {[id: string]: string},
-    onChoose: () => void
+    onChoose: () => void,
 };
 
-const ButtonChoice = ({ choices, used, names, onChoose }: PropsType): ReactElement =>
+const ButtonChoice = ({ choices, used, names, onChoose }: PropsType): Element<*> =>
     <div className="btn-group">
         {map(
             pick(choices, used),
-            (choice: boolean, key: string): ReactElement =>
+            (choice: boolean, key: string): Element<*> =>
                 <Button
                     key={key}
                     name={names[key]}
