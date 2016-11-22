@@ -39,9 +39,22 @@ const exporterVideo = (slug, node, workflow, users) =>
         ...node.path,
     ].join('\t');
 
+const exporterTopic = (slug, node, workflow, users) =>
+    [
+        slug,
+        node.title,
+        getStatus(slug, workflow),
+        getAgent(slug, workflow, users),
+        node.metadataWordCount,
+        node.metadataTranslatedWordCount,
+        node.metadataApprovedWordCount,
+        ...node.path,
+    ].join('\t');
+
 const EXPORTERS = {
     videos:     exporterVideo,
     crowdin:    exporterCrowdin,
+    topics:     exporterTopic,
 };
 
 const COLUMNS = {
@@ -50,6 +63,10 @@ const COLUMNS = {
         'topic', 'subtopic', 'tutorial',
     ],
     crowdin:    [
+        'slug', 'title', 'agent', 'status', 'total', 'translated', 'approved',
+        'subject', 'topic', 'subtopic', 'tutorial',
+    ],
+    topics:    [
         'slug', 'title', 'agent', 'status', 'total', 'translated', 'approved',
         'subject', 'topic', 'subtopic', 'tutorial',
     ],

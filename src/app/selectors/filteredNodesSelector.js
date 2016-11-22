@@ -7,6 +7,8 @@ import { NAMES } from '../consts';
 import topicTreeSelector from './topicTreeSelector';
 
 function loadSlugs(topic, slugs, path) {
+    slugs.topics[topic.slug] = topic;
+
     forEach(
         topic.children,
         (child) => {slugs[NAMES[child[0]]][child[1]] = path;}
@@ -26,7 +28,7 @@ function filterNodes(nodes, topic, tree, content) {
         tree.root
     );
 
-    const slugs = { exercises: {}, articles: {}, videos: {}, scratchpads: {} };
+    const slugs = { exercises: {}, articles: {}, videos: {}, scratchpads: {}, topics: {} };
     loadSlugs(localTopic, slugs, startPath);
 
     const contentNodes = nodes[content.code];

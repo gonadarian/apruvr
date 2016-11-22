@@ -24,9 +24,23 @@ function isVisibleVideo(node, visibility) {
     return isSubd || isDubd || isFrsh;
 }
 
+function isVisibleTopic(node, visibility) {
+    const totl = node.metadataWordCount;
+    const trns = node.metadataTranslatedWordCount;
+    const appr = node.metadataApprovedWordCount;
+
+    const isAppr = appr === totl && visibility.approved;
+    const isTrns = trns === totl && appr !== totl && visibility.translated;
+    const isFrsh = trns === 0 && visibility.fresh;
+    const isDoin = trns > 0 && trns < totl && visibility.doing;
+
+    return isTrns || isAppr || isFrsh || isDoin;
+}
+
 const STRATEGY = {
     crowdin:    isVisibleCrowdin,
     videos:     isVisibleVideo,
+    topics:     isVisibleTopic,
 };
 
 function visibleNodes(nodes, content, visibility) {

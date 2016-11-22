@@ -4,7 +4,7 @@ import {
     LanguagePicker,
     SignInButton,
     LoadingSpinner,
-    ContentKindButtons,
+    ContentKindPicker,
     VisibilityButtons,
     SelectedTopicList,
     FilteredContentList,
@@ -23,7 +23,7 @@ const LanguagePage = () =>
             <SignInButton />
             <LoadingSpinner />
             <Content>
-                <ContentKindButtons />
+                <ContentKindPicker />
                 <VisibilityButtons />
                 <ExporterButton />
                 <SelectedTopicList />

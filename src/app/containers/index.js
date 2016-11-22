@@ -1,6 +1,7 @@
 import AgentPicker from './AgentPicker';
 import Content from './Content';
 import ContentKindButtons from './ContentKindButtons';
+import ContentKindPicker from './ContentKindPicker';
 import ExporterButton from './ExporterButton';
 import FilteredContentList from './FilteredContentList';
 import LanguageButtons from './LanguageButtons';
@@ -15,6 +16,7 @@ export {
     AgentPicker,
     Content,
     ContentKindButtons,
+    ContentKindPicker,
     ExporterButton,
     FilteredContentList,
     LanguageButtons,

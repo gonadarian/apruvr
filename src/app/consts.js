@@ -3,6 +3,7 @@ export const CONTENTS = [
     { code: 'articles', name: 'Articles' },
     { code: 'videos', name: 'Videos' },
     { code: 'scratchpads', name: 'Scratchpads' },
+    { code: 'topics', name: 'Descriptions' },
 ];
 
 export const LANGUAGES = [
@@ -37,6 +38,7 @@ export const PICKS = {
     articles:       ['fresh', 'doing', 'translated', 'approved'],
     scratchpads:    ['fresh', 'doing', 'translated', 'approved'],
     videos:         ['fresh', 'subtitled', 'dubbed'],
+    topics:         ['fresh', 'doing', 'translated', 'approved'],
 };
 
 export const TYPES = {
@@ -44,6 +46,7 @@ export const TYPES = {
     articles:       'a',
     scratchpads:    'p',
     videos:         'v',
+    topics:         't',
 };
 
 export const TYPE_GROUPS = {
@@ -51,6 +54,7 @@ export const TYPE_GROUPS = {
     articles:       'crowdin',
     scratchpads:    'crowdin',
     videos:         'videos',
+    topics:         'topics',
 };
 
 export const NAMES = {
@@ -58,9 +62,11 @@ export const NAMES = {
     Article:    'articles',
     Video:      'videos',
     Scratchpad: 'scratchpads',
+    Topic:      'topic',
 };
 
 export const STATUSES = {
     crowdin:    ['translating', 'translated', 'revising', 'rejected', 'approved'],
     video:      ['captioning', 'captioned', 'revising', 'rejected', 'approved'],
+    topic:      ['translating', 'translated', 'revising', 'rejected', 'approved'],
 };
