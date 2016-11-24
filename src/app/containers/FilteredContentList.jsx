@@ -5,7 +5,7 @@ import size from 'lodash/size';
 import ApruvrTypes from '../types';
 import { getVisibleNodes } from '../selectors';
 import { fetchWorkflow } from '../actions';
-import { fireduxed } from '../hocs';
+import fireduxed from '../hocs';
 import { ContentList } from '../components';
 
 const FilteredContentList = ({ content, nodes, ...props }) =>

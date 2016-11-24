@@ -1,3 +1,5 @@
+/* @flow */
+
 export const CONTENTS = [
     { code: 'exercises', name: 'Exercises' },
     { code: 'articles', name: 'Articles' },
@@ -66,7 +68,14 @@ export const NAMES = {
 };
 
 export const STATUSES = {
-    crowdin:    ['translating', 'translated', 'revising', 'rejected', 'approved'],
-    video:      ['captioning', 'captioned', 'revising', 'rejected', 'approved'],
-    topic:      ['translating', 'translated', 'revising', 'rejected', 'approved'],
+    crowdin:    ['translating', 'translated', 'revising', 'rejected', 'revised', 'approved'],
+    video:      ['captioning', 'captioned', 'revising', 'rejected', 'revised', 'approved'],
+    topic:      ['translating', 'translated', 'revising', 'rejected', 'revised', 'approved'],
+};
+
+export const IMPORTANT_STATUSES = {
+    'translated':   true,
+    'captioned':    true,
+    'revised':      true,
+    'approved':     true,
 };

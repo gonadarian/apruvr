@@ -1,5 +1,4 @@
+/* @flow */
 import LanguagePage from './LanguagePage';
 
-export {
-    LanguagePage,
-};
+export default LanguagePage;

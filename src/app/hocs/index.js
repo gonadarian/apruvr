@@ -1,5 +1,3 @@
 import fireduxed from './fireduxed';
 
-export {
-    fireduxed,
-};
+export default fireduxed;

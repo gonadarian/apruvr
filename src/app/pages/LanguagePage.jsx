@@ -1,4 +1,6 @@
+/* @flow */
 import React from 'react';
+import type { Element } from 'react';
 import {
     Content,
     LanguagePicker,
@@ -12,7 +14,7 @@ import {
 } from '../containers';
 import styles from '../styles/main.less';
 
-const LanguagePage = () =>
+const LanguagePage = (): Element<*> =>
     <div>
         <div className={`jumbotron text-center ${styles.dark}`}>
             <h1>Khan Academy Apruvr</h1>

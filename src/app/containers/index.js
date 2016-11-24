@@ -1,3 +1,4 @@
+/* @flow */
 import AgentPicker from './AgentPicker';
 import Content from './Content';
 import ContentKindButtons from './ContentKindButtons';

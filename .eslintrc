@@ -5,6 +5,7 @@
         "react",
         "import",
         "flowtype",
+        "flowtype-errors",
     ],
     "ecmaFeatures": {
         "arrowFunctions": true,
@@ -257,5 +258,6 @@
         "flowtype/union-intersection-spacing": [2, "always"],
         "flowtype/use-flow-type": 1,
         "flowtype/valid-syntax": 1,
+        "flowtype-errors/show-errors": 2,
     }
 }

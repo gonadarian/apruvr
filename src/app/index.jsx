@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import firebase from 'firebase';
 import reducers from './reducers';
-import { LanguagePage } from './pages';
+import LanguagePage from './pages';
 import { userAuth, chooseLanguage, fetchUsers } from './actions';
 import type { UserType } from './flows';
 

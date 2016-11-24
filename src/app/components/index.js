@@ -1,3 +1,4 @@
+/* @flow */
 import Button from './Button';
 import ButtonChoice from './ButtonChoice';
 import ButtonGroup from './ButtonGroup';
