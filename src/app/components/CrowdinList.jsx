@@ -1,9 +1,18 @@
-import React, { PropTypes } from 'react';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
 import map from 'lodash/map';
 import { TYPES } from '../consts';
+import type { CrowdinNodeType, NodesType, ItemType } from '../flows';
 import CrowdinItem from './CrowdinItem';
 
-const CrowdinList = ({ type, nodes, ...other }) =>
+type PropsType = {
+    type: string,
+    nodes: NodesType,
+    language: ItemType,
+};
+
+const CrowdinList = ({ type, nodes, ...other }: PropsType): Element<*> =>
     <div>
         <table className="table">
             <thead>
@@ -18,20 +27,15 @@ const CrowdinList = ({ type, nodes, ...other }) =>
             <tbody>
                 {map(
                     nodes,
-                    (content, key) =>
+                    (node: CrowdinNodeType, slug: string): Element<*> =>
                         <CrowdinItem
                             {...other}
-                            key={key}
+                            key={slug}
                             code={TYPES[type]}
-                            content={content} />
+                            content={node} />
                 )}
             </tbody>
         </table>
     </div>;
-
-CrowdinList.propTypes = {
-    nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
-    type:       PropTypes.string.isRequired,
-};
 
 export default CrowdinList;

@@ -1,8 +1,16 @@
-import React, { PropTypes } from 'react';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
 import map from 'lodash/map';
+import type { VideoNodeType, NodesType, ItemType } from '../flows';
 import VideoItem from './VideoItem';
 
-const VideoList = ({ nodes, ...other }) =>
+type PropsType = {
+    nodes: NodesType,
+    language: ItemType,
+};
+
+const VideoList = ({ nodes, ...other }: PropsType): Element<*> =>
     <div>
         <table className="table">
             <thead>
@@ -17,18 +25,14 @@ const VideoList = ({ nodes, ...other }) =>
             <tbody>
                 {map(
                     nodes,
-                    (content, key) =>
+                    (node: VideoNodeType, slug: string): Element<*> =>
                         <VideoItem
                             {...other}
-                            key={key}
-                            content={content} />
+                            key={slug}
+                            content={node} />
                 )}
             </tbody>
         </table>
     </div>;
-
-VideoList.propTypes = {
-    nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
-};
 
 export default VideoList;

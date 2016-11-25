@@ -1,17 +1,24 @@
-import React, { PropTypes } from 'react';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
+import type { VideoNodeType, ItemType } from '../flows';
 import { STATUSES } from '../consts';
-import ApruvrTypes from '../types';
 import { StatusPicker } from '../containers';
 import { AgentPicker } from '../containers';
 
-const getRowClass = (subbed, dubbed) =>
+const getRowClass = (subbed: boolean, dubbed: boolean): string =>
     dubbed
         ? 'success'
         : subbed
             ? 'info'
             : 'danger';
 
-const VideoItem = ({ content: { slug, title, subbed, dubbed }, language }) =>
+type PropsType = {
+    content: VideoNodeType,
+    language: ItemType,
+};
+
+const VideoItem = ({ content: { slug, title, subbed, dubbed }, language }: PropsType): Element<*> =>
     <tr className={getRowClass(subbed, dubbed)}>
         <td>
             <a
@@ -59,15 +66,5 @@ const VideoItem = ({ content: { slug, title, subbed, dubbed }, language }) =>
             </a>
         </td>
     </tr>;
-
-VideoItem.propTypes = {
-    language:   ApruvrTypes.item.isRequired,
-    content:    PropTypes.shape({
-        slug:       PropTypes.string.isRequired,
-        title:      PropTypes.string.isRequired,
-        subbed:     PropTypes.bool.isRequired,
-        dubbed:     PropTypes.bool.isRequired,
-    }).isRequired,
-};
 
 export default VideoItem;

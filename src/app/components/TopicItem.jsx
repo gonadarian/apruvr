@@ -1,15 +1,23 @@
-import React, { PropTypes } from 'react';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
 import { sprintf } from 'sprintf-js';
+import type { TopicNodeType, ItemType } from '../flows';
 import { STATUSES } from '../consts';
-import ApruvrTypes from '../types';
 import { StatusPicker } from '../containers';
 import { AgentPicker } from '../containers';
+
+type PropsType = {
+    content: TopicNodeType,
+    language: ItemType,
+    code: string,
+};
 
 const TopicItem = ({
     content: { slug, title, metadataWordCount, metadataTranslatedWordCount, metadataApprovedWordCount },
     language,
     code,
-}) => {
+}: PropsType): Element<*> => {
 
     const trnsp = metadataWordCount === 0 ? 0 : metadataTranslatedWordCount / metadataWordCount * 100;
     const apprp = metadataWordCount === 0 ? 0 : metadataApprovedWordCount / metadataWordCount * 100;
@@ -62,18 +70,6 @@ const TopicItem = ({
             </td>
         </tr>
     );
-};
-
-TopicItem.propTypes = {
-    code:           PropTypes.string.isRequired,
-    language:       ApruvrTypes.item.isRequired,
-    content:        PropTypes.shape({
-        slug:                           PropTypes.string.isRequired,
-        title:                          PropTypes.string.isRequired,
-        metadataWordCount:              PropTypes.number.isRequired,
-        metadataTranslatedWordCount:    PropTypes.number.isRequired,
-        metadataApprovedWordCount:      PropTypes.number.isRequired,
-    }).isRequired,
 };
 
 export default TopicItem;

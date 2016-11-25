@@ -1,15 +1,23 @@
-import React, { PropTypes } from 'react';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
 import { sprintf } from 'sprintf-js';
+import type { CrowdinNodeType, ItemType } from '../flows';
 import { STATUSES } from '../consts';
-import ApruvrTypes from '../types';
 import { StatusPicker } from '../containers';
 import { AgentPicker } from '../containers';
+
+type PropsType = {
+    content: CrowdinNodeType,
+    language: ItemType,
+    code: string,
+};
 
 const CrowdinItem = ({
     content: { slug, title, wordCount, translatedWordCount, approvedWordCount },
     language,
     code,
-}) => {
+}: PropsType): Element<*> => {
 
     const trnsp = wordCount === 0 ? 0 : translatedWordCount / wordCount * 100;
     const apprp = wordCount === 0 ? 0 : approvedWordCount / wordCount * 100;
@@ -78,18 +86,6 @@ const CrowdinItem = ({
             </td>
         </tr>
     );
-};
-
-CrowdinItem.propTypes = {
-    code:           PropTypes.string.isRequired,
-    language:       ApruvrTypes.item.isRequired,
-    content:        PropTypes.shape({
-        slug:                   PropTypes.string.isRequired,
-        title:                  PropTypes.string.isRequired,
-        wordCount:              PropTypes.number.isRequired,
-        translatedWordCount:    PropTypes.number.isRequired,
-        approvedWordCount:      PropTypes.number.isRequired,
-    }).isRequired,
 };
 
 export default CrowdinItem;

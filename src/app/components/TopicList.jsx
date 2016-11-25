@@ -1,9 +1,18 @@
-import React, { PropTypes } from 'react';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
 import map from 'lodash/map';
+import type { TopicNodeType, NodesType, ItemType } from '../flows';
 import { TYPES } from '../consts';
 import TopicItem from './TopicItem';
 
-const TopicList = ({ type, nodes, ...other }) =>
+type PropsType = {
+    type: string,
+    nodes: NodesType,
+    language: ItemType,
+};
+
+const TopicList = ({ type, nodes, ...other }: PropsType): Element<*> =>
     <div>
         <table className="table">
             <thead>
@@ -17,20 +26,15 @@ const TopicList = ({ type, nodes, ...other }) =>
             <tbody>
                 {map(
                     nodes,
-                    (content, key) =>
+                    (node: TopicNodeType, slug: string): Element<*> =>
                         <TopicItem
                             {...other}
-                            key={key}
+                            key={slug}
                             code={TYPES[type]}
-                            content={content} />
+                            content={node} />
                 )}
             </tbody>
         </table>
     </div>;
-
-TopicList.propTypes = {
-    nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
-    type:       PropTypes.string.isRequired,
-};
 
 export default TopicList;
