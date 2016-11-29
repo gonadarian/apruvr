@@ -1,4 +1,4 @@
-import isNil from 'lodash/isNil';
+import { isNil } from 'lodash';
 import { CHANGE_LANGUAGE, FETCH_NODES } from '../actions/types';
 import handleReducers from './handler';
 

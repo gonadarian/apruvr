@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import pickBy from 'lodash/pickBy';
+import { pickBy } from 'lodash';
 import { TYPE_GROUPS } from '../consts';
 import filteredNodesSelector from './filteredNodesSelector';
 

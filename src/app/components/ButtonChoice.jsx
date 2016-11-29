@@ -1,15 +1,14 @@
 /* @flow */
 import React from 'react';
 import type { Element } from 'react';
-import map from 'lodash/map';
-import pick from 'lodash/pick';
+import { map, pick } from 'lodash';
 import Button from './Button';
 
 type PropsType = {
     choices: {[id: string]: boolean},
     used: string[],
     names: {[id: string]: string},
-    onChoose: () => void,
+    onChoose: (key: string) => void,
 };
 
 const ButtonChoice = ({ choices, used, names, onChoose }: PropsType): Element<*> =>

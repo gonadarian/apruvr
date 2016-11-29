@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import map from 'lodash/map';
-import reduce from 'lodash/reduce';
+import { map, reduce } from 'lodash';
 import ApruvrTypes from '../types';
 import { TYPE_GROUPS } from '../consts';
 import { getVisibleNodes } from '../selectors';
@@ -12,7 +11,7 @@ const getStatus = (slug, workflow) =>
         : 'x';
 
 const getAgent = (slug, workflow, users) =>
-    workflow && users && slug in workflow
+    workflow && users && slug in workflow && 'uid' in [workflow[slug]]
         ? users[workflow[slug].uid].displayName
         : 'x';
 

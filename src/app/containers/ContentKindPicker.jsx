@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import map from 'lodash/map';
-import reduce from 'lodash/reduce';
-import find from 'lodash/find';
+import { map, reduce, find } from 'lodash';
 import { CONTENTS } from '../consts';
 import ApruvrTypes from '../types';
 import { filterContentKind } from '../actions';

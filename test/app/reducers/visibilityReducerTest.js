@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { reduce } from 'lodash';
 import { expect } from '../../helper';
 import { FILTER_VISIBIITY } from '../../../src/app/actions/types';
 import visibilityReducer from '../../../src/app/reducers/visibilityReducer';
@@ -7,7 +7,7 @@ describe('Topic Reducer', () => {
     it('handles action with unknown type', () => {
         // eslint-disable-next-line no-undefined
         expect(visibilityReducer(undefined, {})).to.satisfy(
-            (state) => _.reduce(state, (result, value) => result && value, true)
+            (state) => reduce(state, (result, value) => result && value, true)
         );
     });
 

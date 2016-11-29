@@ -1,8 +1,5 @@
 import { createSelector } from 'reselect';
-import forIn from 'lodash/forIn';
-import reduce from 'lodash/reduce';
-import forEach from 'lodash/forEach';
-import transform from 'lodash/transform';
+import { forIn, reduce, forEach, transform } from 'lodash';
 import { NAMES } from '../consts';
 import topicTreeSelector from './topicTreeSelector';
 

@@ -1,4 +1,4 @@
-import mapValues from 'lodash/mapValues';
+import { mapValues } from 'lodash';
 import { FILTER_VISIBIITY } from '../actions/types';
 import handleReducers from './handler';
 

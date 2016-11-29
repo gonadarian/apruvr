@@ -1,9 +1,5 @@
 import { createSelector } from 'reselect';
-import size from 'lodash/size';
-import forIn from 'lodash/forIn';
-import filter from 'lodash/filter';
-import isEmpty from 'lodash/isEmpty';
-import forEach from 'lodash/forEach';
+import { size, forIn, filter, isEmpty, forEach } from 'lodash';
 
 function handleTopicList(topicList, topic) {
     if (size(topicList) === 0) {
