@@ -1,20 +1,22 @@
-import React, { PropTypes } from 'react';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
 import { connect } from 'react-redux';
 import Spinner from 'react-spinkit';
 
-const LoadingSpinner = ({ loading }) =>
+interface PropsType {
+    loading: boolean,
+}
+
+const LoadingSpinner = ({ loading }: PropsType): Element<*> | false =>
     loading &&
         <div className="col-xs-12">
             <h2>Loading</h2>
             <Spinner spinnerName="three-bounce" />
         </div>;
 
-LoadingSpinner.propTypes = {
-    loading:    PropTypes.bool.isRequired,
-};
-
 export default connect(
-    (state) => ({
+    (state: Store): PropsType => ({
         loading: state.loading,
     })
 )(LoadingSpinner);

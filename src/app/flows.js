@@ -1,10 +1,17 @@
 /* @flow */
+
+declare module 'less' {
+    declare var exports: { [key: string]: string };
+}
+
 export type UserType = {
     uid: string,
     displayName: string,
     email: string,
     photoURL: string,
 };
+
+export type UserMapType = {[uid: string]: UserType};
 
 export type ItemType = {
     code: string,
@@ -17,6 +24,8 @@ class NodeType {
     slug: string;
     title: string;
 }
+
+export type NodeMapType = {[slug: string]: NodeType};
 
 export class VideoNodeType extends NodeType {
     subbed: boolean;
@@ -35,6 +44,9 @@ export class TopicNodeType extends NodeType {
     metadataApprovedWordCount: number;
 }
 
-export type NodesType = {
-    [slug: string]: NodeType,
+export type WorkflowType = {
+    uid?: string,
+    status?: string,
 };
+
+export type WorkflowMapType = {[slug: string]: WorkflowType};

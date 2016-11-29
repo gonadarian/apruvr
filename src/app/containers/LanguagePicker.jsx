@@ -1,25 +1,35 @@
-import React, { PropTypes } from 'react';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import map from 'lodash/map';
-import reduce from 'lodash/reduce';
-import find from 'lodash/find';
+import { map, reduce, find } from 'lodash';
 import { LANGUAGES } from '../consts';
-import ApruvrTypes from '../types';
+import type { LanguageType } from '../consts';
 import { chooseLanguage } from '../actions';
 import { Picker } from '../components';
 
-const getNameMap = () =>
+type NameMapType = {[code: string]: string};
+
+const getNameMap = (): NameMapType =>
     reduce(
         LANGUAGES,
-        (memo, { code, name, note }) => {
+        (memo: NameMapType, { code, name, note }: LanguageType): NameMapType => {
             memo[code] = name + (note ? ` (${note})` : '');
             return memo;
         },
         {}
     );
 
-const LanguagePicker = ({ language, onChoose }) =>
+interface StatePropsType {
+    language: LanguageType,
+}
+
+interface PropsType extends StatePropsType {
+    onChoose: (language: ?LanguageType) => void,
+}
+
+const LanguagePicker = ({ language, onChoose }: PropsType): Element<*> =>
     <div className="col-xs-2">
         <h2>Language</h2>
         <Picker
@@ -27,21 +37,19 @@ const LanguagePicker = ({ language, onChoose }) =>
             states={[...map(LANGUAGES, 'code'), null]}
             current={language ? language.code : null}
             nameMap={getNameMap()}
-            onChoose={(code) => onChoose(
-                find(LANGUAGES, (item) => item.code === code)
+            onChoose={(code: ?string): void => onChoose(
+                find(
+                    LANGUAGES,
+                    (item: LanguageType): boolean => item.code === code
+                )
             )} />
     </div>;
 
-LanguagePicker.propTypes = {
-    language:   ApruvrTypes.item,
-    onChoose:   PropTypes.func.isRequired,
-};
-
 export default connect(
-    (state) => ({
+    (state: Store): StatePropsType => ({
         language:   state.language,
     }),
-    (dispatch) => bindActionCreators({
+    (dispatch: Dispatch): void => bindActionCreators({
         onChoose:   chooseLanguage,
     }, dispatch)
 )(LanguagePicker);

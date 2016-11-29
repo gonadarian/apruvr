@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { IMPORTANT_STATUSES } from '../consts';
 import {
     FIREBASE_WORKFLOW,
     FIREBASE_AUTH,
@@ -54,22 +55,46 @@ export const userAuth = (user) => (dispatch) => {
 };
 
 export const setWorkflowStatus = (slug, status) => (dispatch, getState) => {
+    const db = firebase.database();
     const { language, user: { uid } } = getState();
-    const value = { status, uid };
-    firebase.database().ref(`status/${language.code}/${slug}`).set(value);
+
+    // save current status and agent
+    let value = { uid, status };
+    // if current status is important, keep it with the agent that made it
+    if (status in IMPORTANT_STATUSES) {
+        value = { ...value, [status]: uid };
+    }
+    db.ref(`status/${language.code}/${slug}`).update(value);
+
+    // keep history of all changes, just in case
+    const history = {
+        uid,
+        status,
+        time: firebase.database.ServerValue.TIMESTAMP,
+    };
+    db.ref(`history/${language.code}/${slug}`).push(history);
 };
 
 export const setWorkflowAgent = (slug, uid) => (dispatch, getState) => {
+    const db = firebase.database();
     const { language } = getState();
-    firebase.database().ref(`status/${language.code}/${slug}/uid`).set(uid);
+
+    // save change to the agent, something only advocate is allowed to do
+    db.ref(`status/${language.code}/${slug}`).update({ uid });
+
+    // keep this change in history, too
+    const history = {
+        uid,
+        time: firebase.database.ServerValue.TIMESTAMP,
+    };
+    db.ref(`history/${language.code}/${slug}`).push(history);
 };
 
 /**
  * Initializes authentication workflow. User can sing in using Google account.
  * Returns no action, as Firebase has a listener for authentication state
  * change.
- * @param  {Object} firebase central object used for Firebase auth service.
- * @return {undefined}
+ * @return {void}
  */
 export const userSignIn = () => () => {
     firebase.auth().signInWithPopup(
@@ -80,8 +105,7 @@ export const userSignIn = () => () => {
 /**
  * Signs out the user. Returns no action, as Firebase has a listener for
  * authentication state change.
- * @param  {Object} firebase central object used for Firebase auth service.
- * @return {undefined}
+ * @return {void}
  */
 export const userSignOut = () => () => {
     firebase.auth().signOut();

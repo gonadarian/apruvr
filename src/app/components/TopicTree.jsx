@@ -1,28 +1,50 @@
-import React, { PropTypes } from 'react';
-import map from 'lodash/map';
-import size from 'lodash/size';
-import ApruvrTypes from '../types';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
+import { map, size } from 'lodash';
 import styles from '../styles/main.less';
 
-const TopicTree = ({ tree, ...other }) =>
+type TopicType = {
+    slug: string,
+    title: string,
+    topics: {[id: string]: TopicType},
+};
+
+type TreePropsType = {
+    tree: {root: TopicType},
+    selected: string,
+    onChoose: (path: string) => void,
+};
+
+const TopicTree = ({ tree, ...other }: TreePropsType): Element<*> =>
     <TopicList
         {...other}
         path="root"
         level={1}
         topics={tree.root.topics} />;
 
-const TopicList = ({ topics, path, ...other }) =>
+type ListPropsType = {
+    topics: {[id: string]: TopicType},
+    path: string,
+    selected: string,
+    level: number,
+    onChoose: (path: string) => void,
+};
+
+const TopicList = ({ topics, path, ...other }: ListPropsType): Element<*> =>
     <div className="btn-group-vertical btn-group-justified">
-        {map(topics, (topic, key) =>
-            <TopicItem
-                {...other}
-                key={key}
-                topic={topic}
-                path={path + '.' + topic.slug} />
+        {map(
+            topics,
+            (topic: TopicType, key: string): Element<*> =>
+                <TopicItem
+                    {...other}
+                    key={key}
+                    topic={topic}
+                    path={path + '.' + topic.slug} />
         )}
     </div>;
 
-function getItemClass(selected, path) {
+function getItemClass(selected: string, path: string): string {
     const className = selected === path
         ? 'btn-primary'
         : selected.startsWith(path)
@@ -33,12 +55,20 @@ function getItemClass(selected, path) {
     return style;
 }
 
-const TopicItem = ({ topic, path, selected, level, onChoose }) =>
+type ItemPropsType = {
+    topic: TopicType,
+    path: string,
+    selected: string,
+    level: number,
+    onChoose: (path: string) => void,
+};
+
+const TopicItem = ({ topic, path, selected, level, onChoose }: ItemPropsType): Element<*> =>
     <div>
         <div
             className={getItemClass(selected, path)}
             style={{ textAlign: 'left', paddingLeft: (level * 20) + 'px' }}
-            onClick={(event) => {
+            onClick={(event: Event) => {
                 event.stopPropagation();
                 onChoose(path);
             }}>
@@ -54,24 +84,5 @@ const TopicItem = ({ topic, path, selected, level, onChoose }) =>
                 onChoose={onChoose}/>
         }
     </div>;
-
-TopicTree.propTypes = {
-    tree:       ApruvrTypes.topic.isRequired,
-    selected:   PropTypes.string.isRequired,
-    onChoose:   PropTypes.func.isRequired,
-};
-
-TopicList.propTypes = {
-    topics:     ApruvrTypes.topics.isRequired,
-    path:       PropTypes.string.isRequired,
-};
-
-TopicItem.propTypes = {
-    topic:      ApruvrTypes.topic.isRequired,
-    path:       PropTypes.string.isRequired,
-    selected:   PropTypes.string.isRequired,
-    level:      PropTypes.number.isRequired,
-    onChoose:   PropTypes.func.isRequired,
-};
 
 export default TopicTree;

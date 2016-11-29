@@ -1,57 +1,68 @@
-import React, { PropTypes } from 'react';
+/* @flow */
+import React from 'react';
+import type { Element } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import reduce from 'lodash/reduce';
+import { reduce } from 'lodash';
+import type { UserType, UserMapType, WorkflowType, WorkflowMapType } from '../flows';
 import { setWorkflowAgent } from '../actions';
 import { Picker } from '../components';
 
-const getNameMap = (users) =>
+type NameMapType = {[uid: string]: string};
+
+const getNameMap = (users: UserMapType): NameMapType =>
     reduce(
         users,
-        (memo, user, uid) => {
+        (memo: NameMapType, user: UserType, uid: string): NameMapType => {
             memo[uid] = user.displayName;
             return memo;
         },
         {}
     );
 
-const getUIDs = (workflow) =>
+const getUIDs = (workflows: WorkflowMapType): string[] =>
     reduce(
-        workflow,
-        (memo, content) => {
-            if ('uid' in content && !memo.includes(content.uid)) {
-                memo.push(content.uid);
+        workflows,
+        (memo: string[], { uid }: WorkflowType): string[] => {
+            if (uid && !memo.includes(uid)) {
+                memo.push(uid);
             }
             return memo;
         },
         []
     );
 
-const AgentPicker = ({ slug, workflow, users, roles, onChoose }) =>
+interface OwnPropsType {
+    slug: string,
+}
+
+interface StatePropsType extends OwnPropsType {
+    workflow: WorkflowMapType,
+    users: UserMapType,
+    roles: string[],
+}
+
+interface PropsType extends StatePropsType {
+    onChoose: (uid: ?string) => void,
+}
+
+const AgentPicker = ({ slug, workflow, users, roles, onChoose }: PropsType): Element<*> | false =>
     workflow !== null && slug in workflow &&
         <Picker
             states={[...getUIDs(workflow), null]}
             current={workflow[slug].uid}
             pickable={roles === 'advocate'}
             nameMap={getNameMap(users)}
-            onChoose={(uid) => onChoose(slug, uid)} />;
-
-AgentPicker.propTypes = {
-    slug:       PropTypes.string.isRequired,
-    workflow:   PropTypes.object,
-    users:      PropTypes.object,
-    roles:      PropTypes.string,
-    onChoose:   PropTypes.func.isRequired,
-};
+            onChoose={(uid: ?string): void => onChoose(slug, uid)} />;
 
 export default connect(
-    (state, props) => ({
+    (state: Store, props: OwnPropsType): StatePropsType => ({
         slug:       props.slug,
         workflow:   state.workflow,
         users:      state.users,
         roles:      state.roles,
     }),
-    (dispatch) => bindActionCreators({
+    (dispatch: Dispatch): void => bindActionCreators({
         onChoose: setWorkflowAgent,
     }, dispatch)
 )(AgentPicker);
