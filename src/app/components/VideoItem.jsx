@@ -37,7 +37,7 @@ const VideoItem = ({ content: { slug, title, subbed, dubbed }, language }: Props
         <td>
             <StatusPicker
                 slug={slug}
-                statuses={STATUSES.video} />
+                statuses={STATUSES.videos} />
         </td>
 
         <td>

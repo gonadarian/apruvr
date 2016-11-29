@@ -53,7 +53,7 @@ const TopicItem = ({
             <td>
                 <StatusPicker
                     slug={slug}
-                    statuses={STATUSES.crowdin} />
+                    statuses={STATUSES.topics} />
             </td>
 
             <td>
