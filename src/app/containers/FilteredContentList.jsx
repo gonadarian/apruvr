@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import size from 'lodash/size';
+import { size } from 'lodash';
 import ApruvrTypes from '../types';
 import { getVisibleNodes } from '../selectors';
 import { fetchWorkflow } from '../actions';
