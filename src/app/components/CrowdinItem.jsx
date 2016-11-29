@@ -31,7 +31,7 @@ const CrowdinItem = ({
                 : 'danger';
 
     // Crowdin uses different language codes then Khan Academy
-    const crowdin = language.crowdin ? language.crowdin : language.code;
+    const crowdin = language.crowdin || language.code;
 
     return (
         <tr className={className}>
@@ -60,8 +60,7 @@ const CrowdinItem = ({
             </td>
 
             <td>
-                <a
-                    className="btn btn-default"
+                <a className="btn btn-default"
                     href={`https://translate.khanacademy.org/${code}/${slug}`}
                     target="_blank">
                         go
@@ -73,8 +72,7 @@ const CrowdinItem = ({
             </td>
 
             <td>
-                <a
-                    className="btn btn-default"
+                <a className="btn btn-default"
                     href={`https://crowdin.com/proofread/khanacademy/all/enus-${crowdin}#q=/${slug}`}
                     target="_blank">
                         go
