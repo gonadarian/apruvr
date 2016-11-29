@@ -1,14 +1,14 @@
 /* @flow */
 import React from 'react';
 import type { Element } from 'react';
-import map from 'lodash/map';
-import type { TopicNodeType, NodesType, ItemType } from '../flows';
+import { map } from 'lodash';
+import type { TopicNodeType, NodeMapType, ItemType } from '../flows';
 import { TYPES } from '../consts';
 import TopicItem from './TopicItem';
 
 type PropsType = {
     type: string,
-    nodes: NodesType,
+    nodes: NodeMapType,
     language: ItemType,
 };
 

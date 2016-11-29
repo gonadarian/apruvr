@@ -1,12 +1,12 @@
 /* @flow */
 import React from 'react';
 import type { Element } from 'react';
-import map from 'lodash/map';
-import type { VideoNodeType, NodesType, ItemType } from '../flows';
+import { map } from 'lodash';
+import type { VideoNodeType, NodeMapType, ItemType } from '../flows';
 import VideoItem from './VideoItem';
 
 type PropsType = {
-    nodes: NodesType,
+    nodes: NodeMapType,
     language: ItemType,
 };
 

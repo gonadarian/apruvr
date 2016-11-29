@@ -1,14 +1,14 @@
 /* @flow */
 import React from 'react';
 import type { Element } from 'react';
-import map from 'lodash/map';
+import { map } from 'lodash';
 import { TYPES } from '../consts';
-import type { CrowdinNodeType, NodesType, ItemType } from '../flows';
+import type { CrowdinNodeType, NodeMapType, ItemType } from '../flows';
 import CrowdinItem from './CrowdinItem';
 
 type PropsType = {
     type: string,
-    nodes: NodesType,
+    nodes: NodeMapType,
     language: ItemType,
 };
 
