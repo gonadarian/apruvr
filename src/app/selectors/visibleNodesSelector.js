@@ -37,14 +37,14 @@ function isVisibleTopic(node, visibility) {
     return isTrns || isAppr || isFrsh || isDoin;
 }
 
-const STRATEGY = {
+const VISIBILITIES = {
     crowdin:    isVisibleCrowdin,
     videos:     isVisibleVideo,
     topics:     isVisibleTopic,
 };
 
 function visibleNodes(nodes, content, visibility) {
-    const isVisible = STRATEGY[TYPE_GROUPS[content.code]];
+    const isVisible = VISIBILITIES[TYPE_GROUPS[content.code]];
     const filtered = pickBy(
         nodes,
         (node) => isVisible(node, visibility)
