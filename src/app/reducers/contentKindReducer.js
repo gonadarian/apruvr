@@ -1,11 +1,20 @@
-import { FILTER_CONTENT_KIND } from '../actions/types';
-import { CONTENTS } from '../consts';
+import { isEqual } from 'lodash';
+import { ROUTE_CHANGE } from '../actions/types';
+import { contentKindLookup } from '../consts';
 import handleReducers from './handler';
 
+const INITIAL_VALUE = contentKindLookup('exercises');
+
 const handlers = {
-    // content kind filter has been selected
-    [FILTER_CONTENT_KIND]: (state, action) => action.payload,
+    [ROUTE_CHANGE]: (state, { payload }) => {
+        if ('kind' in payload) {
+            // content kind filter has been selected
+            const contentKind = contentKindLookup(payload.kind);
+            return isEqual(state, contentKind) ? state : (contentKind || INITIAL_VALUE);
+        }
+        return state;
+    },
 };
 
-export default (state = CONTENTS[0], action) =>
+export default (state = INITIAL_VALUE, action) =>
     handleReducers(handlers, state, action);

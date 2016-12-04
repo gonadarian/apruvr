@@ -1,3 +1,7 @@
 import fireduxed from './fireduxed';
+import initialize from './initialize';
 
-export default fireduxed;
+export {
+    fireduxed,
+    initialize,
+};

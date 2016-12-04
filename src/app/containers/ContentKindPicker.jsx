@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { map, reduce, find } from 'lodash';
-import { CONTENTS } from '../consts';
+import { map, reduce } from 'lodash';
+import { CONTENTS, contentKindLookup } from '../consts';
 import ApruvrTypes from '../types';
-import { filterContentKind } from '../actions';
+import { chooseContent } from '../actions';
 import { Picker } from '../components';
 
 const getNameMap = () =>
@@ -22,12 +22,10 @@ const ContentKindPicker = ({ content, onChoose }) =>
         <h2>Content</h2>
         <Picker
             pickable
-            states={[...map(CONTENTS, 'code'), null]}
+            states={map(CONTENTS, 'code')}
             current={content ? content.code : null}
             nameMap={getNameMap()}
-            onChoose={(code) => onChoose(
-                find(CONTENTS, (item) => item.code === code)
-            )} />
+            onChoose={(code) => onChoose(contentKindLookup(code))} />
     </div>;
 
 ContentKindPicker.propTypes = {
@@ -40,6 +38,6 @@ export default connect(
         content:    state.content,
     }),
     (dispatch) => bindActionCreators({
-        onChoose:   filterContentKind,
+        onChoose:   chooseContent,
     }, dispatch)
 )(ContentKindPicker);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { filterTopic } from '../actions';
+import { chooseTopic } from '../actions';
 import { getTopicTree } from '../selectors';
 import { TopicTree } from '../components';
 
@@ -18,6 +18,6 @@ export default connect(
         selected:   state.topic,
     }),
     (dispatch) => bindActionCreators({
-        onChoose:   filterTopic,
+        onChoose:   chooseTopic,
     }, dispatch)
 )(SelectedTopicList);

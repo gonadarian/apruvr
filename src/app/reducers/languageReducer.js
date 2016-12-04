@@ -1,10 +1,20 @@
-import { CHANGE_LANGUAGE } from '../actions/types';
+import { isEqual } from 'lodash';
+import { languageLookup } from '../consts';
+import { ROUTE_CHANGE } from '../actions/types';
 import handleReducers from './handler';
 
+const INITIAL_VALUE = null;
+
 const handlers = {
-    // language has been chosen
-    [CHANGE_LANGUAGE]: (state, action) => action.payload || null,
+    [ROUTE_CHANGE]: (state, { payload }) => {
+        if ('lang' in payload) {
+            // language has been chosen or cleared
+            const language = languageLookup(payload.lang);
+            return isEqual(state, language) ? state : (language || INITIAL_VALUE);
+        }
+        return state;
+    },
 };
 
-export default (state = null, action) =>
+export default (state = INITIAL_VALUE, action) =>
     handleReducers(handlers, state, action);

@@ -12,7 +12,8 @@ const config = Object.assign(
             }
         ),
         devServer:  {
-            contentBase: './src/',
+            contentBase:        './src/',
+            historyApiFallback: true,
         },
     }
 );

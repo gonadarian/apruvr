@@ -1,37 +1,26 @@
-/* @flow */
 import React from 'react';
 import type { Element } from 'react';
+import { connect } from 'react-redux';
 import {
-    Content,
-    LanguagePicker,
-    SignInButton,
-    LoadingSpinner,
     ContentKindPicker,
     VisibilityButtons,
     SelectedTopicList,
     FilteredContentList,
     ExporterButton,
 } from '../containers';
-import styles from '../styles/main.less';
 
-const LanguagePage = (): Element<*> =>
-    <div>
-        <div className={`jumbotron text-center ${styles.dark}`}>
-            <h1>Khan Academy Apruvr</h1>
-            <h3>Approval workflow for Khan Academy translations</h3>
-        </div>
-        <div className="container-fluid">
-            <LanguagePicker />
-            <SignInButton />
-            <LoadingSpinner />
-            <Content>
-                <ContentKindPicker />
-                <VisibilityButtons />
-                <ExporterButton />
-                <SelectedTopicList />
-                <FilteredContentList />
-            </Content>
-        </div>
-    </div>;
+const LanguagePage = ({ visible }): Element<*> =>
+    visible &&
+        <div>
+            <ContentKindPicker />
+            <VisibilityButtons />
+            <ExporterButton />
+            <SelectedTopicList />
+            <FilteredContentList />
+        </div>;
 
-export default LanguagePage;
+export default connect(
+    (state) => ({
+        visible:    state.nodes !== null,
+    })
+)(LanguagePage);

@@ -2,7 +2,7 @@ import { mapValues } from 'lodash';
 import { FILTER_VISIBIITY } from '../actions/types';
 import handleReducers from './handler';
 
-const INITIAL_VISIBILITY = {
+const INITIAL_VALUE = {
     fresh:      true,
     doing:      true,
     translated: true,
@@ -13,13 +13,13 @@ const INITIAL_VISIBILITY = {
 
 const handlers = {
     // one of the visiblity filters has been switched
-    [FILTER_VISIBIITY]: (state, action) =>
+    [FILTER_VISIBIITY]: (state, { payload }) =>
         mapValues(
             state,
             (visible, key) =>
-                key === action.payload ? !visible : visible
+                key === payload ? !visible : visible
         ),
 };
 
-export default (state = INITIAL_VISIBILITY, action) =>
+export default (state = INITIAL_VALUE, action) =>
     handleReducers(handlers, state, action);

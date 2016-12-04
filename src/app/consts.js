@@ -1,4 +1,5 @@
 /* @flow */
+import { find } from 'lodash';
 
 export type LanguageType = {
     code: string,
@@ -25,15 +26,10 @@ export const LANGUAGES: Array<LanguageType> = [
     { code: 'tr', name: 'Turkish' },
 ];
 
-export const TYPES: {[contentKind: string]: string} = {
-    exercises:      'e',
-    articles:       'a',
-    scratchpads:    'p',
-    videos:         'v',
-    topics:         't',
-};
-
-export type ContentKindType = $Keys<typeof TYPES>;
+export const languageLookup = (langCode: string): ?LanguageType =>
+    langCode
+        ? find(LANGUAGES, ({ code }: LanguageType): boolean => code === langCode)
+        : null;
 
 export type StatusType =
     'translating' | 'translated' | 'captioning' | 'captioned' |
@@ -65,7 +61,17 @@ export const VISIBILITIES = {
 
 export type VisibilityType = $Keys<typeof VISIBILITIES>;
 
-export const PICKS: {[contentKind: ContentKindType]: VisibilityType[]} = {
+export const TYPES: {[contentKind: string]: string} = {
+    exercises:      'e',
+    articles:       'a',
+    scratchpads:    'p',
+    videos:         'v',
+    topics:         't',
+};
+
+export type ContentCodeType = $Keys<typeof TYPES>;
+
+export const PICKS: {[contentKind: ContentCodeType]: VisibilityType[]} = {
     exercises:      ['fresh', 'doing', 'translated', 'approved'],
     articles:       ['fresh', 'doing', 'translated', 'approved'],
     scratchpads:    ['fresh', 'doing', 'translated', 'approved'],
@@ -73,7 +79,7 @@ export const PICKS: {[contentKind: ContentKindType]: VisibilityType[]} = {
     topics:         ['fresh', 'doing', 'translated', 'approved'],
 };
 
-export const TYPE_GROUPS: {[contentKind: ContentKindType]: ContentGroupType} = {
+export const TYPE_GROUPS: {[contentKind: ContentCodeType]: ContentGroupType} = {
     exercises:      'crowdin',
     articles:       'crowdin',
     scratchpads:    'crowdin',
@@ -81,7 +87,7 @@ export const TYPE_GROUPS: {[contentKind: ContentKindType]: ContentGroupType} = {
     topics:         'topics',
 };
 
-export const NAMES: {[contentKindName: string]: ContentKindType} = {
+export const NAMES: {[contentKindName: string]: ContentCodeType} = {
     Exercise:   'exercises',
     Article:    'articles',
     Video:      'videos',
@@ -91,10 +97,20 @@ export const NAMES: {[contentKindName: string]: ContentKindType} = {
 
 export type ContentNameType = $Keys<typeof NAMES>;
 
-export const CONTENTS: Array<{ code: ContentKindType, name: ContentNameType}> = [
+export type ContentKindType = {
+    code: ContentCodeType,
+    name: ContentNameType,
+};
+
+export const CONTENTS: Array<ContentKindType> = [
     { code: 'exercises', name: 'Exercises' },
     { code: 'articles', name: 'Articles' },
     { code: 'videos', name: 'Videos' },
     { code: 'scratchpads', name: 'Scratchpads' },
     { code: 'topics', name: 'Descriptions' },
 ];
+
+export const contentKindLookup = (kindCode: ContentCodeType): ?ContentKindType =>
+    kindCode
+        ? find(CONTENTS, ({ code }: ContentKindType): boolean => code === kindCode)
+        : null;

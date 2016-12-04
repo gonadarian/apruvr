@@ -1,10 +1,17 @@
-import { FILTER_TOPIC } from '../actions/types';
+import { ROUTE_CHANGE } from '../actions/types';
 import handleReducers from './handler';
 
+const INITIAL_VALUE = 'root.math';
+
 const handlers = {
-    // topic has been chosen
-    [FILTER_TOPIC]: (state, action) => action.payload,
+    [ROUTE_CHANGE]: (state, { payload }) => {
+        if ('topic' in payload) {
+            // topic has been chosen or cleared
+            return state === payload.topic ? state : (payload.topic || INITIAL_VALUE);
+        }
+        return state;
+    },
 };
 
-export default (state = 'root.math', action) =>
+export default (state = INITIAL_VALUE, action) =>
     handleReducers(handlers, state, action);

@@ -3,7 +3,7 @@ import handleReducers from './handler';
 
 const handlers = {
     // workflow information has been fetched
-    [FIREBASE_WORKFLOW]: (state, action) => action.payload.val(),
+    [FIREBASE_WORKFLOW]: (state, { payload }) => payload.val(),
 };
 
 export default (state = null, action) =>
