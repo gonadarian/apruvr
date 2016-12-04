@@ -13,7 +13,9 @@ const config = Object.assign(
         ),
         devServer:  {
             contentBase:        './src/',
-            historyApiFallback: true,
+            historyApiFallback: {
+                disableDotRule: true,
+            },
         },
     }
 );
