@@ -5,7 +5,7 @@ import { size } from 'lodash';
 import ApruvrTypes from '../types';
 import { getVisibleNodes } from '../selectors';
 import { fetchWorkflow } from '../actions';
-import { fireduxed } from '../hocs';
+import { firedux } from '../hocs';
 import { ContentList } from '../components';
 
 const FilteredContentList = ({ content, nodes, ...props }) =>
@@ -38,6 +38,6 @@ export default connect(
     (dispatch) => bindActionCreators({
         onFire: fetchWorkflow,
     }, dispatch)
-)(fireduxed(
+)(firedux(
     ({ language }) => `status/${language.code}`
 )(FilteredContentList));

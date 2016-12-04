@@ -1,7 +1,7 @@
-import fireduxed from './fireduxed';
+import firedux from './firedux';
 import initialize from './initialize';
 
 export {
-    fireduxed,
+    firedux,
     initialize,
 };

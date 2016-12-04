@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import firebase from 'firebase';
 
-const fireduxed = (calcPath) => (WrappedComponent) =>
-    class FireduxedHOC extends Component {
+const firedux = (calcPath) => (WrappedComponent) =>
+    class FireduxHOC extends Component {
         static propTypes = {
             onFire: PropTypes.func.isRequired,
         }
@@ -22,4 +22,4 @@ const fireduxed = (calcPath) => (WrappedComponent) =>
         }
     };
 
-export default fireduxed;
+export default firedux;
