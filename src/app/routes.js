@@ -1,10 +1,17 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
-import { pickBy, transform } from 'lodash';
+import { pickBy, transform, isEmpty } from 'lodash';
 import { routeChange, fetchNodes } from './actions';
 import { ApruvrPage, LanguagePage } from './pages';
 import { languageLookup } from './consts';
 import { initialize } from './hocs';
+
+const handleAppEnter = ({ dispatch }) => ({ params }) => {
+    // save to state initial path params before components are loaded
+    if (!isEmpty(params)) {
+        dispatch(routeChange(params));
+    }
+};
 
 const handleAppChange = ({ dispatch }) => (prevState, nextState) => {
     // ignore unchanged parameters
@@ -24,18 +31,21 @@ const handleAppChange = ({ dispatch }) => (prevState, nextState) => {
     );
     // and merge them before sending
     const params = { ...newAndChangedParams, ...removedParams };
-    dispatch(routeChange(params));
+    if (!isEmpty(params)) {
+        dispatch(routeChange(params));
+    }
 };
 
 const handleLanguageEnter = ({ dispatch }) => (nextState) => {
     const language = languageLookup(nextState.params.lang);
-    // load language data from KA
+    // load language translation data
     dispatch(fetchNodes(language));
 };
 
 const routes = (store) =>
 	<Route path="/"
         component={initialize(store)(ApruvrPage)}
+        onEnter={handleAppEnter(store)}
         onChange={handleAppChange(store)}>
         <Redirect from=":lang" to=":lang/exercises/root.math)" />
         <Redirect from=":lang/:kind" to=":lang/:kind/root.math)" />
