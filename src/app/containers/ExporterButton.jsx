@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { map, reduce } from 'lodash';
 import ApruvrTypes from '../types';
-import { TYPE_GROUPS } from '../consts';
+import { CONTENT_GROUPS } from '../consts';
 import { getVisibleNodes } from '../selectors';
 
 const getStatus = (slug, workflow) =>
@@ -72,8 +72,8 @@ const COLUMNS = {
 };
 
 const generateExport = (code, nodes, workflow, users) => {
-    const exporter = EXPORTERS[TYPE_GROUPS[code]];
-    const columns = COLUMNS[TYPE_GROUPS[code]];
+    const exporter = EXPORTERS[CONTENT_GROUPS[code]];
+    const columns = COLUMNS[CONTENT_GROUPS[code]];
     const encoded = encodeURIComponent(
         reduce(
             map(

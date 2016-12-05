@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Element } from 'react';
 import { map } from 'lodash';
-import { TYPES } from '../consts';
+import { CONTENT_LETTERS } from '../consts';
 import type { CrowdinNodeType, NodeMapType, ItemType } from '../flows';
 import CrowdinItem from './CrowdinItem';
 
@@ -31,7 +31,7 @@ const CrowdinList = ({ type, nodes, ...other }: PropsType): Element<*> =>
                         <CrowdinItem
                             {...other}
                             key={slug}
-                            code={TYPES[type]}
+                            code={CONTENT_LETTERS[type]}
                             content={node} />
                 )}
             </tbody>

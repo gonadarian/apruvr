@@ -3,7 +3,7 @@ import React from 'react';
 import type { Element } from 'react';
 import { map } from 'lodash';
 import type { TopicNodeType, NodeMapType, ItemType } from '../flows';
-import { TYPES } from '../consts';
+import { CONTENT_LETTERS } from '../consts';
 import TopicItem from './TopicItem';
 
 type PropsType = {
@@ -30,7 +30,7 @@ const TopicList = ({ type, nodes, ...other }: PropsType): Element<*> =>
                         <TopicItem
                             {...other}
                             key={slug}
-                            code={TYPES[type]}
+                            code={CONTENT_LETTERS[type]}
                             content={node} />
                 )}
             </tbody>

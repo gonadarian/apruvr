@@ -61,7 +61,7 @@ export const VISIBILITIES = {
 
 export type VisibilityType = $Keys<typeof VISIBILITIES>;
 
-export const TYPES: {[contentKind: string]: string} = {
+export const CONTENT_LETTERS: {[contentCode: string]: string} = {
     exercises:      'e',
     articles:       'a',
     scratchpads:    'p',
@@ -69,9 +69,9 @@ export const TYPES: {[contentKind: string]: string} = {
     topics:         't',
 };
 
-export type ContentCodeType = $Keys<typeof TYPES>;
+export type ContentCodeType = $Keys<typeof CONTENT_LETTERS>;
 
-export const PICKS: {[contentKind: ContentCodeType]: VisibilityType[]} = {
+export const PICKS: {[contentCode: ContentCodeType]: VisibilityType[]} = {
     exercises:      ['fresh', 'doing', 'translated', 'approved'],
     articles:       ['fresh', 'doing', 'translated', 'approved'],
     scratchpads:    ['fresh', 'doing', 'translated', 'approved'],
@@ -79,7 +79,7 @@ export const PICKS: {[contentKind: ContentCodeType]: VisibilityType[]} = {
     topics:         ['fresh', 'doing', 'translated', 'approved'],
 };
 
-export const TYPE_GROUPS: {[contentKind: ContentCodeType]: ContentGroupType} = {
+export const CONTENT_GROUPS: {[contentCode: ContentCodeType]: ContentGroupType} = {
     exercises:      'crowdin',
     articles:       'crowdin',
     scratchpads:    'crowdin',
@@ -87,7 +87,7 @@ export const TYPE_GROUPS: {[contentKind: ContentCodeType]: ContentGroupType} = {
     topics:         'topics',
 };
 
-export const NAMES: {[contentKindName: string]: ContentCodeType} = {
+export const NAMES: {[contentName: string]: ContentCodeType} = {
     Exercise:   'exercises',
     Article:    'articles',
     Video:      'videos',

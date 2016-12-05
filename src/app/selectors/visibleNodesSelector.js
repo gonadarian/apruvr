@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { pickBy } from 'lodash';
-import { TYPE_GROUPS } from '../consts';
+import { CONTENT_GROUPS } from '../consts';
 import filteredNodesSelector from './filteredNodesSelector';
 
 function isVisibleCrowdin(node, visibility) {
@@ -44,7 +44,7 @@ const VISIBILITIES = {
 };
 
 function visibleNodes(nodes, content, visibility) {
-    const isVisible = VISIBILITIES[TYPE_GROUPS[content.code]];
+    const isVisible = VISIBILITIES[CONTENT_GROUPS[content.code]];
     const filtered = pickBy(
         nodes,
         (node) => isVisible(node, visibility)

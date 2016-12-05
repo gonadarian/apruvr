@@ -1,8 +1,8 @@
 /* @flow */
 import React from 'react';
 import type { Element } from 'react';
-import { TYPE_GROUPS } from '../consts';
-import type { ContentKindType } from '../consts';
+import { CONTENT_GROUPS } from '../consts';
+import type { ContentCodeType } from '../consts';
 import CrowdinList from './CrowdinList';
 import VideoList from './VideoList';
 import TopicList from './TopicList';
@@ -14,11 +14,11 @@ const LISTS = {
 };
 
 type PropsType = {
-    type: ContentKindType,
+    type: ContentCodeType,
 };
 
 const ContentList = ({ type, ...other }: PropsType): Element<*> => {
-    const List = LISTS[TYPE_GROUPS[type]];
+    const List = LISTS[CONTENT_GROUPS[type]];
     return <List type={type} { ...other } />;
 };
 
