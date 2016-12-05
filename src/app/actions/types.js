@@ -1,3 +1,4 @@
+/* @flow */
 export const ROUTE_CHANGE = 'ROUTE_CHANGE';
 export const FETCH_NODES = 'FETCH_NODES';
 export const FILTER_VISIBIITY = 'FILTER_VISIBIITY';

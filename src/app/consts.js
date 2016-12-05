@@ -8,7 +8,7 @@ export type LanguageType = {
     crowdin?: string,
 };
 
-export const LANGUAGES: Array<LanguageType> = [
+export const LANGUAGES: LanguageType[] = [
     { code: 'bg', name: 'Bulgarian' },
     { code: 'nl', name: 'Dutch' },
     { code: 'fr', name: 'French' },

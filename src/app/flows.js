@@ -1,4 +1,5 @@
 /* @flow */
+import type { StateType } from './reducers';
 
 declare module 'less' {
     declare var exports: { [key: string]: string };
@@ -50,3 +51,5 @@ export type WorkflowType = {
 };
 
 export type WorkflowMapType = {[slug: string]: WorkflowType};
+
+export type ActionType = (dispatch: Dispatch, getState: () => StateType) => void;

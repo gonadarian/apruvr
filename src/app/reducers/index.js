@@ -1,4 +1,7 @@
+/* @flow */
 import { combineReducers } from 'redux';
+import type { LanguageType, ContentKindType, VisibilityType } from '../consts';
+import type { UserType, NodeMapType, WorkflowMapType } from '../flows';
 import languageReducer from './languageReducer';
 import loadingReducer from './loadingReducer';
 import nodesReducer from './nodesReducer';
@@ -22,5 +25,18 @@ const RootReducer = combineReducers({
     roles:      rolesReducer,
     users:      usersReducer,
 });
+
+export type StateType = {
+    language: ?LanguageType,
+    loading: boolean,
+    nodes: ?NodeMapType,
+    topic: string,
+    content: ContentKindType,
+    visibility: {[type: VisibilityType]: boolean},
+    workflow: ?WorkflowMapType,
+    user: ?UserType,
+    roles: ?string,
+    users: ?UserType[],
+};
 
 export default RootReducer;

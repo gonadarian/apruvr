@@ -6,6 +6,12 @@ import { ApruvrPage, LanguagePage } from './pages';
 import { languageLookup } from './consts';
 import { initialize } from './hocs';
 
+export type RouteParamsType = {
+    land?: string,
+    kind?: string,
+    topic?: string,
+}
+
 const handleAppEnter = ({ dispatch }) => ({ params }) => {
     // save to state initial path params before components are loaded
     if (!isEmpty(params)) {
