@@ -10,48 +10,51 @@ import {
     FIREBASE_USERS,
 } from './types';
 
-export const fetchUsers = (): ActionType => (dispatch: Dispatch) => {
-    firebase.database().ref('users').on(
-        'value',
-        (snapshot: UserType[]): void => dispatch({
-            type:       FIREBASE_USERS,
+export const fetchUsers = (): ActionType =>
+    (dispatch: Dispatch) => {
+        firebase.database().ref('users').on(
+            'value',
+            (snapshot: UserType[]): void => dispatch({
+                type:       FIREBASE_USERS,
+                payload:    snapshot,
+            })
+        );
+    };
+
+export const fetchWorkflow = (snapshot: WorkflowMapType): ActionType =>
+    (dispatch: Dispatch) => {
+        // change the content workflow data as obtained from backend
+        dispatch({
+            type:       FIREBASE_WORKFLOW,
             payload:    snapshot,
-        })
-    );
-};
+        });
+    };
 
-export const fetchWorkflow = (snapshot: WorkflowMapType): ActionType => (dispatch: Dispatch) => {
-    // change the content workflow data as obtained from backend
-    dispatch({
-        type:       FIREBASE_WORKFLOW,
-        payload:    snapshot,
-    });
-};
-
-export const userAuth = (user: ?UserType): ActionType => (dispatch: Dispatch) => {
-    // user can be null in case of logout event
-    dispatch({
-        type:       FIREBASE_AUTH,
-        payload:    user,
-    });
-    // if user was logged out, nothing more to be done
-    if (!user) {
-        return;
-    }
-    const { uid, displayName, email, photoURL } = user;
-    // get user roles if there are any
-    firebase.database().ref(`roles/${uid}`).on(
-        'value',
-        (snapshot: { val: () => string }): void => dispatch({
-            type:       FIREBASE_ROLES,
-            payload:    snapshot.val(),
-        })
-    );
-    // save user data on server for future reference
-    firebase.database().ref(`users/${uid}`).set(
-        { displayName, email, photoURL }
-    );
-};
+export const userAuth = (user: ?UserType): ActionType =>
+    (dispatch: Dispatch) => {
+        // user can be null in case of logout event
+        dispatch({
+            type:       FIREBASE_AUTH,
+            payload:    user,
+        });
+        // if user was logged out, nothing more to be done
+        if (!user) {
+            return;
+        }
+        const { uid, displayName, email, photoURL } = user;
+        // get user roles if there are any
+        firebase.database().ref(`roles/${uid}`).on(
+            'value',
+            (snapshot: { val: () => string }): void => dispatch({
+                type:       FIREBASE_ROLES,
+                payload:    snapshot.val(),
+            })
+        );
+        // save user data on server for future reference
+        firebase.database().ref(`users/${uid}`).set(
+            { displayName, email, photoURL }
+        );
+    };
 
 export const setWorkflowStatus = (slug: string, status: string): ActionType =>
     (dispatch: Dispatch, getState: () => StateType) => {
@@ -102,17 +105,19 @@ export const setWorkflowAgent = (slug: string, uid: string): ActionType =>
  * change.
  * @return {void}
  */
-export const userSignIn = (): ActionType => () => {
-    firebase.auth().signInWithPopup(
-        new firebase.auth.GoogleAuthProvider()
-    );
-};
+export const userSignIn = (): ActionType =>
+    () => {
+        firebase.auth().signInWithPopup(
+            new firebase.auth.GoogleAuthProvider()
+        );
+    };
 
 /**
  * Signs out the user. Returns no action, as Firebase has a listener for
  * authentication state change.
  * @return {void}
  */
-export const userSignOut = (): ActionType => () => {
-    firebase.auth().signOut();
-};
+export const userSignOut = (): ActionType =>
+    () => {
+        firebase.auth().signOut();
+    };
