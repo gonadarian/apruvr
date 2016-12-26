@@ -1,11 +1,26 @@
 /* @flow */
 import React from 'react';
 import type { Element } from 'react';
-import { sprintf } from 'sprintf-js';
 import type { CrowdinNodeType, ItemType } from '../flows';
 import { STATUSES } from '../consts';
 import { StatusPicker } from '../containers';
 import { AgentPicker } from '../containers';
+
+const getRowClass = (wordCount: number, translatedWordCount: number, approvedWordCount: number): string =>
+    approvedWordCount === wordCount
+        ? 'success'
+        : translatedWordCount === wordCount
+            ? 'info'
+            : translatedWordCount > 0
+                ? 'warning'
+                : 'danger';
+
+const getPercent = (total: number, done: number): number =>
+    total === 0 ? 0 : Math.floor(100 * done / total);
+
+// Crowdin uses different language codes then Khan Academy
+const getLangCode = ({ crowdin, code }: ItemType): string =>
+    crowdin || code;
 
 type PropsType = {
     content: CrowdinNodeType,
@@ -17,73 +32,49 @@ const CrowdinItem = ({
     content: { slug, title, wordCount, translatedWordCount, approvedWordCount },
     language,
     code,
-}: PropsType): Element<*> => {
-
-    const trnsp = wordCount === 0 ? 0 : translatedWordCount / wordCount * 100;
-    const apprp = wordCount === 0 ? 0 : approvedWordCount / wordCount * 100;
-
-    const className = apprp === 100
-        ? 'success'
-        : trnsp === 100
-            ? 'info'
-            : trnsp > 0
-                ? 'warning'
-                : 'danger';
-
-    // Crowdin uses different language codes then Khan Academy
-    const crowdin = language.crowdin || language.code;
-
-    return (
-        <tr className={className}>
-            <td>
-                <a
-                    className="btn btn-link"
-                    href={`https://www.khanacademy.org/${code}/${slug}`}
-                    target="_blank">
-                        {title}
-                        {' '}
-                        <span className="badge">
-                            {wordCount}
-                        </span>
-                </a>
-            </td>
-
-            <td>
-                <AgentPicker
-                    slug={slug} />
-            </td>
-
-            <td>
-                <StatusPicker
-                    slug={slug}
-                    statuses={STATUSES.crowdin} />
-            </td>
-
-            <td>
-                <a className="btn btn-default"
-                    href={`https://translate.khanacademy.org/${code}/${slug}`}
-                    target="_blank">
-                        go
-                        {' '}
-                        <span className="badge">
-                            {translatedWordCount} ({sprintf('%.0f', trnsp)}%)
-                        </span>
-                </a>
-            </td>
-
-            <td>
-                <a className="btn btn-default"
-                    href={`https://crowdin.com/proofread/khanacademy/all/enus-${crowdin}#q=/${slug}`}
-                    target="_blank">
-                        go
-                        {' '}
-                        <span className="badge">
-                            {approvedWordCount} ({sprintf('%.0f', apprp)}%)
-                        </span>
-                </a>
-            </td>
-        </tr>
-    );
-};
+}: PropsType): Element<*> =>
+    <tr className={getRowClass(wordCount, translatedWordCount, approvedWordCount)}>
+        <td>
+            <a className="btn btn-link"
+                href={`https://www.khanacademy.org/${code}/${slug}`}
+                target="_blank">
+                    {`${title} `}
+                    <span className="badge">
+                        {wordCount}
+                    </span>
+            </a>
+        </td>
+        <td>
+            <AgentPicker
+                slug={slug} />
+        </td>
+        <td>
+            <StatusPicker
+                slug={slug}
+                statuses={STATUSES.crowdin} />
+        </td>
+        <td>
+            <a className="btn btn-default"
+                href={`https://translate.khanacademy.org/${code}/${slug}`}
+                target="_blank">
+                    {'go '}
+                    <span className="badge">
+                        {`${translatedWordCount} \
+                        (${getPercent(wordCount, translatedWordCount)}%)`}
+                    </span>
+            </a>
+        </td>
+        <td>
+            <a className="btn btn-default"
+                href={`https://crowdin.com/proofread/khanacademy/all/enus-${getLangCode(language)}#q=/${slug}`}
+                target="_blank">
+                    {'go '}
+                    <span className="badge">
+                        {`${approvedWordCount} \
+                        (${getPercent(wordCount, approvedWordCount)}%)`}
+                    </span>
+            </a>
+        </td>
+    </tr>;
 
 export default CrowdinItem;

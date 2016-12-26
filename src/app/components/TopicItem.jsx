@@ -1,11 +1,13 @@
 /* @flow */
 import React from 'react';
 import type { Element } from 'react';
-import { sprintf } from 'sprintf-js';
 import type { TopicNodeType, ItemType } from '../flows';
 import { STATUSES } from '../consts';
 import { StatusPicker } from '../containers';
 import { AgentPicker } from '../containers';
+
+const getPercent = (total: number, done: number): number =>
+    total === 0 ? 0 : Math.floor(100 * done / total);
 
 type PropsType = {
     content: TopicNodeType,
@@ -18,10 +20,8 @@ const TopicItem = ({
     language,
     code,
 }: PropsType): Element<*> => {
-
     const trnsp = metadataWordCount === 0 ? 0 : metadataTranslatedWordCount / metadataWordCount * 100;
     const apprp = metadataWordCount === 0 ? 0 : metadataApprovedWordCount / metadataWordCount * 100;
-
     const className = apprp === 100
         ? 'success'
         : trnsp === 100
@@ -29,42 +29,35 @@ const TopicItem = ({
             : trnsp > 0
                 ? 'warning'
                 : 'danger';
-
     return (
         <tr className={className}>
             <td>
-                <a
-                    className="btn btn-link"
+                <a className="btn btn-link"
                     href={`https://www.khanacademy.org/${code}/${slug}`}
                     target="_blank">
-                        {title}
-                        {' '}
+                        {`${title} `}
                         <span className="badge">
                             {metadataWordCount}
                         </span>
                 </a>
             </td>
-
             <td>
                 <AgentPicker
                     slug={slug} />
             </td>
-
             <td>
                 <StatusPicker
                     slug={slug}
                     statuses={STATUSES.topics} />
             </td>
-
             <td>
-                <a
-                    className="btn btn-default"
+                <a className="btn btn-default"
                     href={`https://www.khanacademy.org/translations/edit/${language.code}/${slug}`}
                     target="_blank">
-                        go
-                        {' '}
+                        {'go '}
                         <span className="badge">
-                            {metadataTranslatedWordCount} ({sprintf('%.0f', trnsp)}%)
+                            {`${metadataTranslatedWordCount} \
+                            (${getPercent(metadataWordCount, metadataTranslatedWordCount)}%)`}
                         </span>
                 </a>
             </td>

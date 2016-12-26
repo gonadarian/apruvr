@@ -18,48 +18,42 @@ type PropsType = {
     language: ItemType,
 };
 
-const VideoItem = ({ content: { slug, title, subbed, dubbed }, language }: PropsType): Element<*> =>
+const VideoItem = ({
+    content: { slug, title, subbed, dubbed },
+    language,
+}: PropsType): Element<*> =>
     <tr className={getRowClass(subbed, dubbed)}>
         <td>
-            <a
-                className="btn btn-link"
+            <a className="btn btn-link"
                 href={`https://www.khanacademy.org/v/${slug}`}
                 target="_blank">
                     {title}
             </a>
         </td>
-
         <td>
             <AgentPicker
                 slug={slug} />
         </td>
-
         <td>
             <StatusPicker
                 slug={slug}
                 statuses={STATUSES.videos} />
         </td>
-
         <td>
-            <a
-                className="btn btn-default"
+            <a className="btn btn-default"
                 href={`https://www.khanacademy.org/translate/videos/${slug}/subtitle?lang=${language.code}`}
                 target="_blank">
-                    sub
-                    {' '}
+                    {'go '}
                     <span className="badge">
                         {subbed ? 'yes' : 'no'}
                     </span>
             </a>
         </td>
-
         <td>
-            <a
-                className="btn btn-default"
+            <a className="btn btn-default"
                 href={`v/${slug}`}
                 target="_blank">
-                    dub
-                    {' '}
+                    {'go '}
                     <span className="badge">
                         {dubbed ? 'yes' : 'no'}
                     </span>
