@@ -26,7 +26,7 @@ export const LANGUAGES: LanguageType[] = [
     { code: 'tr', name: 'Turkish' },
 ];
 
-export const languageLookup = (langCode: string): ?LanguageType =>
+export const languageLookup = (langCode: ?string): ?LanguageType =>
     langCode
         ? find(LANGUAGES, ({ code }: LanguageType): boolean => code === langCode)
         : null;

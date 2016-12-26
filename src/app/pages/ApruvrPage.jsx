@@ -7,10 +7,9 @@ import { languageLookup } from '../consts';
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
 import styles from '../styles/main.less';
 
-type PropsType = {
+interface PropsType extends StatePropsType {
     children: Element<*>,
-    language: LanguageType,
-};
+}
 
 const ApruvrPage = ({ children, language }: PropsType): Element<*> =>
     <div>
@@ -26,8 +25,16 @@ const ApruvrPage = ({ children, language }: PropsType): Element<*> =>
         </div>
     </div>;
 
+interface OwnPropsType {
+    params: { lang: ?string },
+}
+
+interface StatePropsType {
+    language: ?LanguageType,
+}
+
 export default connect(
-    (state, props) => ({
+    (state: Store, props: OwnPropsType): StatePropsType => ({
         language: languageLookup(props.params.lang),
     })
 )(ApruvrPage);
