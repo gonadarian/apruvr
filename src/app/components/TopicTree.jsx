@@ -50,7 +50,6 @@ function getItemClass(selected: string, path: string): string {
         : selected.startsWith(path)
             ? 'btn-info'
             : 'btn-default';
-
     const style = `btn btn-block ${styles.btnText} ${className}`;
     return style;
 }
@@ -74,7 +73,6 @@ const TopicItem = ({ topic, path, selected, level, onChoose }: ItemPropsType): E
             }}>
                 {topic.title}
         </div>
-
         {size(topic.topics) > 0 && selected.startsWith(path) &&
             <TopicList
                 path={path}

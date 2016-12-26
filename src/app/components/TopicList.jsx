@@ -16,7 +16,7 @@ const TopicList = ({ type, nodes, ...other }: PropsType): Element<*> =>
     <div>
         <table className="table">
             <thead>
-                <tr>
+                <tr className="active">
                     <th>Name</th>
                     <th>Agent</th>
                     <th>Status</th>
