@@ -67,7 +67,7 @@ const VideoList = ({ nodes, ...other }: PropsType): Element<*> =>
             </tbody>
             <tfoot>
                 <VideoStats stats={calcStats(nodes)} />
-            </tfoot>;
+            </tfoot>
         </table>
     </div>;
 
