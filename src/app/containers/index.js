@@ -1,6 +1,5 @@
 /* @flow */
 import AgentPicker from './AgentPicker';
-import Content from './Content';
 import ContentKindPicker from './ContentKindPicker';
 import ExporterButton from './ExporterButton';
 import FilteredContentList from './FilteredContentList';
@@ -13,7 +12,6 @@ import VisibilityButtons from './VisibilityButtons';
 
 export {
     AgentPicker,
-    Content,
     ContentKindPicker,
     ExporterButton,
     FilteredContentList,

@@ -1,3 +1,4 @@
+/* @flow */
 import React from 'react';
 import type { Element } from 'react';
 import { connect } from 'react-redux';
@@ -9,8 +10,12 @@ import {
     ExporterButton,
 } from '../containers';
 
-const LanguagePage = ({ visible }): Element<*> =>
-    visible &&
+type PropsType = {
+    visible: boolean,
+};
+
+const LanguagePage = ({ visible }: PropsType): ?Element<*> =>
+    !visible ? null :
         <div>
             <ContentKindPicker />
             <VisibilityButtons />
@@ -20,7 +25,7 @@ const LanguagePage = ({ visible }): Element<*> =>
         </div>;
 
 export default connect(
-    (state) => ({
+    (state: Store): PropsType => ({
         visible:    state.nodes !== null,
     })
 )(LanguagePage);
