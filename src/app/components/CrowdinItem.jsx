@@ -58,6 +58,13 @@ const CrowdinItem = ({
                 href={`https://translate.khanacademy.org/${code}/${slug}`}
                 target="_blank">
                     {'go '}
+            </a>
+        </td>
+        <td>
+            <a className="btn btn-default"
+                href={`https://www.khanacademy.org/translations/edit/${language.code}/${code}/${slug}`}
+                target="_blank">
+                    {'go '}
                     <span className="badge">
                         {`${translatedWordCount} \
                         (${getPercent(wordCount, translatedWordCount)}%)`}

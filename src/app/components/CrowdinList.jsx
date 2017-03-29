@@ -35,6 +35,7 @@ const CrowdinStats = ({ stats: { totl, trns, appr } }: PropsStatsType): ?Element
     totl.cnt === 0 ? null :
         <tr className="active">
             <th />
+            <th />
             <th>Total</th>
             <th>
                 words:<br />
@@ -70,6 +71,7 @@ const CrowdinList = ({ type, nodes, ...other }: PropsType): Element<*> =>
                     <th>Name</th>
                     <th>Agent</th>
                     <th>Status</th>
+                    <th>WYSIWYG</th>
                     <th>Translate</th>
                     <th>Approve</th>
                 </tr>
