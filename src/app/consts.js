@@ -9,6 +9,7 @@ export type LanguageType = {
 };
 
 export const LANGUAGES: LanguageType[] = [
+    { code: 'zh-hans', name: 'Chinese', note: 'Simplified', crowdin: 'zhcn' },
     { code: 'bg', name: 'Bulgarian' },
     { code: 'nl', name: 'Dutch' },
     { code: 'fr', name: 'French' },
