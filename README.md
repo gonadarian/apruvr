@@ -14,4 +14,4 @@ Supports these features:
 
 ## Availability
 
-Use at [Serbian Khan Academy site](http://www.khanacademy.rs/apruvr).
+Use at [Serbian Khan Academy site](http://apruvr.khanacademy.rs).
