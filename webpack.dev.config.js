@@ -1,9 +1,10 @@
+const webpack = require('webpack');
 const commonConfig = require('./webpack.config');
 
 const config = Object.assign(
     commonConfig,
     {
-        debug:      true,
+        mode:       'development',
         devtool:    'source-map',
         output:     Object.assign(
             commonConfig.output,
@@ -17,6 +18,11 @@ const config = Object.assign(
                 disableDotRule: true,
             },
         },
+        plugins: [
+            new webpack.LoaderOptionsPlugin({
+                debug: true,
+            }),
+        ],
     }
 );
 

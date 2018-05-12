@@ -12,7 +12,7 @@ const LoadingSpinner = ({ loading }: PropsType): Element<*> | false =>
     loading &&
         <div className="col-xs-12">
             <h2>Loading</h2>
-            <Spinner spinnerName="three-bounce" />
+            <Spinner name="three-bounce" />
         </div>;
 
 export default connect(

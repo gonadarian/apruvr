@@ -4,6 +4,7 @@ const commonConfig = require('./webpack.config');
 const config = Object.assign(
     commonConfig,
     {
+        mode:   'production',
         output: Object.assign(
             commonConfig.output,
             {
