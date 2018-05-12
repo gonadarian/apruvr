@@ -1,10 +1,6 @@
 /* @flow */
 import type { StateType } from './reducers';
 
-declare module 'less' {
-    declare var exports: { [key: string]: string };
-}
-
 export type UserType = {
     uid: string,
     displayName: string,
@@ -34,7 +30,7 @@ export class VideoNodeType extends NodeType {
 }
 
 export class CrowdinNodeType extends NodeType {
-    wordCount: number;
+    translatableWordCount: number;
     translatedWordCount: number;
     approvedWordCount: number;
 }

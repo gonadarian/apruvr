@@ -6,10 +6,10 @@ import { STATUSES } from '../consts';
 import { StatusPicker } from '../containers';
 import { AgentPicker } from '../containers';
 
-const getRowClass = (wordCount: number, translatedWordCount: number, approvedWordCount: number): string =>
-    approvedWordCount === wordCount
+const getRowClass = (translatableWordCount: number, translatedWordCount: number, approvedWordCount: number): string =>
+    approvedWordCount === translatableWordCount
         ? 'success'
-        : translatedWordCount === wordCount
+        : translatedWordCount === translatableWordCount
             ? 'info'
             : translatedWordCount > 0
                 ? 'warning'
@@ -29,18 +29,19 @@ type PropsType = {
 };
 
 const CrowdinItem = ({
-    content: { slug, title, wordCount, translatedWordCount, approvedWordCount },
+    content: { slug, title, translatableWordCount, translatedWordCount, approvedWordCount },
     language,
     code,
 }: PropsType): Element<*> =>
-    <tr className={getRowClass(wordCount, translatedWordCount, approvedWordCount)}>
+    <tr className={getRowClass(translatableWordCount, translatedWordCount, approvedWordCount)}>
         <td>
+            <span className="glyphicon glyphicon-chevron-down" />
             <a className="btn btn-link"
                 href={`https://www.khanacademy.org/${code}/${slug}`}
                 target="_blank">
                     {`${title} `}
                     <span className="badge">
-                        {wordCount}
+                        {translatableWordCount}
                     </span>
             </a>
         </td>
@@ -67,7 +68,7 @@ const CrowdinItem = ({
                     {'go '}
                     <span className="badge">
                         {`${translatedWordCount} \
-                        (${getPercent(wordCount, translatedWordCount)}%)`}
+                        (${getPercent(translatableWordCount, translatedWordCount)}%)`}
                     </span>
             </a>
         </td>
@@ -78,7 +79,7 @@ const CrowdinItem = ({
                     {'go '}
                     <span className="badge">
                         {`${approvedWordCount} \
-                        (${getPercent(wordCount, approvedWordCount)}%)`}
+                        (${getPercent(translatableWordCount, approvedWordCount)}%)`}
                     </span>
             </a>
         </td>

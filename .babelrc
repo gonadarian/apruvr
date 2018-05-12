@@ -1,12 +1,12 @@
 {
     "presets": [
-        "es2015",
+        "env",
         "stage-2",
-        "react"
+        "react",
+        "flow",
     ],
     "plugins": [
         "lodash",
-        "transform-flow-strip-types",
     ],
     "env": {
         "development": {

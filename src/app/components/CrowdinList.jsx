@@ -14,10 +14,10 @@ const calcStats = (nodes: NodeMapType): StatsType =>
         nodes,
         (mem: StatsType, node: CrowdinNodeType) => {
             mem.totl.cnt += 1;
-            mem.totl.sum += node.wordCount;
-            mem.trns.cnt += node.translatedWordCount === node.wordCount ? 1 : 0;
+            mem.totl.sum += node.translatableWordCount;
+            mem.trns.cnt += node.translatedWordCount === node.translatableWordCount ? 1 : 0;
             mem.trns.sum += node.translatedWordCount;
-            mem.appr.cnt += node.approvedWordCount === node.wordCount ? 1 : 0;
+            mem.appr.cnt += node.approvedWordCount === node.translatableWordCount ? 1 : 0;
             mem.appr.sum += node.approvedWordCount;
         },
         {
@@ -65,7 +65,7 @@ type PropsType = {
 
 const CrowdinList = ({ type, nodes, ...other }: PropsType): Element<*> =>
     <div>
-        <table className="table">
+        <table className="table table-condensed">
             <thead>
                 <tr className="active">
                     <th>Name</th>

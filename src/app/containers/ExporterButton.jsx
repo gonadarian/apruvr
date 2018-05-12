@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { map, reduce } from 'lodash';
 import ApruvrTypes from '../types';
@@ -21,7 +22,7 @@ const exporterCrowdin = (slug, node, workflow, users) =>
         node.title,
         getStatus(slug, workflow),
         getAgent(slug, workflow, users),
-        node.wordCount,
+        node.translatableWordCount,
         node.translatedWordCount,
         node.approvedWordCount,
         ...node.path,

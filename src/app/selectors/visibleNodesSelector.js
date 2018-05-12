@@ -4,7 +4,7 @@ import { CONTENT_GROUPS } from '../consts';
 import filteredNodesSelector from './filteredNodesSelector';
 
 function isVisibleCrowdin(node, visibility) {
-    const totl = node.wordCount;
+    const totl = node.translatableWordCount;
     const trns = node.translatedWordCount;
     const appr = node.approvedWordCount;
 
