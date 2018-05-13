@@ -10,8 +10,8 @@ export const fetchNodes = (language: LanguageType): ActionType =>
     (dispatch: Dispatch) => {
         // get translation data from Khan Academy API and set in state
         dispatch({
-            type:       FETCH_NODES,
-            payload:    language
+            type:    FETCH_NODES,
+            payload: language
                 ? axios.get(`${API_TRANSLATE_NOW}lang=${language.code}`)
                 : null,
         });

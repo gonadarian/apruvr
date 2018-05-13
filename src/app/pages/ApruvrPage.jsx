@@ -1,11 +1,13 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { connect } from 'react-redux';
-import type { LanguageType } from '../consts';
-import { languageLookup } from '../consts';
+import { languageLookup, type LanguageType } from '../consts';
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
 import styles from '../styles/main.less';
+
+interface StatePropsType {
+    language: ?LanguageType,
+}
 
 interface PropsType extends StatePropsType {
     children: Element<*>,
@@ -27,10 +29,6 @@ const ApruvrPage = ({ children, language }: PropsType): Element<*> =>
 
 interface OwnPropsType {
     params: { lang: ?string },
-}
-
-interface StatePropsType {
-    language: ?LanguageType,
 }
 
 export default connect(

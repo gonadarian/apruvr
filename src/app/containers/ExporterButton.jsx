@@ -1,4 +1,5 @@
-import React from 'react';
+/* @flow */
+import React, { type Element } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { map, reduce } from 'lodash';
@@ -6,17 +7,17 @@ import ApruvrTypes from '../types';
 import { CONTENT_GROUPS } from '../consts';
 import { getVisibleNodes } from '../selectors';
 
-const getStatus = (slug, workflow) =>
+const getStatus = (slug, workflow): string =>
     workflow && slug in workflow
         ? workflow[slug].status
         : 'x';
 
-const getAgent = (slug, workflow, users) =>
+const getAgent = (slug, workflow, users): string =>
     workflow && users && slug in workflow && 'uid' in [workflow[slug]]
         ? users[workflow[slug].uid].displayName
         : 'x';
 
-const exporterCrowdin = (slug, node, workflow, users) =>
+const exporterCrowdin = (slug, node, workflow, users): string =>
     [
         slug,
         node.title,
@@ -28,7 +29,7 @@ const exporterCrowdin = (slug, node, workflow, users) =>
         ...node.path,
     ].join('\t');
 
-const exporterVideo = (slug, node, workflow, users) =>
+const exporterVideo = (slug, node, workflow, users): string =>
     [
         slug,
         node.title,
@@ -39,7 +40,7 @@ const exporterVideo = (slug, node, workflow, users) =>
         ...node.path,
     ].join('\t');
 
-const exporterTopic = (slug, node, workflow, users) =>
+const exporterTopic = (slug, node, workflow, users): string =>
     [
         slug,
         node.title,
@@ -52,27 +53,27 @@ const exporterTopic = (slug, node, workflow, users) =>
     ].join('\t');
 
 const EXPORTERS = {
-    videos:     exporterVideo,
-    crowdin:    exporterCrowdin,
-    topics:     exporterTopic,
+    videos:  exporterVideo,
+    crowdin: exporterCrowdin,
+    topics:  exporterTopic,
 };
 
 const COLUMNS = {
-    videos:     [
+    videos: [
         'slug', 'title', 'agent', 'status', 'subbed', 'dubbed', 'subject',
         'topic', 'subtopic', 'tutorial',
     ],
-    crowdin:    [
+    crowdin: [
         'slug', 'title', 'agent', 'status', 'total', 'translated', 'approved',
         'subject', 'topic', 'subtopic', 'tutorial',
     ],
-    topics:    [
+    topics: [
         'slug', 'title', 'agent', 'status', 'total', 'translated', 'approved',
         'subject', 'topic', 'subtopic', 'tutorial',
     ],
 };
 
-const generateExport = (code, nodes, workflow, users) => {
+const generateExport = (code, nodes, workflow, users): string => {
     const exporter = EXPORTERS[CONTENT_GROUPS[code]];
     const columns = COLUMNS[CONTENT_GROUPS[code]];
     const encoded = encodeURIComponent(
@@ -81,18 +82,18 @@ const generateExport = (code, nodes, workflow, users) => {
                 nodes,
                 (node, slug) => exporter(slug, node, workflow, users)
             ),
-            (result, row) => result + '\n' + row,
+            (result, row) => `${result}\n${row}`,
             columns.join('\t')
         )
     );
-    return 'data:attachment/csv,' + encoded;
+    return `data:attachment/csv,${encoded}`;
 };
 
-const ExporterButton = ({ content, topic, nodes, workflow, users }) =>
+const ExporterButton = ({ content, topic, nodes, workflow, users }): Element<*> =>
     <div className="col-xs-12 col-sm-2">
         <h2>Export</h2>
         <a className="btn btn-primary"
-            download={content.name + ' ' + topic + '.csv'}
+            download={`${content.name} ${topic}.csv`}
             href={generateExport(content.code, nodes, workflow, users)}
             target="_blank">
                 Generate Report
@@ -100,19 +101,19 @@ const ExporterButton = ({ content, topic, nodes, workflow, users }) =>
     </div>;
 
 ExporterButton.propTypes = {
-    content:    ApruvrTypes.item.isRequired,
-    topic:      PropTypes.string.isRequired,
-    nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
-    workflow:   PropTypes.object,
-    users:      PropTypes.object,
+    content:  ApruvrTypes.item.isRequired,
+    topic:    PropTypes.string.isRequired,
+    nodes:    PropTypes.objectOf(PropTypes.object).isRequired,
+    workflow: PropTypes.object,
+    users:    PropTypes.object,
 };
 
 export default connect(
     (state) => ({
-        content:    state.content,
-        topic:      state.topic,
-        nodes:      getVisibleNodes(state),
-        workflow:   state.workflow,
-        users:      state.users,
+        content:  state.content,
+        topic:    state.topic,
+        nodes:    getVisibleNodes(state),
+        workflow: state.workflow,
+        users:    state.users,
     })
 )(ExporterButton);

@@ -10,7 +10,9 @@ const handlers = {
         if ('lang' in payload) {
             // language has been chosen or cleared
             const language = languageLookup(payload.lang);
-            return isEqual(state, language) ? state : (language || INITIAL_VALUE);
+            return isEqual(state, language)
+                ? state
+                : (language || INITIAL_VALUE);
         }
         return state;
     },

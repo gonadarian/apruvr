@@ -1,6 +1,5 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { map } from 'lodash';
 import type { ItemType } from '../flows';
 import Button from './Button';
@@ -18,7 +17,9 @@ const ButtonGroup = ({ buttons, current, onChoose }: PropsType): Element<*> =>
             ({ code, name, note }: ItemType): Element<*> =>
                 <Button
                     key={code}
-                    name={name + (note ? ' (' + note + ')' : '')}
+                    name={name + (note
+                        ? ` (${note})`
+                        : '')}
                     isActive={current !== null && current.code === code}
                     onClick={(): void => onChoose(code)} />
         )}

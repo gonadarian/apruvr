@@ -1,4 +1,5 @@
-import React from 'react';
+/* @flow */
+import React, { type Element } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,7 +10,7 @@ import { fetchWorkflow } from '../actions';
 import { firedux } from '../hocs';
 import { ContentList } from '../components';
 
-const FilteredContentList = ({ content, nodes, ...props }) =>
+const FilteredContentList = ({ content, nodes, ...props }): Element<*> =>
     <div className="col-xs-12 col-md-9">
         <h2>
             {content.name}
@@ -26,15 +27,15 @@ const FilteredContentList = ({ content, nodes, ...props }) =>
     </div>;
 
 FilteredContentList.propTypes = {
-    content:    ApruvrTypes.item.isRequired,
-    nodes:      PropTypes.objectOf(PropTypes.object).isRequired,
+    content: ApruvrTypes.item.isRequired,
+    nodes:   PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default connect(
     (state) => ({
-        content:    state.content,
-        language:   state.language,
-        nodes:      getVisibleNodes(state),
+        content:  state.content,
+        language: state.language,
+        nodes:    getVisibleNodes(state),
     }),
     (dispatch) => bindActionCreators({
         onFire: fetchWorkflow,

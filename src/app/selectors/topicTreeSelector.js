@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { size, forIn, filter, isEmpty, forEach } from 'lodash';
 
-function handleTopicList(topicList, topic) {
+const handleTopicList = (topicList, topic) => {
     if (size(topicList) === 0) {
         return false;
     }
@@ -26,9 +26,9 @@ function handleTopicList(topicList, topic) {
         });
 
     return success;
-}
+};
 
-function handleTopic(tree, item) {
+const handleTopic = (tree, item) => {
     item.topics = {};
 
     forEach(
@@ -36,7 +36,10 @@ function handleTopic(tree, item) {
             item.children,
             (child) => child[0] === 'Topic'
         ),
-        (topic) => {item.topics[topic[1]] = {};});
+        (topic) => {
+            item.topics[topic[1]] = {};
+        }
+    );
 
     item.children = filter(
         item.children,
@@ -55,16 +58,16 @@ function handleTopic(tree, item) {
     if (!found) {
         tree[item.slug] = item;
     }
-}
+};
 
-function createTopicTree(nodes) {
+const createTopicTree = (nodes) => {
     const topicTree = {};
     forEach(
         nodes.topics,
         (topic) => handleTopic(topicTree, topic)
     );
     return topicTree;
-}
+};
 
 export default createSelector(
     [

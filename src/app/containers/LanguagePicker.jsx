@@ -1,11 +1,9 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { map, reduce, find } from 'lodash';
-import { LANGUAGES } from '../consts';
-import type { LanguageType } from '../consts';
+import { LANGUAGES, type LanguageType } from '../consts';
 import { chooseLanguage } from '../actions';
 import { Picker } from '../components';
 
@@ -15,7 +13,9 @@ const getNameMap = (): NameMapType =>
     reduce(
         LANGUAGES,
         (memo: NameMapType, { code, name, note }: LanguageType): NameMapType => {
-            memo[code] = name + (note ? ` (${note})` : '');
+            memo[code] = name + (note
+                ? ` (${note})`
+                : '');
             return memo;
         },
         {}
@@ -35,7 +35,9 @@ const LanguagePicker = ({ language, onChoose }: PropsType): Element<*> =>
         <Picker
             pickable
             states={[...map(LANGUAGES, 'code'), null]}
-            current={language ? language.code : null}
+            current={language
+                ? language.code
+                : null}
             nameMap={getNameMap()}
             onChoose={(code: ?string): void => onChoose(
                 find(
@@ -47,9 +49,9 @@ const LanguagePicker = ({ language, onChoose }: PropsType): Element<*> =>
 
 export default connect(
     (state: Store): StatePropsType => ({
-        language:   state.language,
+        language: state.language,
     }),
     (dispatch: Dispatch): void => bindActionCreators({
-        onChoose:   chooseLanguage,
+        onChoose: chooseLanguage,
     }, dispatch)
 )(LanguagePicker);

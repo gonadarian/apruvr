@@ -1,4 +1,5 @@
-import React from 'react';
+/* @flow */
+import React, { type Element } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,27 +19,29 @@ const getNameMap = () =>
         {}
     );
 
-const ContentKindPicker = ({ content, onChoose }) =>
+const ContentKindPicker = ({ content, onChoose }): Element<*> =>
     <div className="col-xs-2">
         <h2>Content</h2>
         <Picker
             pickable
             states={map(CONTENTS, 'code')}
-            current={content ? content.code : null}
+            current={content
+                ? content.code
+                : null}
             nameMap={getNameMap()}
             onChoose={(code) => onChoose(contentKindLookup(code))} />
     </div>;
 
 ContentKindPicker.propTypes = {
-    content:    ApruvrTypes.item,
-    onChoose:   PropTypes.func.isRequired,
+    content:  ApruvrTypes.item,
+    onChoose: PropTypes.func.isRequired,
 };
 
 export default connect(
     (state) => ({
-        content:    state.content,
+        content: state.content,
     }),
     (dispatch) => bindActionCreators({
-        onChoose:   chooseContent,
+        onChoose: chooseContent,
     }, dispatch)
 )(ContentKindPicker);

@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 import { pickBy, transform, isEmpty } from 'lodash';
@@ -10,7 +11,7 @@ export type RouteParamsType = {
     land?: string,
     kind?: string,
     topic?: string,
-}
+};
 
 const handleAppEnter = ({ dispatch }) => ({ params }) => {
     // save to state initial path params before components are loaded
@@ -49,7 +50,7 @@ const handleLanguageEnter = ({ dispatch }) => (nextState) => {
 };
 
 const routes = (store) =>
-	<Route path="/"
+    <Route path="/"
         component={initialize(store)(ApruvrPage)}
         onEnter={handleAppEnter(store)}
         onChange={handleAppChange(store)}>

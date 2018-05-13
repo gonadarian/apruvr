@@ -1,6 +1,5 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { map, transform } from 'lodash';
 import type { TopicNodeType, NodeMapType, ItemType } from '../flows';
 import { CONTENT_LETTERS } from '../consts';

@@ -1,10 +1,11 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { map } from 'lodash';
 
 const getName = (state: string, nameMap?: {[id: string]: string}): string =>
-    nameMap && state in nameMap ? nameMap[state] : state;
+    nameMap && state in nameMap
+        ? nameMap[state]
+        : state;
 
 type PropsType = {
     states: Array<?string>,
@@ -18,7 +19,9 @@ const Picker = ({ states, current, pickable, nameMap, onChoose }: PropsType): El
     <div className="btn-group" role="group">
         <button type="button" className="btn btn-primary">
             <span className="badge">
-                {current ? getName(current, nameMap) : '...'}
+                {current
+                    ? getName(current, nameMap)
+                    : '...'}
             </span>
         </button>
         {pickable &&
@@ -26,7 +29,7 @@ const Picker = ({ states, current, pickable, nameMap, onChoose }: PropsType): El
                 <button type="button"
                     className="btn btn-default dropdown-toggle"
                     data-toggle="dropdown">
-                        <span className="caret" />
+                    <span className="caret" />
                 </button>
                 <ul className="dropdown-menu">
                     {map(
@@ -39,9 +42,11 @@ const Picker = ({ states, current, pickable, nameMap, onChoose }: PropsType): El
                                         : 'btn btn-default'}
                                     style={{ width: '100%' }}
                                     onClick={(): void => onChoose(state)}>
-                                        <span className="badge">
-                                            {state ? getName(state, nameMap) : '...'}
-                                        </span>
+                                    <span className="badge">
+                                        {state
+                                            ? getName(state, nameMap)
+                                            : '...'}
+                                    </span>
                                 </button>
                             </li>
                     )}

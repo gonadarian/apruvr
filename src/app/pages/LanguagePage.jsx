@@ -1,6 +1,5 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import {
     ContentKindPicker,
@@ -26,6 +25,6 @@ const LanguagePage = ({ visible }: PropsType): ?Element<*> =>
 
 export default connect(
     (state: Store): PropsType => ({
-        visible:    state.nodes !== null,
+        visible: state.nodes !== null,
     })
 )(LanguagePage);

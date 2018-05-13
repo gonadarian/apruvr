@@ -1,10 +1,12 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import type { CrowdinNodeType, ItemType } from '../flows';
 import { STATUSES } from '../consts';
-import { StatusPicker } from '../containers';
-import { AgentPicker } from '../containers';
+import { StatusPicker, AgentPicker } from '../containers';
+
+const khan = 'https://www.khanacademy.org';
+const proofread = 'https://crowdin.com/proofread/khanacademy';
+const translate = 'https://translate.khanacademy.org';
 
 const getRowClass = (translatableWordCount: number, translatedWordCount: number, approvedWordCount: number): string =>
     approvedWordCount === translatableWordCount
@@ -16,7 +18,9 @@ const getRowClass = (translatableWordCount: number, translatedWordCount: number,
                 : 'danger';
 
 const getPercent = (total: number, done: number): number =>
-    total === 0 ? 0 : Math.floor(100 * done / total);
+    total === 0
+        ? 0
+        : Math.floor(100 * done / total);
 
 // Crowdin uses different language codes then Khan Academy
 const getLangCode = ({ crowdin, code }: ItemType): string =>
@@ -37,12 +41,12 @@ const CrowdinItem = ({
         <td>
             <span className="glyphicon glyphicon-chevron-down" />
             <a className="btn btn-link"
-                href={`https://www.khanacademy.org/${code}/${slug}`}
+                href={`${khan}/${code}/${slug}`}
                 target="_blank">
-                    {`${title} `}
-                    <span className="badge">
-                        {translatableWordCount}
-                    </span>
+                {`${title} `}
+                <span className="badge">
+                    {translatableWordCount}
+                </span>
             </a>
         </td>
         <td>
@@ -56,31 +60,31 @@ const CrowdinItem = ({
         </td>
         <td>
             <a className="btn btn-default"
-                href={`https://translate.khanacademy.org/${code}/${slug}`}
+                href={`${translate}/${code}/${slug}`}
                 target="_blank">
-                    {'go '}
+                {'go '}
             </a>
         </td>
         <td>
             <a className="btn btn-default"
-                href={`https://www.khanacademy.org/translations/edit/${language.code}/${code}/${slug}`}
+                href={`${khan}/translations/edit/${language.code}/${code}/${slug}`}
                 target="_blank">
-                    {'go '}
-                    <span className="badge">
-                        {`${translatedWordCount} \
-                        (${getPercent(translatableWordCount, translatedWordCount)}%)`}
-                    </span>
+                {'go '}
+                <span className="badge">
+                    {`${translatedWordCount} \
+                    (${getPercent(translatableWordCount, translatedWordCount)}%)`}
+                </span>
             </a>
         </td>
         <td>
             <a className="btn btn-default"
-                href={`https://crowdin.com/proofread/khanacademy/all/enus-${getLangCode(language)}#q=/${slug}`}
+                href={`${proofread}/all/enus-${getLangCode(language)}#q=/${slug}`}
                 target="_blank">
-                    {'go '}
-                    <span className="badge">
-                        {`${approvedWordCount} \
-                        (${getPercent(translatableWordCount, approvedWordCount)}%)`}
-                    </span>
+                {'go '}
+                <span className="badge">
+                    {`${approvedWordCount} \
+                    (${getPercent(translatableWordCount, approvedWordCount)}%)`}
+                </span>
             </a>
         </td>
     </tr>;

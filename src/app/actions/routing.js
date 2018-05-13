@@ -10,8 +10,8 @@ import { ROUTE_CHANGE, FETCH_NODES } from './types';
 export const routeChange = (params: RouteParamsType): ActionType =>
     (dispatch: Dispatch) => {
         dispatch({
-            type:       ROUTE_CHANGE,
-            payload:    params,
+            type:    ROUTE_CHANGE,
+            payload: params,
         });
     };
 
@@ -31,8 +31,8 @@ export const chooseLanguage = (language: LanguageType): ActionType =>
             }
             // ...clear stored nodes
             dispatch({
-                type:       FETCH_NODES,
-                payload:    null,
+                type:    FETCH_NODES,
+                payload: null,
             });
         }
         // redirect to same url, just different language

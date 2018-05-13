@@ -1,11 +1,12 @@
-import React from 'react';
+/* @flow */
+import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { chooseTopic } from '../actions';
 import { getTopicTree } from '../selectors';
 import { TopicTree } from '../components';
 
-const SelectedTopicList = (props) =>
+const SelectedTopicList = (props): Element<*> =>
     <div className="col-xs-12 col-md-3">
         <h2>Topics</h2>
         <TopicTree
@@ -14,10 +15,10 @@ const SelectedTopicList = (props) =>
 
 export default connect(
     (state) => ({
-        tree:       getTopicTree(state),
-        selected:   state.topic,
+        tree:     getTopicTree(state),
+        selected: state.topic,
     }),
     (dispatch) => bindActionCreators({
-        onChoose:   chooseTopic,
+        onChoose: chooseTopic,
     }, dispatch)
 )(SelectedTopicList);

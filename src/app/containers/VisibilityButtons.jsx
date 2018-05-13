@@ -1,6 +1,5 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { VISIBILITIES, PICKS } from '../consts';
@@ -26,10 +25,10 @@ const VisibilityButtons = ({ ...props }: PropsType): Element<*> =>
 
 export default connect(
     (state: Store): StatePropsType => ({
-        choices:    state.visibility,
-        used:       PICKS[state.content.code],
+        choices: state.visibility,
+        used:    PICKS[state.content.code],
     }),
     (dispatch: Dispatch): void => bindActionCreators({
-        onChoose:   filterVisibility,
+        onChoose: filterVisibility,
     }, dispatch)
 )(VisibilityButtons);

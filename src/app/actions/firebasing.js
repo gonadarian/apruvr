@@ -15,8 +15,8 @@ export const fetchUsers = (): ActionType =>
         firebase.database().ref('users').on(
             'value',
             (snapshot: UserType[]): void => dispatch({
-                type:       FIREBASE_USERS,
-                payload:    snapshot,
+                type:    FIREBASE_USERS,
+                payload: snapshot,
             })
         );
     };
@@ -25,8 +25,8 @@ export const fetchWorkflow = (snapshot: WorkflowMapType): ActionType =>
     (dispatch: Dispatch) => {
         // change the content workflow data as obtained from backend
         dispatch({
-            type:       FIREBASE_WORKFLOW,
-            payload:    snapshot,
+            type:    FIREBASE_WORKFLOW,
+            payload: snapshot,
         });
     };
 
@@ -34,8 +34,8 @@ export const userAuth = (user: ?UserType): ActionType =>
     (dispatch: Dispatch) => {
         // user can be null in case of logout event
         dispatch({
-            type:       FIREBASE_AUTH,
-            payload:    user,
+            type:    FIREBASE_AUTH,
+            payload: user,
         });
         // if user was logged out, nothing more to be done
         if (!user) {
@@ -46,8 +46,8 @@ export const userAuth = (user: ?UserType): ActionType =>
         firebase.database().ref(`roles/${uid}`).on(
             'value',
             (snapshot: { val: () => string }): void => dispatch({
-                type:       FIREBASE_ROLES,
-                payload:    snapshot.val(),
+                type:    FIREBASE_ROLES,
+                payload: snapshot.val(),
             })
         );
         // save user data on server for future reference

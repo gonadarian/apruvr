@@ -1,13 +1,13 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import type { TopicNodeType, ItemType } from '../flows';
 import { STATUSES } from '../consts';
-import { StatusPicker } from '../containers';
-import { AgentPicker } from '../containers';
+import { StatusPicker, AgentPicker } from '../containers';
 
 const getPercent = (total: number, done: number): number =>
-    total === 0 ? 0 : Math.floor(100 * done / total);
+    total === 0
+        ? 0
+        : Math.floor(100 * done / total);
 
 type PropsType = {
     content: TopicNodeType,
@@ -16,12 +16,22 @@ type PropsType = {
 };
 
 const TopicItem = ({
-    content: { slug, title, metadataWordCount, metadataTranslatedWordCount, metadataApprovedWordCount },
+    content: {
+        slug,
+        title,
+        metadataWordCount,
+        metadataTranslatedWordCount,
+        metadataApprovedWordCount,
+    },
     language,
     code,
 }: PropsType): Element<*> => {
-    const trnsp = metadataWordCount === 0 ? 0 : metadataTranslatedWordCount / metadataWordCount * 100;
-    const apprp = metadataWordCount === 0 ? 0 : metadataApprovedWordCount / metadataWordCount * 100;
+    const trnsp = metadataWordCount === 0
+        ? 0
+        : metadataTranslatedWordCount / metadataWordCount * 100;
+    const apprp = metadataWordCount === 0
+        ? 0
+        : metadataApprovedWordCount / metadataWordCount * 100;
     const className = apprp === 100
         ? 'success'
         : trnsp === 100
@@ -35,10 +45,10 @@ const TopicItem = ({
                 <a className="btn btn-link"
                     href={`https://www.khanacademy.org/${code}/${slug}`}
                     target="_blank">
-                        {`${title} `}
-                        <span className="badge">
-                            {metadataWordCount}
-                        </span>
+                    {`${title} `}
+                    <span className="badge">
+                        {metadataWordCount}
+                    </span>
                 </a>
             </td>
             <td>
@@ -54,11 +64,11 @@ const TopicItem = ({
                 <a className="btn btn-default"
                     href={`https://www.khanacademy.org/translations/edit/${language.code}/${slug}`}
                     target="_blank">
-                        {'go '}
-                        <span className="badge">
-                            {`${metadataTranslatedWordCount} \
-                            (${getPercent(metadataWordCount, metadataTranslatedWordCount)}%)`}
-                        </span>
+                    {'go '}
+                    <span className="badge">
+                        {`${metadataTranslatedWordCount} \
+                        (${getPercent(metadataWordCount, metadataTranslatedWordCount)}%)`}
+                    </span>
                 </a>
             </td>
         </tr>

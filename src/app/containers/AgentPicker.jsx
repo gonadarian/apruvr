@@ -1,6 +1,5 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduce } from 'lodash';
@@ -57,10 +56,10 @@ const AgentPicker = ({ slug, workflow, users, roles, onChoose }: PropsType): Ele
 
 export default connect(
     (state: Store, props: OwnPropsType): StatePropsType => ({
-        slug:       props.slug,
-        workflow:   state.workflow,
-        users:      state.users,
-        roles:      state.roles,
+        slug:     props.slug,
+        workflow: state.workflow,
+        users:    state.users,
+        roles:    state.roles,
     }),
     (dispatch: Dispatch): void => bindActionCreators({
         onChoose: setWorkflowAgent,

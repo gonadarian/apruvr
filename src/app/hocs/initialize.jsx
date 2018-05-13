@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import firebase from 'firebase';
@@ -11,11 +12,11 @@ const initialize = (store) => (WrappedComponent) =>
 
             // initialize firebase
             firebase.initializeApp({
-                apiKey:             'AIzaSyBXjOncuS3h9Fz9Boar8t3OcJhiDZL_sgE',
-                authDomain:         'apruvr.firebaseapp.com',
-                databaseURL:        'https://apruvr.firebaseio.com',
-                storageBucket:      'apruvr.appspot.com',
-                messagingSenderId:  '1081977594498',
+                apiKey:            'AIzaSyBXjOncuS3h9Fz9Boar8t3OcJhiDZL_sgE',
+                authDomain:        'apruvr.firebaseapp.com',
+                databaseURL:       'https://apruvr.firebaseio.com',
+                storageBucket:     'apruvr.appspot.com',
+                messagingSenderId: '1081977594498',
             });
 
             // initialize user session, store user data in database

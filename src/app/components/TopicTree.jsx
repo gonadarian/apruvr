@@ -1,6 +1,5 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { map, size } from 'lodash';
 import styles from '../styles/main.less';
 
@@ -40,11 +39,12 @@ const TopicList = ({ topics, path, ...other }: ListPropsType): Element<*> =>
                     {...other}
                     key={key}
                     topic={topic}
-                    path={path + '.' + topic.slug} />
+                    path={`${path}.${topic.slug}`} />
         )}
     </div>;
 
-function getItemClass(selected: string, path: string): string {
+
+const getItemClass = (selected: string, path: string): string => {
     const className = selected === path
         ? 'btn-primary'
         : selected.startsWith(path)
@@ -52,7 +52,7 @@ function getItemClass(selected: string, path: string): string {
             : 'btn-default';
     const style = `btn btn-block ${styles.btnText} ${className}`;
     return style;
-}
+};
 
 type ItemPropsType = {
     topic: TopicType,
@@ -66,12 +66,12 @@ const TopicItem = ({ topic, path, selected, level, onChoose }: ItemPropsType): E
     <div>
         <div
             className={getItemClass(selected, path)}
-            style={{ textAlign: 'left', paddingLeft: (level * 20) + 'px' }}
+            style={{ textAlign: 'left', paddingLeft: `${level * 20}px` }}
             onClick={(event: Event) => {
                 event.stopPropagation();
                 onChoose(path);
             }}>
-                {topic.title}
+            {topic.title}
         </div>
         {size(topic.topics) > 0 && selected.startsWith(path) &&
             <TopicList

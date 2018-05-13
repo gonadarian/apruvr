@@ -38,9 +38,9 @@ export type StatusType =
     'revising' | 'rejected' | 'revised' | 'approved';
 
 export const STATUSES: {[contentGroup: string]: StatusType[]} = {
-    crowdin:    ['translating', 'translated', 'revising', 'rejected', 'revised', 'approved'],
-    videos:      ['captioning', 'captioned', 'revising', 'rejected', 'revised', 'approved'],
-    topics:      ['translating', 'translated', 'revising', 'rejected', 'revised', 'approved'],
+    crowdin: ['translating', 'translated', 'revising', 'rejected', 'revised', 'approved'],
+    videos:  ['captioning', 'captioned', 'revising', 'rejected', 'revised', 'approved'],
+    topics:  ['translating', 'translated', 'revising', 'rejected', 'revised', 'approved'],
 };
 
 export type ContentGroupType = $Keys<typeof STATUSES>;
@@ -64,29 +64,29 @@ export const VISIBILITIES = {
 export type VisibilityType = $Keys<typeof VISIBILITIES>;
 
 export const CONTENT_LETTERS: {[contentCode: string]: string} = {
-    exercises:      'e',
-    articles:       'a',
-    scratchpads:    'p',
-    videos:         'v',
-    topics:         't',
+    exercises:   'e',
+    articles:    'a',
+    scratchpads: 'p',
+    videos:      'v',
+    topics:      't',
 };
 
 export type ContentCodeType = $Keys<typeof CONTENT_LETTERS>;
 
 export const PICKS: {[contentCode: ContentCodeType]: VisibilityType[]} = {
-    exercises:      ['fresh', 'doing', 'translated', 'approved'],
-    articles:       ['fresh', 'doing', 'translated', 'approved'],
-    scratchpads:    ['fresh', 'doing', 'translated', 'approved'],
-    videos:         ['fresh', 'subtitled', 'dubbed'],
-    topics:         ['fresh', 'doing', 'translated', 'approved'],
+    exercises:   ['fresh', 'doing', 'translated', 'approved'],
+    articles:    ['fresh', 'doing', 'translated', 'approved'],
+    scratchpads: ['fresh', 'doing', 'translated', 'approved'],
+    videos:      ['fresh', 'subtitled', 'dubbed'],
+    topics:      ['fresh', 'doing', 'translated', 'approved'],
 };
 
 export const CONTENT_GROUPS: {[contentCode: ContentCodeType]: ContentGroupType} = {
-    exercises:      'crowdin',
-    articles:       'crowdin',
-    scratchpads:    'crowdin',
-    videos:         'videos',
-    topics:         'topics',
+    exercises:   'crowdin',
+    articles:    'crowdin',
+    scratchpads: 'crowdin',
+    videos:      'videos',
+    topics:      'topics',
 };
 
 export const NAMES: {[contentName: string]: ContentCodeType} = {

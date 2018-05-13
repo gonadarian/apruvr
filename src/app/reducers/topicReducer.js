@@ -7,7 +7,9 @@ const handlers = {
     [ROUTE_CHANGE]: (state, { payload }) => {
         if ('topic' in payload) {
             // topic has been chosen or cleared
-            return state === payload.topic ? state : (payload.topic || INITIAL_VALUE);
+            return state === payload.topic
+                ? state
+                : (payload.topic || INITIAL_VALUE);
         }
         return state;
     },

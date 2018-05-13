@@ -6,4 +6,4 @@
 [include]
 
 [libs]
-./flow/
+./flow-typed/

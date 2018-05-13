@@ -3,21 +3,23 @@ import { forIn, reduce, forEach, transform } from 'lodash';
 import { NAMES } from '../consts';
 import topicTreeSelector from './topicTreeSelector';
 
-function loadSlugs(topic, slugs, path) {
+const loadSlugs = (topic, slugs, path) => {
     slugs.topics[topic.slug] = topic;
 
     forEach(
         topic.children,
-        (child) => {slugs[NAMES[child[0]]][child[1]] = path;}
+        (child) => {
+            slugs[NAMES[child[0]]][child[1]] = path;
+        }
     );
 
     forIn(
         topic.topics,
         (current) => loadSlugs(current, slugs, [...path, current.slug])
     );
-}
+};
 
-function filterNodes(nodes, topic, tree, content) {
+const filterNodes = (nodes, topic, tree, content) => {
     const startPath = topic.split('.').slice(1);
     const localTopic = reduce(
         startPath,
@@ -31,12 +33,14 @@ function filterNodes(nodes, topic, tree, content) {
     const contentNodes = nodes[content.code];
     const filtered = transform(
         slugs[content.code],
-        (result, path, slug) => {result[slug] = { ...contentNodes[slug], path };},
+        (result, path, slug) => {
+            result[slug] = { ...contentNodes[slug], path };
+        },
         {}
     );
 
     return filtered;
-}
+};
 
 export default createSelector(
     [

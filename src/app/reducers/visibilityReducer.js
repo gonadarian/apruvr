@@ -17,7 +17,9 @@ const handlers = {
         mapValues(
             state,
             (visible, key) =>
-                key === payload ? !visible : visible
+                key === payload
+                    ? !visible
+                    : visible
         ),
 };
 

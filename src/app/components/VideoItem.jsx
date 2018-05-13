@@ -1,10 +1,10 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import type { VideoNodeType, ItemType } from '../flows';
 import { STATUSES } from '../consts';
-import { StatusPicker } from '../containers';
-import { AgentPicker } from '../containers';
+import { StatusPicker, AgentPicker } from '../containers';
+
+const khan = 'https://www.khanacademy.org';
 
 const getRowClass = (subbed: boolean, dubbed: boolean): string =>
     dubbed
@@ -25,9 +25,9 @@ const VideoItem = ({
     <tr className={getRowClass(subbed, dubbed)}>
         <td>
             <a className="btn btn-link"
-                href={`https://www.khanacademy.org/v/${slug}`}
+                href={`${khan}/v/${slug}`}
                 target="_blank">
-                    {title}
+                {title}
             </a>
         </td>
         <td>
@@ -41,22 +41,26 @@ const VideoItem = ({
         </td>
         <td>
             <a className="btn btn-default"
-                href={`https://www.khanacademy.org/translate/videos/${slug}/subtitle?lang=${language.code}`}
+                href={`${khan}/translate/videos/${slug}/subtitle?lang=${language.code}`}
                 target="_blank">
-                    {'go '}
-                    <span className="badge">
-                        {subbed ? 'yes' : 'no'}
-                    </span>
+                {'go '}
+                <span className="badge">
+                    {subbed
+                        ? 'yes'
+                        : 'no'}
+                </span>
             </a>
         </td>
         <td>
             <a className="btn btn-default"
                 href={`v/${slug}`}
                 target="_blank">
-                    {'go '}
-                    <span className="badge">
-                        {dubbed ? 'yes' : 'no'}
-                    </span>
+                {'go '}
+                <span className="badge">
+                    {dubbed
+                        ? 'yes'
+                        : 'no'}
+                </span>
             </a>
         </td>
     </tr>;

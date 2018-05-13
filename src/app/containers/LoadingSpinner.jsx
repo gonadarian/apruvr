@@ -1,6 +1,5 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import Spinner from 'react-spinkit';
 

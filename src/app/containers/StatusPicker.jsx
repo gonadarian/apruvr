@@ -1,6 +1,5 @@
 /* @flow */
-import React from 'react';
-import type { Element } from 'react';
+import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isNil } from 'lodash';
@@ -25,16 +24,19 @@ interface PropsType extends StatePropsType {
 const StatusPicker = ({ slug, statuses, workflow, user, onChoose }: PropsType): Element<*> =>
     <Picker
         states={[...statuses, null]}
-        current={workflow && workflow[slug] ? workflow[slug].status : null}
+        current={ workflow && workflow[slug]
+            ? workflow[slug].status
+            : null
+        }
         pickable={!isNil(user)}
         onChoose={(status: ?string): void => onChoose(slug, status)} />;
 
 export default connect(
     (state: Store, ownProps: OwnPropsType): StatePropsType => ({
-        slug:       ownProps.slug,
-        statuses:   ownProps.statuses,
-        workflow:   state.workflow,
-        user:       state.user,
+        slug:     ownProps.slug,
+        statuses: ownProps.statuses,
+        workflow: state.workflow,
+        user:     state.user,
     }),
     (dispatch: Dispatch): void => bindActionCreators({
         onChoose: setWorkflowStatus,

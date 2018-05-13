@@ -10,7 +10,9 @@ const handlers = {
         if ('kind' in payload) {
             // content kind filter has been selected
             const contentKind = contentKindLookup(payload.kind);
-            return isEqual(state, contentKind) ? state : (contentKind || INITIAL_VALUE);
+            return isEqual(state, contentKind)
+                ? state
+                : (contentKind || INITIAL_VALUE);
         }
         return state;
     },
