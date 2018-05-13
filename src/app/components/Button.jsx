@@ -9,7 +9,9 @@ type PropsType = {
 
 const Button = ({ name, isActive = false, onClick }: PropsType): Element<*> =>
     <div
-        className={'btn ' + (isActive ? 'btn-primary' : 'btn-default')}
+        className={isActive
+            ? 'btn btn-primary'
+            : 'btn btn-default'}
         onClick={onClick}>
         {name}
     </div>;

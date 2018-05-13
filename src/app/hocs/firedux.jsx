@@ -8,17 +8,17 @@ const firedux = (calcPath) => (WrappedComponent) =>
             onFire: PropTypes.func.isRequired,
         }
 
-        componentDidMount() {
+        componentDidMount () {
             const path = calcPath(this.props);
             this.ref = firebase.database().ref(path);
             this.ref.on('value', this.props.onFire);
         }
 
-        componentWillUnmount() {
+        componentWillUnmount () {
             this.ref.off();
         }
 
-        render() {
+        render () {
             return <WrappedComponent {...this.props} />;
         }
     };

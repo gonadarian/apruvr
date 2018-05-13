@@ -7,7 +7,7 @@ import { userAuth, fetchUsers } from '../actions';
 
 const initialize = (store) => (WrappedComponent) =>
     class InitializeHOC extends Component {
-        constructor() {
+        constructor () {
             super();
 
             // initialize firebase
@@ -25,7 +25,7 @@ const initialize = (store) => (WrappedComponent) =>
             });
         }
 
-        componentDidMount() {
+        componentDidMount () {
             // get list of users
             fetchUsers()(store.dispatch);
 
@@ -36,7 +36,7 @@ const initialize = (store) => (WrappedComponent) =>
             }
         }
 
-        render() {
+        render () {
             return <WrappedComponent {...this.props} />;
         }
     };
