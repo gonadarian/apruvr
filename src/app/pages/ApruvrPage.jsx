@@ -3,6 +3,7 @@ import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import { languageLookup, type LanguageType } from '../consts';
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
+import type { State } from '../flows';
 import styles from '../styles/main.less';
 
 interface StatePropsType {
@@ -32,7 +33,7 @@ interface OwnPropsType {
 }
 
 export default connect(
-    (state: Store, props: OwnPropsType): StatePropsType => ({
+    (state: State, props: OwnPropsType): StatePropsType => ({
         language: languageLookup(props.params.lang),
     })
 )(ApruvrPage);

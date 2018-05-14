@@ -3,6 +3,8 @@ import React, { type Element } from 'react';
 import { map, size } from 'lodash';
 import styles from '../styles/main.less';
 
+const TOPIC_INDENT = 20;
+
 type TopicType = {
     slug: string,
     title: string,
@@ -66,7 +68,7 @@ const TopicItem = ({ topic, path, selected, level, onChoose }: ItemPropsType): E
     <div>
         <div
             className={getItemClass(selected, path)}
-            style={{ textAlign: 'left', paddingLeft: `${level * 20}px` }}
+            style={{ textAlign: 'left', paddingLeft: `${level * TOPIC_INDENT}px` }}
             onClick={(event: Event) => {
                 event.stopPropagation();
                 onChoose(path);

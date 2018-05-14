@@ -1,6 +1,7 @@
 /* @flow */
 import React, { type Element } from 'react';
 import { map, transform } from 'lodash';
+import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import type { CrowdinNodeType, NodeMapType, ItemType } from '../flows';
 import CrowdinItem from './CrowdinItem';
@@ -14,9 +15,9 @@ const calcStats = (nodes: NodeMapType): StatsType =>
         (mem: StatsType, node: CrowdinNodeType) => {
             mem.totl.cnt += 1;
             mem.totl.sum += node.translatableWordCount;
-            mem.trns.cnt += node.translatedWordCount === node.translatableWordCount ? 1 : 0;
+            mem.trns.cnt += iif(node.translatedWordCount === node.translatableWordCount, 1, 0);
             mem.trns.sum += node.translatedWordCount;
-            mem.appr.cnt += node.approvedWordCount === node.translatableWordCount ? 1 : 0;
+            mem.appr.cnt += iif(node.approvedWordCount === node.translatableWordCount, 1, 0);
             mem.appr.sum += node.approvedWordCount;
         },
         {
@@ -30,8 +31,8 @@ type PropsStatsType = {
     stats: StatsType,
 };
 
-const CrowdinStats = ({ stats: { totl, trns, appr } }: PropsStatsType): ?Element<*> =>
-    totl.cnt === 0 ? null :
+const CrowdinStats = ({ stats: { totl, trns, appr } }: PropsStatsType): Element<*> | false =>
+    totl.cnt !== 0 &&
         <tr className="active">
             <th />
             <th />

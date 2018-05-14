@@ -1,14 +1,16 @@
 /* @flow */
 import React, { type Element } from 'react';
 import type { CrowdinNodeType, ItemType } from '../flows';
-import { STATUSES } from '../consts';
+import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
 
-const khan = 'https://www.khanacademy.org';
-const proofread = 'https://crowdin.com/proofread/khanacademy';
-const translate = 'https://translate.khanacademy.org';
+const { khan, proofread, translate } = urls;
 
-const getRowClass = (translatableWordCount: number, translatedWordCount: number, approvedWordCount: number): string =>
+const getRowClass = (
+    translatableWordCount: number,
+    translatedWordCount: number,
+    approvedWordCount: number
+): string =>
     approvedWordCount === translatableWordCount
         ? 'success'
         : translatedWordCount === translatableWordCount

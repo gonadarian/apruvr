@@ -1,8 +1,10 @@
 /* @flow */
 import React, { type Element } from 'react';
-import type { TopicNodeType, ItemType } from '../flows';
-import { STATUSES } from '../consts';
+import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
+import type { TopicNodeType, ItemType } from '../flows';
+
+const { khan } = urls;
 
 const getPercent = (total: number, done: number): number =>
     total === 0
@@ -43,7 +45,7 @@ const TopicItem = ({
         <tr className={className}>
             <td>
                 <a className="btn btn-link"
-                    href={`https://www.khanacademy.org/${code}/${slug}`}
+                    href={`${khan}/${code}/${slug}`}
                     target="_blank">
                     {`${title} `}
                     <span className="badge">
@@ -62,7 +64,7 @@ const TopicItem = ({
             </td>
             <td>
                 <a className="btn btn-default"
-                    href={`https://www.khanacademy.org/translations/edit/${language.code}/${slug}`}
+                    href={`${khan}/translations/edit/${language.code}/${slug}`}
                     target="_blank">
                     {'go '}
                     <span className="badge">

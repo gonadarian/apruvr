@@ -2,6 +2,7 @@
 import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import Spinner from 'react-spinkit';
+import type { State } from '../flows';
 
 interface PropsType {
     loading: boolean,
@@ -15,7 +16,7 @@ const LoadingSpinner = ({ loading }: PropsType): Element<*> | false =>
         </div>;
 
 export default connect(
-    (state: Store): PropsType => ({
+    (state: State): PropsType => ({
         loading: state.loading,
     })
 )(LoadingSpinner);

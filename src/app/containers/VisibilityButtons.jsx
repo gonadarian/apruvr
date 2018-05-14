@@ -2,13 +2,14 @@
 import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { VISIBILITIES, PICKS } from '../consts';
 import { filterVisibility } from '../actions';
+import { VISIBILITIES, PICKS, type VisibilityType, type VisibilityListType } from '../consts';
 import { ButtonChoice } from '../components';
+import type { State, Dispatch } from '../flows';
 
 interface StatePropsType {
-    choices: {[choice: string]: boolean},
-    used: string[],
+    choices: VisibilityListType,
+    used: VisibilityType[],
 }
 
 interface PropsType extends StatePropsType {
@@ -24,7 +25,7 @@ const VisibilityButtons = ({ ...props }: PropsType): Element<*> =>
     </div>;
 
 export default connect(
-    (state: Store): StatePropsType => ({
+    (state: State): StatePropsType => ({
         choices: state.visibility,
         used:    PICKS[state.content.code],
     }),

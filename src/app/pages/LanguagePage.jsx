@@ -8,13 +8,14 @@ import {
     FilteredContentList,
     ExporterButton,
 } from '../containers';
+import type { State } from '../flows';
 
 type PropsType = {
     visible: boolean,
 };
 
-const LanguagePage = ({ visible }: PropsType): ?Element<*> =>
-    !visible ? null :
+const LanguagePage = ({ visible }: PropsType): Element<*> | false =>
+    visible &&
         <div>
             <ContentKindPicker />
             <VisibilityButtons />
@@ -24,7 +25,7 @@ const LanguagePage = ({ visible }: PropsType): ?Element<*> =>
         </div>;
 
 export default connect(
-    (state: Store): PropsType => ({
+    (state: State): PropsType => ({
         visible: state.nodes !== null,
     })
 )(LanguagePage);

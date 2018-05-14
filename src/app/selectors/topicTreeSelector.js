@@ -1,3 +1,4 @@
+/* @flow */
 import { createSelector } from 'reselect';
 import { size, forIn, filter, isEmpty, forEach } from 'lodash';
 

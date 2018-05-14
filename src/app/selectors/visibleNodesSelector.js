@@ -1,3 +1,4 @@
+/* @flow */
 import { createSelector } from 'reselect';
 import { pickBy } from 'lodash';
 import { CONTENT_GROUPS } from '../consts';

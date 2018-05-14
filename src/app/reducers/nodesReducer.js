@@ -1,7 +1,9 @@
+/* @flow */
 import { ROUTE_CHANGE, FETCH_NODES } from '../actions/types';
-import handleReducers from './handler';
+import handleReducers, { type Handlers } from './handler';
+import type { Action, NodeMapType } from '../flows';
 
-const handlers = {
+const handlers: Handlers<?NodeMapType> = {
     // language was changed so all translation data is removed
     [ROUTE_CHANGE]: (state, { payload }) => 'lang' in payload
         ? null
@@ -12,5 +14,5 @@ const handlers = {
         : null,
 };
 
-export default (state = null, action) =>
+export default (state: ?NodeMapType = null, action: Action) =>
     handleReducers(handlers, state, action);

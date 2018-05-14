@@ -1,6 +1,7 @@
 /* @flow */
 import React, { type Element } from 'react';
 import { map, transform } from 'lodash';
+import { iif } from '../utils';
 import type { VideoNodeType, NodeMapType, ItemType } from '../flows';
 import VideoItem from './VideoItem';
 
@@ -11,8 +12,8 @@ const calcStats = (nodes: NodeMapType): StatsType =>
         nodes,
         (mem: StatsType, node: VideoNodeType) => {
             mem.totl += 1;
-            mem.subd += node.subbed ? 1 : 0;
-            mem.dubd += node.dubbed ? 1 : 0;
+            mem.subd += iif(node.subbed, 1, 0);
+            mem.dubd += iif(node.dubbed, 1, 0);
         },
         { totl: 0, subd: 0, dubd: 0 }
     );
@@ -21,8 +22,8 @@ type PropsStatsType = {
     stats: StatsType,
 };
 
-const VideoStats = ({ stats: { totl, subd, dubd } }: PropsStatsType): ?Element<*> =>
-    totl === 0 ? null :
+const VideoStats = ({ stats: { totl, subd, dubd } }: PropsStatsType): Element<*> | false =>
+    totl !== 0 &&
         <tr className="active">
             <th />
             <th>Total</th>

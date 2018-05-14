@@ -1,17 +1,15 @@
 /* @flow */
 import React, { type Element } from 'react';
-import type { VideoNodeType, ItemType } from '../flows';
-import { STATUSES } from '../consts';
+import { iif } from '../utils';
+import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
+import type { VideoNodeType, ItemType } from '../flows';
 
-const khan = 'https://www.khanacademy.org';
+const { khan } = urls;
 
 const getRowClass = (subbed: boolean, dubbed: boolean): string =>
-    dubbed
-        ? 'success'
-        : subbed
-            ? 'info'
-            : 'danger';
+    iif(dubbed, 'success',
+        iif(subbed, 'info', 'danger'));
 
 type PropsType = {
     content: VideoNodeType,
@@ -45,9 +43,7 @@ const VideoItem = ({
                 target="_blank">
                 {'go '}
                 <span className="badge">
-                    {subbed
-                        ? 'yes'
-                        : 'no'}
+                    {iif(subbed, 'yes', 'no')}
                 </span>
             </a>
         </td>
@@ -57,9 +53,7 @@ const VideoItem = ({
                 target="_blank">
                 {'go '}
                 <span className="badge">
-                    {dubbed
-                        ? 'yes'
-                        : 'no'}
+                    {iif(dubbed, 'yes', 'no')}
                 </span>
             </a>
         </td>

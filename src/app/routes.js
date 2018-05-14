@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 import { pickBy, transform, isEmpty } from 'lodash';
@@ -6,6 +6,7 @@ import { routeChange, fetchNodes } from './actions';
 import { ApruvrPage, LanguagePage } from './pages';
 import { languageLookup } from './consts';
 import { initialize } from './hocs';
+import type { Store } from './flows';
 
 export type RouteParamsType = {
     land?: string,
@@ -49,7 +50,7 @@ const handleLanguageEnter = ({ dispatch }) => (nextState) => {
     dispatch(fetchNodes(language));
 };
 
-const routes = (store) =>
+const routes = (store: Store) =>
     <Route path="/"
         component={initialize(store)(ApruvrPage)}
         onEnter={handleAppEnter(store)}

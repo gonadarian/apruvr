@@ -1,9 +1,10 @@
 /* @flow */
 import React, { type Element } from 'react';
 import { map, transform } from 'lodash';
-import type { TopicNodeType, NodeMapType, ItemType } from '../flows';
+import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import TopicItem from './TopicItem';
+import type { TopicNodeType, NodeMapType, ItemType } from '../flows';
 
 type StatType = { cnt: number, sum: number };
 type StatsType = { totl: StatType, trns: StatType };
@@ -14,7 +15,7 @@ const calcStats = (nodes: NodeMapType): StatsType =>
         (mem: StatsType, node: TopicNodeType) => {
             mem.totl.cnt += 1;
             mem.totl.sum += node.metadataWordCount;
-            mem.trns.cnt += node.metadataTranslatedWordCount === node.metadataWordCount ? 1 : 0;
+            mem.trns.cnt += iif(node.metadataTranslatedWordCount === node.metadataWordCount, 1, 0);
             mem.trns.sum += node.metadataTranslatedWordCount;
         },
         {
@@ -27,8 +28,8 @@ type PropsStatsType = {
     stats: StatsType,
 };
 
-const TopicStats = ({ stats: { totl, trns } }: PropsStatsType): ?Element<*> =>
-    totl.cnt === 0 ? null :
+const TopicStats = ({ stats: { totl, trns } }: PropsStatsType): Element<*> | false =>
+    totl.cnt !== 0 &&
         <tr className="active">
             <th />
             <th>Total</th>

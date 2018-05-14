@@ -3,9 +3,12 @@ import React, { type Element } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduce } from 'lodash';
-import type { UserType, UserMapType, WorkflowType, WorkflowMapType } from '../flows';
 import { setWorkflowAgent } from '../actions';
 import { Picker } from '../components';
+import type {
+    State, Dispatch,
+    UserType, UserMapType, WorkflowType, WorkflowMapType,
+} from '../flows';
 
 type NameMapType = {[uid: string]: string};
 
@@ -36,9 +39,9 @@ interface OwnPropsType {
 }
 
 interface StatePropsType extends OwnPropsType {
-    workflow: WorkflowMapType,
-    users: UserMapType,
-    roles: string[],
+    workflow: ?WorkflowMapType,
+    users: ?UserType[],
+    roles: ?string,
 }
 
 interface PropsType extends StatePropsType {
@@ -55,7 +58,7 @@ const AgentPicker = ({ slug, workflow, users, roles, onChoose }: PropsType): Ele
             onChoose={(uid: ?string): void => onChoose(slug, uid)} />;
 
 export default connect(
-    (state: Store, props: OwnPropsType): StatePropsType => ({
+    (state: State, props: OwnPropsType): StatePropsType => ({
         slug:     props.slug,
         workflow: state.workflow,
         users:    state.users,

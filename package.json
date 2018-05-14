@@ -29,7 +29,8 @@
     "dev": "webpack --watch --config webpack.dev.config.js",
     "analyzer": "webpack --json --config webpack.prod.config.js | webpack-bundle-size-analyzer",
     "coverage": "flow-coverage-report -i src/**/*.js -i src/**/*.jsx -x src/test/** -x src/public/** -x src/node/** -t html -t json -t text",
-    "build": "webpack --progress --colors --config webpack.prod.config.js"
+    "build": "webpack --progress --colors --config webpack.prod.config.js",
+    "flow": "flow"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -49,6 +50,7 @@
     "reselect": "^2.5.4"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",

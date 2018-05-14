@@ -6,20 +6,19 @@
     },
     "plugins": [
         "babel",
-        "import",
         "react",
-        "flowtype"
+        "flowtype",
+        "import"
     ],
     "settings": {
         "flowtype": {
             "onlyFilesWithFlowAnnotation": false
         },
         "import/resolver": {
-            "node": {
-                "extensions": [".js", ".jsx"]
-            }
-        },
-        "import/extensions": [".js", ".jsx"]
+          "node": {
+            "extensions": [".js", ".jsx"]
+          }
+        }
     },
     "extends": [
         "eslint:recommended",
@@ -137,7 +136,7 @@
         "max-lines": "error",
         "max-nested-callbacks": "error",
         "max-params": ["error", 4],
-        "max-statements": "error",
+        "max-statements":["error", {"max": 15}],
         "max-statements-per-line": "error",
         "multiline-comment-style": "error",
         "multiline-ternary": "error",
@@ -187,7 +186,7 @@
         "no-native-reassign": "error",
         "no-negated-condition": "error",
         "no-negated-in-lhs": "error",
-        "no-nested-ternary": "error",
+        "no-nested-ternary": "off",
         "no-new": "error",
         "no-new-func": "error",
         "no-new-object": "error",
@@ -324,28 +323,6 @@
         "react/self-closing-comp": 1,
         "react/sort-comp": 1,
         "react/wrap-multilines": 0,
-        "arrow-parens": [1, "always"],
-        "import/no-unresolved": 2,
-        "import/prefer-default-export": 0,
-        "import/order": 1,
-        "import/extensions": [1, "never"],
-        "import/named": 1,
-        "flowtype/boolean-style": [2, "boolean"],
-        "flowtype/define-flow-type": 1,
-        "flowtype/delimiter-dangle": [2, "always-multiline"],
-        "flowtype/generic-spacing": [2, "never"],
-        "flowtype/no-weak-types": 1,
-        "flowtype/object-type-delimiter": [2, "comma"],
-        "flowtype/require-parameter-type": 2,
-        "flowtype/require-return-type": [2, "always", { "annotateUndefined": "never" }],
-        "flowtype/require-valid-file-annotation": 2,
-        "flowtype/semi": [2, "always"],
-        "flowtype/space-after-type-colon": [2, "always"],
-        "flowtype/space-before-generic-bracket": [2, "never"],
-        "flowtype/space-before-type-colon": [2, "never"],
-        "flowtype/type-id-match": [2, "^([A-Z][a-z0-9]+)+Type$"],
-        "flowtype/union-intersection-spacing": [2, "always"],
-        "flowtype/use-flow-type": 1,
-        "flowtype/valid-syntax": 1
+        "arrow-parens": [1, "always"]
     }
 }

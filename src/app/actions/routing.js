@@ -1,11 +1,10 @@
 /* @flow */
 import { browserHistory } from 'react-router';
 import { isEqual } from 'lodash';
-import type { ActionType } from '../flows';
-import type { LanguageType, ContentKindType } from '../consts';
-import type { StateType } from '../reducers';
-import type { RouteParamsType } from '../routes';
 import { ROUTE_CHANGE, FETCH_NODES } from './types';
+import type { ActionType, Dispatch, GetState } from '../flows';
+import type { LanguageType, ContentKindType } from '../consts';
+import type { RouteParamsType } from '../routes';
 
 export const routeChange = (params: RouteParamsType): ActionType =>
     (dispatch: Dispatch) => {
@@ -16,7 +15,7 @@ export const routeChange = (params: RouteParamsType): ActionType =>
     };
 
 export const chooseLanguage = (language: LanguageType): ActionType =>
-    (dispatch: Dispatch, getState: () => StateType) => {
+    (dispatch: Dispatch, getState: GetState) => {
         // if language is not defined, redirect to root url
         if (!language) {
             browserHistory.push('/');
@@ -41,7 +40,7 @@ export const chooseLanguage = (language: LanguageType): ActionType =>
     };
 
 export const chooseContent = (content: ContentKindType): ActionType =>
-    (dispatch: Dispatch, getState: () => StateType) => {
+    (dispatch: Dispatch, getState: GetState) => {
         const { language, topic } = getState();
         if (!language) {
             console.error('Can not change content kind if language is not set', content);
@@ -51,7 +50,7 @@ export const chooseContent = (content: ContentKindType): ActionType =>
     };
 
 export const chooseTopic = (topic: string): ActionType =>
-    (dispatch: Dispatch, getState: () => StateType) => {
+    (dispatch: Dispatch, getState: GetState) => {
         const { language, content } = getState();
         if (!language) {
             console.error('Can not change topic if language is not set', topic);

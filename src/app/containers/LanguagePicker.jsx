@@ -3,9 +3,10 @@ import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { map, reduce, find } from 'lodash';
-import { LANGUAGES, type LanguageType } from '../consts';
 import { chooseLanguage } from '../actions';
+import { LANGUAGES, type LanguageType } from '../consts';
 import { Picker } from '../components';
+import type { State, Dispatch } from '../flows';
 
 type NameMapType = {[code: string]: string};
 
@@ -22,7 +23,7 @@ const getNameMap = (): NameMapType =>
     );
 
 interface StatePropsType {
-    language: LanguageType,
+    language: ?LanguageType,
 }
 
 interface PropsType extends StatePropsType {
@@ -48,7 +49,7 @@ const LanguagePicker = ({ language, onChoose }: PropsType): Element<*> =>
     </div>;
 
 export default connect(
-    (state: Store): StatePropsType => ({
+    (state: State): StatePropsType => ({
         language: state.language,
     }),
     (dispatch: Dispatch): void => bindActionCreators({

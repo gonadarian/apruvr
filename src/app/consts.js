@@ -1,6 +1,20 @@
 /* @flow */
 import { find } from 'lodash';
 
+const khan = 'https://www.khanacademy.org';
+const api = `${khan}/api/internal`;
+const crowdin = 'https://crowdin.com';
+const proofread = `${crowdin}https://crowdin.com/proofread/khanacademy`;
+const translate = 'https://translate.khanacademy.org';
+
+export const urls = {
+    khan,
+    api,
+    crowdin,
+    proofread,
+    translate,
+};
+
 export type LanguageType = {
     code: string,
     name: string,
@@ -37,7 +51,9 @@ export type StatusType =
     'translating' | 'translated' | 'captioning' | 'captioned' |
     'revising' | 'rejected' | 'revised' | 'approved';
 
-export const STATUSES: {[contentGroup: string]: StatusType[]} = {
+export type StatusMapType = {[contentGroup: string]: StatusType[]};
+
+export const STATUSES: StatusMapType = {
     crowdin: ['translating', 'translated', 'revising', 'rejected', 'revised', 'approved'],
     videos:  ['captioning', 'captioned', 'revising', 'rejected', 'revised', 'approved'],
     topics:  ['translating', 'translated', 'revising', 'rejected', 'revised', 'approved'],
@@ -62,6 +78,8 @@ export const VISIBILITIES = {
 };
 
 export type VisibilityType = $Keys<typeof VISIBILITIES>;
+
+export type VisibilityListType = {[type: VisibilityType]: boolean};
 
 export const CONTENT_LETTERS: {[contentCode: string]: string} = {
     exercises:   'e',
@@ -112,7 +130,5 @@ export const CONTENTS: Array<ContentKindType> = [
     { code: 'topics', name: 'Descriptions' },
 ];
 
-export const contentKindLookup = (kindCode: ContentCodeType): ?ContentKindType =>
-    kindCode
-        ? find(CONTENTS, ({ code }: ContentKindType): boolean => code === kindCode)
-        : null;
+export const contentKindLookup = (kindCode: ContentCodeType): ContentKindType =>
+    find(CONTENTS, ({ code }: ContentKindType): boolean => code === kindCode);

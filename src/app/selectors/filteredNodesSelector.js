@@ -1,3 +1,4 @@
+/* @flow */
 import { createSelector } from 'reselect';
 import { forIn, reduce, forEach, transform } from 'lodash';
 import { NAMES } from '../consts';

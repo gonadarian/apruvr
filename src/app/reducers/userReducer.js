@@ -1,9 +1,11 @@
+/* @flow */
 import { FIREBASE_AUTH } from '../actions/types';
-import handleReducers from './handler';
+import handleReducers, { type Handlers } from './handler';
+import type { Action, UserType } from '../flows';
 
-const handlers = {
+const handlers: Handlers<?UserType> = {
     [FIREBASE_AUTH]: (state, { payload }) => payload,
 };
 
-export default (state = null, action) =>
+export default (state: ?UserType = null, action: Action) =>
     handleReducers(handlers, state, action);

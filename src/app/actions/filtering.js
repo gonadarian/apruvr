@@ -1,5 +1,5 @@
 /* @flow */
-import type { ActionType } from '../flows';
+import type { ActionType, Dispatch } from '../flows';
 import { FILTER_VISIBIITY } from './types';
 
 export const filterVisibility = (key: string): ActionType =>

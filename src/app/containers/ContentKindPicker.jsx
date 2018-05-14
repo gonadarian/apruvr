@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { map, reduce } from 'lodash';
+import { iif } from '../utils';
 import { CONTENTS, contentKindLookup } from '../consts';
 import ApruvrTypes from '../types';
 import { chooseContent } from '../actions';
@@ -25,9 +26,7 @@ const ContentKindPicker = ({ content, onChoose }): Element<*> =>
         <Picker
             pickable
             states={map(CONTENTS, 'code')}
-            current={content
-                ? content.code
-                : null}
+            current={iif(content, content.code, null)}
             nameMap={getNameMap()}
             onChoose={(code) => onChoose(contentKindLookup(code))} />
     </div>;

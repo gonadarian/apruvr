@@ -21,6 +21,16 @@ import {
     fetchNodes,
 } from './fetching';
 
+import type {
+    Action,
+    Dispatch,
+} from './types';
+
+export type {
+    Action,
+    Dispatch,
+};
+
 export {
     filterVisibility,
     fetchUsers,

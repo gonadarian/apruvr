@@ -1,10 +1,10 @@
 /* @flow */
 import axios from 'axios';
-import type { LanguageType } from '../consts';
-import type { ActionType } from '../flows';
+import { urls, type LanguageType } from '../consts';
+import type { ActionType, Dispatch } from '../flows';
 import { FETCH_NODES } from './types';
 
-const API_TRANSLATE_NOW = 'https://www.khanacademy.org/api/internal/translate_now?';
+const { api } = urls;
 
 export const fetchNodes = (language: LanguageType): ActionType =>
     (dispatch: Dispatch) => {
@@ -12,7 +12,7 @@ export const fetchNodes = (language: LanguageType): ActionType =>
         dispatch({
             type:    FETCH_NODES,
             payload: language
-                ? axios.get(`${API_TRANSLATE_NOW}lang=${language.code}`)
+                ? axios.get(`${api}/translate_now?lang=${language.code}`)
                 : null,
         });
     };

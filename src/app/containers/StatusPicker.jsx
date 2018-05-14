@@ -3,17 +3,18 @@ import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isNil } from 'lodash';
-import type { UserType, WorkflowType } from '../flows';
 import { setWorkflowStatus } from '../actions';
 import { Picker } from '../components';
+import type { StatusType } from '../consts';
+import type { State, Dispatch, UserType, WorkflowMapType } from '../flows';
 
 interface OwnPropsType {
     slug: string,
-    statuses: string[],
+    statuses: StatusType[],
 }
 
 interface StatePropsType extends OwnPropsType {
-    workflow: {[slug: string]: WorkflowType},
+    workflow: ?WorkflowMapType,
     user: ?UserType,
 }
 
@@ -32,7 +33,7 @@ const StatusPicker = ({ slug, statuses, workflow, user, onChoose }: PropsType): 
         onChoose={(status: ?string): void => onChoose(slug, status)} />;
 
 export default connect(
-    (state: Store, ownProps: OwnPropsType): StatePropsType => ({
+    (state: State, ownProps: OwnPropsType): StatePropsType => ({
         slug:     ownProps.slug,
         statuses: ownProps.statuses,
         workflow: state.workflow,

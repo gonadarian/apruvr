@@ -1,5 +1,7 @@
 /* @flow */
-import type { StateType } from './reducers';
+import type { Store } from './store';
+import type { Action, Dispatch } from './actions';
+import type { State, GetState } from './reducers';
 
 export type UserType = {
     uid: string,
@@ -48,4 +50,12 @@ export type WorkflowType = {
 
 export type WorkflowMapType = {[slug: string]: WorkflowType};
 
-export type ActionType = (dispatch: Dispatch, getState: () => StateType) => void;
+export type ActionType = (dispatch: Dispatch, getState: GetState) => void;
+
+export type {
+    Action,
+    Dispatch,
+    Store,
+    State,
+    GetState,
+};
