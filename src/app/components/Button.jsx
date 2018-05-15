@@ -1,5 +1,6 @@
 /* @flow */
 import React, { type Element } from 'react';
+import { iif } from '../utils';
 
 type PropsType = {
     name: string,
@@ -9,9 +10,7 @@ type PropsType = {
 
 const Button = ({ name, isActive = false, onClick }: PropsType): Element<*> =>
     <div
-        className={isActive
-            ? 'btn btn-primary'
-            : 'btn btn-default'}
+        className={iif(isActive, 'btn btn-primary', 'btn btn-default')}
         onClick={onClick}>
         {name}
     </div>;

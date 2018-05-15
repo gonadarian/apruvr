@@ -1,5 +1,6 @@
 /* @flow */
 import React, { type Element } from 'react';
+import { iif } from '../utils';
 import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
 import type { TopicNodeType, ItemType } from '../flows';
@@ -7,9 +8,7 @@ import type { TopicNodeType, ItemType } from '../flows';
 const { khan } = urls;
 
 const getPercent = (total: number, done: number): number =>
-    total === 0
-        ? 0
-        : Math.floor(100 * done / total);
+    iif(total === 0, 0, Math.floor(100 * done / total));
 
 type PropsType = {
     content: TopicNodeType,
@@ -28,19 +27,14 @@ const TopicItem = ({
     language,
     code,
 }: PropsType): Element<*> => {
-    const trnsp = metadataWordCount === 0
-        ? 0
-        : metadataTranslatedWordCount / metadataWordCount * 100;
-    const apprp = metadataWordCount === 0
-        ? 0
-        : metadataApprovedWordCount / metadataWordCount * 100;
-    const className = apprp === 100
-        ? 'success'
-        : trnsp === 100
-            ? 'info'
-            : trnsp > 0
-                ? 'warning'
-                : 'danger';
+    const trnsp = iif(metadataWordCount === 0, 0,
+        metadataTranslatedWordCount / metadataWordCount * 100);
+    const apprp = iif(metadataWordCount === 0, 0,
+        metadataApprovedWordCount / metadataWordCount * 100);
+    const className = iif(apprp === 100, 'success',
+        iif(trnsp === 100, 'info',
+            iif(trnsp > 0, 'warning',
+                'danger')));
     return (
         <tr className={className}>
             <td>

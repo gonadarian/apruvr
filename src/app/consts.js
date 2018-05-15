@@ -78,7 +78,6 @@ export const VISIBILITIES = {
 };
 
 export type VisibilityType = $Keys<typeof VISIBILITIES>;
-
 export type VisibilityListType = {[type: VisibilityType]: boolean};
 
 export const CONTENT_LETTERS: {[contentCode: string]: string} = {

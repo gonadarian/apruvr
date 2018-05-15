@@ -1,8 +1,9 @@
 /* @flow */
 import React, { type Element } from 'react';
-import type { CrowdinNodeType, ItemType } from '../flows';
+import { iif } from '../utils';
 import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
+import type { CrowdinNodeType, ItemType } from '../flows';
 
 const { khan, proofread, translate } = urls;
 
@@ -11,18 +12,13 @@ const getRowClass = (
     translatedWordCount: number,
     approvedWordCount: number
 ): string =>
-    approvedWordCount === translatableWordCount
-        ? 'success'
-        : translatedWordCount === translatableWordCount
-            ? 'info'
-            : translatedWordCount > 0
-                ? 'warning'
-                : 'danger';
+    iif(approvedWordCount === translatableWordCount, 'success',
+        iif(translatedWordCount === translatableWordCount, 'info',
+            iif(translatedWordCount > 0, 'warning',
+                'danger')));
 
 const getPercent = (total: number, done: number): number =>
-    total === 0
-        ? 0
-        : Math.floor(100 * done / total);
+    iif(total === 0, 0, Math.floor(100 * done / total));
 
 // Crowdin uses different language codes then Khan Academy
 const getLangCode = ({ crowdin, code }: ItemType): string =>

@@ -8,7 +8,7 @@ const config = Object.assign(
         output: Object.assign(
             commonConfig.output,
             {
-                filename:   'bundle.min.js',
+                filename: 'bundle.min.js',
             }
         ),
         plugins: [
@@ -18,12 +18,12 @@ const config = Object.assign(
                 },
             }),
             new webpack.optimize.UglifyJsPlugin({
-                minimize:   true,
-                output:     {
-                    comments:   false,
+                minimize: true,
+                output:   {
+                    comments: false,
                 },
-                compress:   {
-                    warnings:   false,
+                compress: {
+                    warnings: false,
                 },
             }),
         ],

@@ -1,14 +1,20 @@
+[include]
+.*/src/app/.*
+
 [ignore]
-.*/node_modules/.*
-.*/test/.*
-.*/src/firebase/.*
-.*/src/node/.*
-.*/src/public/.*
+<PROJECT_ROOT>/node_modules/.*
+<PROJECT_ROOT>/flow-typed/.*
+<PROJECT_ROOT>/flow-coverage/.*
+<PROJECT_ROOT>/src/firebase/.*
+<PROJECT_ROOT>/src/node/.*
+<PROJECT_ROOT>/src/public/.*
+<PROJECT_ROOT>/test/.*
+
+[libs]
+./flow-typed
 
 [options]
 all=true
 
-[include]
-
-[libs]
-./flow-typed/
+[version]
+^0.72.0

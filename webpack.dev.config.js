@@ -4,15 +4,15 @@ const commonConfig = require('./webpack.config');
 const config = Object.assign(
     commonConfig,
     {
-        mode:       'development',
-        devtool:    'source-map',
-        output:     Object.assign(
+        mode:    'development',
+        devtool: 'source-map',
+        output:  Object.assign(
             commonConfig.output,
             {
                 sourceMapFilename: 'bundle.js.map',
             }
         ),
-        devServer:  {
+        devServer: {
             contentBase:        './src/',
             historyApiFallback: {
                 disableDotRule: true,
