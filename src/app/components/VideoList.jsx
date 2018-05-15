@@ -39,8 +39,8 @@ const VideoStats = ({ stats: { totl, subd, dubd } }: PropsStatsType): Element<*>
         </tr>;
 
 type PropsType = {
-    nodes: NodeMapType,
     language: ItemType,
+    nodes: ?NodeMapType,
 };
 
 const VideoList = ({ nodes, ...other }: PropsType): Element<*> =>
@@ -66,7 +66,9 @@ const VideoList = ({ nodes, ...other }: PropsType): Element<*> =>
                 )}
             </tbody>
             <tfoot>
-                <VideoStats stats={calcStats(nodes)} />
+                {nodes &&
+                    <VideoStats stats={calcStats(nodes)} />
+                }
             </tfoot>
         </table>
     </div>;

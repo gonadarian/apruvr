@@ -9,6 +9,7 @@
 <PROJECT_ROOT>/src/node/.*
 <PROJECT_ROOT>/src/public/.*
 <PROJECT_ROOT>/test/.*
+<PROJECT_ROOT>/webpack.*
 
 [libs]
 ./flow-typed

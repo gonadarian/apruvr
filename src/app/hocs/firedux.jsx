@@ -1,9 +1,10 @@
 /* @flow */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
+import firebase from '@firebase/app';
+import '@firebase/database';
 
-const firedux = (calcPath) => (WrappedComponent) =>
+const firedux = (calcPath: (any) => string) => (WrappedComponent) =>
     class FireduxHOC extends Component {
         static propTypes = {
             onFire: PropTypes.func.isRequired,

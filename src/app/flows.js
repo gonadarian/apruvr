@@ -19,25 +19,25 @@ export type ItemType = {
     crowdin?: string,
 };
 
-class NodeType {
+type NodeType = {
     slug: string;
     title: string;
 }
 
 export type NodeMapType = {[slug: string]: NodeType};
 
-export class VideoNodeType extends NodeType {
+export type VideoNodeType = NodeType & {
     subbed: boolean;
     dubbed: boolean;
 }
 
-export class CrowdinNodeType extends NodeType {
+export type CrowdinNodeType = NodeType & {
     translatableWordCount: number;
     translatedWordCount: number;
     approvedWordCount: number;
 }
 
-export class TopicNodeType extends NodeType {
+export type TopicNodeType = NodeType & {
     metadataWordCount: number;
     metadataTranslatedWordCount: number;
     metadataApprovedWordCount: number;

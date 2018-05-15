@@ -1,7 +1,8 @@
 /* @flow */
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import firebase from 'firebase';
+import firebase from '@firebase/app';
+import '@firebase/auth';
 import type { UserType } from '../flows';
 import { userAuth, fetchUsers } from '../actions';
 

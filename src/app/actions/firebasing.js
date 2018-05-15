@@ -1,5 +1,7 @@
 /* @flow */
-import firebase from 'firebase';
+import firebase from '@firebase/app';
+import '@firebase/database';
+import '@firebase/auth';
 import type { ActionType, Dispatch, GetState, UserType, WorkflowMapType } from '../flows';
 import { IMPORTANT_STATUSES } from '../consts';
 import {
