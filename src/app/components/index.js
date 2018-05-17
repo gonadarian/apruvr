@@ -9,6 +9,7 @@ import Picker from './Picker';
 import TopicTree from './TopicTree';
 import VideoItem from './VideoItem';
 import VideoList from './VideoList';
+import HistoryList from './HistoryList';
 
 export {
     Button,
@@ -21,4 +22,5 @@ export {
     TopicTree,
     VideoItem,
     VideoList,
+    HistoryList,
 };

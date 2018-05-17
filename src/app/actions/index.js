@@ -5,6 +5,7 @@ import {
 import {
     fetchUsers,
     fetchWorkflow,
+    fetchHistory,
     userAuth,
     setWorkflowStatus,
     setWorkflowAgent,
@@ -35,6 +36,7 @@ export {
     filterVisibility,
     fetchUsers,
     fetchWorkflow,
+    fetchHistory,
     userAuth,
     setWorkflowStatus,
     setWorkflowAgent,

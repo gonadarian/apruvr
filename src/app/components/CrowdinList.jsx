@@ -3,7 +3,7 @@ import React, { type Element } from 'react';
 import { map, transform } from 'lodash';
 import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
-import type { CrowdinNodeType, NodeMapType, ItemType } from '../flows';
+import type { CrowdinNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
 import CrowdinItem from './CrowdinItem';
 
 type StatType = { cnt: number, sum: number };
@@ -61,6 +61,8 @@ type PropsType = {
     type: string,
     nodes: NodeMapType,
     language: ItemType,
+    history: ?HistoryType,
+    onHistory: (slug: string) => void,
 };
 
 const CrowdinList = ({ type, nodes, ...other }: PropsType): Element<*> =>

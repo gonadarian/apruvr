@@ -1,7 +1,7 @@
 /* @flow */
 import { combineReducers } from 'redux';
 import type { LanguageType, ContentKindType, VisibilityListType } from '../consts';
-import type { UserType, NodeMapType, WorkflowMapType } from '../flows';
+import type { UserType, NodeMapType, WorkflowMapType, HistoryType } from '../flows';
 import languageReducer from './languageReducer';
 import loadingReducer from './loadingReducer';
 import nodesReducer from './nodesReducer';
@@ -12,6 +12,7 @@ import workflowReducer from './workflowReducer';
 import userReducer from './userReducer';
 import rolesReducer from './rolesReducer';
 import usersReducer from './usersReducer';
+import historyReducer from './historyReducer';
 
 const RootReducer = combineReducers({
     language:   languageReducer,
@@ -24,6 +25,7 @@ const RootReducer = combineReducers({
     user:       userReducer,
     roles:      rolesReducer,
     users:      usersReducer,
+    history:    historyReducer,
 });
 
 export type State = {
@@ -37,6 +39,7 @@ export type State = {
     user: ?UserType,
     roles: ?string,
     users: ?UserType[],
+    history: ?HistoryType,
 };
 
 export type GetState = () => State;

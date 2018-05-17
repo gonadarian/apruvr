@@ -9,6 +9,7 @@ import {
     FIREBASE_AUTH,
     FIREBASE_ROLES,
     FIREBASE_USERS,
+    FIREBASE_HISTORY,
 } from './types';
 
 export const fetchUsers = (): ActionType =>
@@ -30,6 +31,26 @@ export const fetchWorkflow = (snapshot: WorkflowMapType): ActionType =>
             type:    FIREBASE_WORKFLOW,
             payload: snapshot,
         });
+    };
+
+export const fetchHistory = (slug: string): ActionType =>
+    (dispatch: Dispatch, getState: GetState) => {
+        const { language } = getState();
+        if (!language) {
+            throw new Error(`Language is not set [${slug}]`);
+        }
+        dispatch({
+            type:    FIREBASE_HISTORY,
+            payload: { slug },
+        });
+        const db = firebase.database();
+        db.ref(`history/${language.code}/${slug}`).on(
+            'value',
+            (snapshot: UserType[]): void => dispatch({
+                type:    FIREBASE_HISTORY,
+                payload: { slug, snapshot },
+            })
+        );
     };
 
 export const userAuth = (user: ?UserType): ActionType =>
@@ -63,8 +84,7 @@ export const setWorkflowStatus = (slug: string, status: string): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
         const { language, user } = getState();
         if (!language || !user) {
-            console.error('Can not set workflow status if language or user are not set.', slug, status);
-            return;
+            throw new Error(`Language or user are not set [${slug}, ${status}]`);
         }
         const { uid } = user;
         // save current status and agent
@@ -88,8 +108,7 @@ export const setWorkflowAgent = (slug: string, uid: string): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
         const { language } = getState();
         if (!language) {
-            console.error('Can not set workflow agent if language is not set.', slug, uid);
-            return;
+            throw new Error(`Language is not set [${slug}, ${uid}]`);
         }
         const db = firebase.database();
         // save change to the agent, something only advocate is allowed to do

@@ -8,6 +8,7 @@ export const FIREBASE_WORKFLOW = 'FIREBASE_WORKFLOW';
 export const FIREBASE_AUTH = 'FIREBASE_AUTH';
 export const FIREBASE_ROLES = 'FIREBASE_ROLES';
 export const FIREBASE_USERS = 'FIREBASE_USERS';
+export const FIREBASE_HISTORY = 'FIREBASE_HISTORY';
 
 type Action = any;
 

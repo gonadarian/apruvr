@@ -50,6 +50,17 @@ export type WorkflowType = {
 
 export type WorkflowMapType = {[slug: string]: WorkflowType};
 
+export type HistoryRecordType = {
+    uid: string;
+    time: number;
+    status: ?string;
+}
+
+export type HistoryType = {
+    slug: string;
+    timeline: ?{[key: string]: HistoryRecordType};
+}
+
 export type ActionType = (dispatch: Dispatch, getState: GetState) => void;
 
 export type {

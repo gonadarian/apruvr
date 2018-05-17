@@ -4,20 +4,25 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { size } from 'lodash';
 import { getVisibleNodes } from '../selectors';
-import { fetchWorkflow } from '../actions';
+import { fetchWorkflow, fetchHistory } from '../actions';
 import { firedux } from '../hocs';
 import { ContentList } from '../components';
 import type { LanguageType, ContentKindType } from '../consts';
-import type { State, ActionType, Dispatch, WorkflowMapType, NodeMapType } from '../flows';
+import type {
+    State, ActionType, Dispatch,
+    WorkflowMapType, NodeMapType, HistoryType,
+} from '../flows';
 
 interface StatePropsType {
     content: ContentKindType,
     language: ?LanguageType,
     nodes: ?NodeMapType,
+    history: ?HistoryType;
 }
 
 interface PropsType extends StatePropsType {
     onFire: (snapshot: WorkflowMapType) => ActionType,
+    onHistory: (slug: string) => void,
 }
 
 const FilteredContentList = ({ content, nodes, ...props }: PropsType): Element<*> =>
@@ -43,9 +48,11 @@ export default connect(
         content:  state.content,
         language: state.language,
         nodes:    getVisibleNodes(state),
+        history:  state.history,
     }),
     (dispatch: Dispatch) => bindActionCreators({
-        onFire: fetchWorkflow,
+        onFire:    fetchWorkflow,
+        onHistory: fetchHistory,
     }, dispatch)
 )(firedux(
     ({ language }) => `status/${language.code}`
