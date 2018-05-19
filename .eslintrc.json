@@ -70,7 +70,17 @@
         "callback-return": "error",
         "camelcase": "error",
         "capitalized-comments": "off",
-        "class-methods-use-this": "error",
+        "class-methods-use-this": [
+            "error",
+            {
+                "exceptMethods": [
+                    "componentDidMount",
+                    "shouldComponentUpdate",
+                    "getSnapshotBeforeUpdate",
+                    "componentDidUpdate"
+                ]
+            }
+        ],
         "comma-dangle": ["error", "always-multiline"],
         "comma-spacing": [
             "error",

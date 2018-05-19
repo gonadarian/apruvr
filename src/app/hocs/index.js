@@ -1,8 +1,12 @@
 /* @flow */
+import apruvrPage from './apruvrPage';
+import languagePage from './languagePage';
+import tracing from './tracing';
 import firedux from './firedux';
-import initialize from './initialize';
 
 export {
+    apruvrPage,
+    languagePage,
+    tracing,
     firedux,
-    initialize,
 };

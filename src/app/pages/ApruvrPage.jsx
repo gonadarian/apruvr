@@ -11,7 +11,7 @@ interface StatePropsType {
 }
 
 interface PropsType extends StatePropsType {
-    children: Element<*>,
+    children: ?Element<*>,
 }
 
 const ApruvrPage = ({ children, language }: PropsType): Element<*> =>

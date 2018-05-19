@@ -43,8 +43,7 @@ export const chooseContent = (content: ContentKindType): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
         const { language, topic } = getState();
         if (!language) {
-            console.error('Can not change content kind if language is not set', content);
-            return;
+            throw Error(`Can not change content kind [${content.code}] if language is not set`);
         }
         browserHistory.push(`/${language.code}/${content.code}/${topic}`);
     };
@@ -53,8 +52,7 @@ export const chooseTopic = (topic: string): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
         const { language, content } = getState();
         if (!language) {
-            console.error('Can not change topic if language is not set', topic);
-            return;
+            throw Error(`Can not change topic [${topic}] if language is not set`);
         }
         browserHistory.push(`/${language.code}/${content.code}/${topic}`);
     };
