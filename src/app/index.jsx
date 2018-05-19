@@ -10,7 +10,7 @@ const app = document.getElementById('app');
 if (app) {
     render((
         <Provider store={store}>
-            <Router history={browserHistory} routes={routes(store)} />
+            <Router history={browserHistory} routes={routes} />
         </Provider>
     ), app);
 }
