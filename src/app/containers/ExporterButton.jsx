@@ -1,11 +1,10 @@
 /* @flow */
 import React, { type Element } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { map, reduce } from 'lodash';
-import ApruvrTypes from '../types';
-import { CONTENT_GROUPS } from '../consts';
 import { getVisibleNodes } from '../selectors';
+import { CONTENT_GROUPS, type ContentKindType } from '../consts';
+import type { State, NodeMapType, WorkflowMapType, UserType } from '../flows';
 
 const getStatus = (slug, workflow): string =>
     workflow && slug in workflow
@@ -89,7 +88,15 @@ const generateExport = (code, nodes, workflow, users): string => {
     return `data:attachment/csv,${encoded}`;
 };
 
-const ExporterButton = ({ content, topic, nodes, workflow, users }): Element<*> =>
+interface PropsType {
+    content: ContentKindType,
+    topic: string,
+    nodes: ?NodeMapType,
+    workflow: ?WorkflowMapType,
+    users: ?UserType[],
+}
+
+const ExporterButton = ({ content, topic, nodes, workflow, users }: PropsType): Element<*> =>
     <div className="col-xs-12 col-sm-2">
         <h2>Export</h2>
         <a className="btn btn-primary"
@@ -100,16 +107,8 @@ const ExporterButton = ({ content, topic, nodes, workflow, users }): Element<*> 
         </a>
     </div>;
 
-ExporterButton.propTypes = {
-    content:  ApruvrTypes.item.isRequired,
-    topic:    PropTypes.string.isRequired,
-    nodes:    PropTypes.objectOf(PropTypes.object).isRequired,
-    workflow: PropTypes.object,
-    users:    PropTypes.object,
-};
-
 export default connect(
-    (state) => ({
+    (state: State): PropsType => ({
         content:  state.content,
         topic:    state.topic,
         nodes:    getVisibleNodes(state),
