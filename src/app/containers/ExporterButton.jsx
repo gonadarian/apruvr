@@ -1,10 +1,12 @@
 /* @flow */
 import React, { type Element } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { map, reduce } from 'lodash';
+import { startExport } from '../actions';
 import { getVisibleNodes } from '../selectors';
 import { CONTENT_GROUPS, type ContentKindType } from '../consts';
-import type { State, NodeMapType, WorkflowMapType, UserType } from '../flows';
+import type { State, Dispatch, NodeMapType, WorkflowMapType, UserType } from '../flows';
 
 const getStatus = (slug, workflow): string =>
     workflow && slug in workflow
@@ -88,7 +90,8 @@ const generateExport = (code, nodes, workflow, users): string => {
     return `data:attachment/csv,${encoded}`;
 };
 
-interface PropsType {
+interface StatePropsType {
+    exporting: boolean,
     content: ContentKindType,
     topic: string,
     nodes: ?NodeMapType,
@@ -96,23 +99,39 @@ interface PropsType {
     users: ?UserType[],
 }
 
-const ExporterButton = ({ content, topic, nodes, workflow, users }: PropsType): Element<*> =>
+interface PropsType extends StatePropsType {
+    onExportStarted: () => void,
+}
+
+const ExporterButton = ({
+    exporting, content, topic, nodes, workflow, users, onExportStarted,
+}: PropsType): Element<*> =>
     <div className="col-xs-12 col-sm-2">
         <h2>Export</h2>
-        <a className="btn btn-primary"
-            download={`${content.name} ${topic}.csv`}
-            href={generateExport(content.code, nodes, workflow, users)}
-            target="_blank">
+        {exporting
+            ? <a className="btn btn-primary"
+                download={`${content.name} ${topic}.csv`}
+                href={generateExport(content.code, nodes, workflow, users)}
+                target="_blank">
+                Download Report
+            </a>
+            : <a className="btn btn-default"
+                onClick={(): void => onExportStarted()}>
                 Generate Report
-        </a>
+            </a>
+        }
     </div>;
 
 export default connect(
-    (state: State): PropsType => ({
-        content:  state.content,
-        topic:    state.topic,
-        nodes:    getVisibleNodes(state),
-        workflow: state.workflow,
-        users:    state.users,
-    })
+    (state: State): StatePropsType => ({
+        exporting: state.exporting,
+        content:   state.content,
+        topic:     state.topic,
+        nodes:     getVisibleNodes(state),
+        workflow:  state.workflow,
+        users:     state.users,
+    }),
+    (dispatch: Dispatch) => bindActionCreators({
+        onExportStarted: startExport,
+    }, dispatch),
 )(ExporterButton);

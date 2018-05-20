@@ -13,6 +13,7 @@ import userReducer from './userReducer';
 import rolesReducer from './rolesReducer';
 import usersReducer from './usersReducer';
 import historyReducer from './historyReducer';
+import exportingReducer from './exportingReducer';
 
 const RootReducer = combineReducers({
     language:   languageReducer,
@@ -26,6 +27,7 @@ const RootReducer = combineReducers({
     roles:      rolesReducer,
     users:      usersReducer,
     history:    historyReducer,
+    exporting:  exportingReducer,
 });
 
 export type State = {
@@ -40,6 +42,7 @@ export type State = {
     roles: ?string,
     users: ?UserType[],
     history: ?HistoryType,
+    exporting: boolean,
 };
 
 export type GetState = () => State;

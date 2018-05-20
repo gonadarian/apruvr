@@ -1,5 +1,5 @@
 /* @flow */
-import { filterVisibility } from './filtering';
+import { filterVisibility, startExport } from './filtering';
 import {
     fetchUsers, fetchWorkflow, fetchHistory, userAuth,
     setWorkflowStatus, setWorkflowAgent, userSignIn, userSignOut,
@@ -15,9 +15,11 @@ export type {
 
 export {
     filterVisibility,
+    startExport,
     fetchUsers,
     fetchWorkflow,
     fetchHistory,
+    fetchNodes,
     userAuth,
     setWorkflowStatus,
     setWorkflowAgent,
@@ -27,5 +29,4 @@ export {
     chooseLanguage,
     chooseContent,
     chooseTopic,
-    fetchNodes,
 };

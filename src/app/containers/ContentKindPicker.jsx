@@ -43,7 +43,7 @@ const ContentKindPicker = ({ content, onChoose }: PropsType): Element<*> =>
     </div>;
 
 export default withRouter(connect(
-    (state: State) => ({
+    (state: State): StatePropsType => ({
         content: state.content,
     }),
     (dispatch: Dispatch, ownProps: OwnPropsType) => bindActionCreators({

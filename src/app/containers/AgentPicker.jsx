@@ -63,7 +63,7 @@ export default connect(
         users:    state.users,
         roles:    state.roles,
     }),
-    (dispatch: Dispatch): void => bindActionCreators({
+    (dispatch: Dispatch) => bindActionCreators({
         onChoose: setWorkflowAgent,
     }, dispatch)
 )(AgentPicker);
