@@ -6,10 +6,14 @@ import ContentList from './ContentList';
 import CrowdinItem from './CrowdinItem';
 import CrowdinList from './CrowdinList';
 import Picker from './Picker';
-import TopicTree from './TopicTree';
+import TopicTree, { type TopicTreeType } from './TopicTree';
 import VideoItem from './VideoItem';
 import VideoList from './VideoList';
 import HistoryList from './HistoryList';
+
+export type {
+    TopicTreeType,
+};
 
 export {
     Button,

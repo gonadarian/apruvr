@@ -1,16 +1,20 @@
 /* @flow */
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { tracing } from './hocs';
 import { store } from './store';
-import routes from './routes';
+import { ApruvrPage } from './pages';
 
 const app = document.getElementById('app');
 if (app) {
     render((
         <Provider store={store}>
-            <Router history={browserHistory} routes={routes} />
+            <BrowserRouter>
+                <Route path="/:lang?/:kind?/:topic?"
+                    component={tracing('APRUVR ')(ApruvrPage)} />
+            </BrowserRouter>
         </Provider>
     ), app);
 }

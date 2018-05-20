@@ -11,13 +11,13 @@ type TopicType = {
     topics: {[id: string]: TopicType},
 };
 
-type TreePropsType = {
+export type TopicTreeType = {
     tree: {root: TopicType},
     selected: string,
     onChoose: (path: string) => void,
 };
 
-const TopicTree = ({ tree, ...other }: TreePropsType): Element<*> =>
+const TopicTree = ({ tree, ...other }: TopicTreeType): Element<*> =>
     <TopicList
         {...other}
         path="root"

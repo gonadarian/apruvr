@@ -129,5 +129,5 @@ export const CONTENTS: Array<ContentKindType> = [
     { code: 'topics', name: 'Descriptions' },
 ];
 
-export const contentKindLookup = (kindCode: ContentCodeType): ContentKindType =>
+export const contentKindLookup = (kindCode: ?ContentCodeType): ?ContentKindType =>
     find(CONTENTS, ({ code }: ContentKindType): boolean => code === kindCode);

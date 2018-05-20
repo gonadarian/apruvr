@@ -1,5 +1,6 @@
 /* @flow */
 import React, { type Element } from 'react';
+import { withRouter, type RouterHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { map, reduce, find } from 'lodash';
@@ -22,11 +23,15 @@ const getNameMap = (): NameMapType =>
         {}
     );
 
+interface OwnPropsType {
+    history: RouterHistory,
+}
+
 interface StatePropsType {
     language: ?LanguageType,
 }
 
-interface PropsType extends StatePropsType {
+interface PropsType extends OwnPropsType, StatePropsType {
     onChoose: (language: ?LanguageType) => void,
 }
 
@@ -48,11 +53,11 @@ const LanguagePicker = ({ language, onChoose }: PropsType): Element<*> =>
             )} />
     </div>;
 
-export default connect(
+export default withRouter(connect(
     (state: State): StatePropsType => ({
         language: state.language,
     }),
-    (dispatch: Dispatch): void => bindActionCreators({
-        onChoose: chooseLanguage,
+    (dispatch: Dispatch, ownProps: OwnPropsType) => bindActionCreators({
+        onChoose: chooseLanguage(ownProps.history),
     }, dispatch)
-)(LanguagePicker);
+)(LanguagePicker));

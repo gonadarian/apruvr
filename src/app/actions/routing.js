@@ -1,10 +1,9 @@
 /* @flow */
-import { browserHistory } from 'react-router';
+import type { RouterHistory } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { ROUTE_CHANGE, FETCH_NODES } from './types';
-import type { ActionType, Dispatch, GetState } from '../flows';
+import type { ActionType, Dispatch, GetState, RouteParamsType } from '../flows';
 import type { LanguageType, ContentKindType } from '../consts';
-import type { RouteParamsType } from '../routes';
 
 export const routeChange = (params: RouteParamsType): ActionType =>
     (dispatch: Dispatch) => {
@@ -14,11 +13,11 @@ export const routeChange = (params: RouteParamsType): ActionType =>
         });
     };
 
-export const chooseLanguage = (language: LanguageType): ActionType =>
+export const chooseLanguage = (history: RouterHistory) => (language: LanguageType): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
         // if language is not defined, redirect to root url
         if (!language) {
-            browserHistory.push('/');
+            history.push('/');
             return;
         }
         const current = getState().language;
@@ -36,23 +35,23 @@ export const chooseLanguage = (language: LanguageType): ActionType =>
         }
         // redirect to same url, just different language
         const { content, topic } = getState();
-        browserHistory.push(`/${language.code}/${content.code}/${topic}`);
+        history.push(`/${language.code}/${content.code}/${topic}`);
     };
 
-export const chooseContent = (content: ContentKindType): ActionType =>
+export const chooseContent = (history: RouterHistory) => (content: ContentKindType): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
         const { language, topic } = getState();
         if (!language) {
             throw Error(`Can not change content kind [${content.code}] if language is not set`);
         }
-        browserHistory.push(`/${language.code}/${content.code}/${topic}`);
+        history.push(`/${language.code}/${content.code}/${topic}`);
     };
 
-export const chooseTopic = (topic: string): ActionType =>
+export const chooseTopic = (history: RouterHistory) => (topic: string): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
         const { language, content } = getState();
         if (!language) {
             throw Error(`Can not change topic [${topic}] if language is not set`);
         }
-        browserHistory.push(`/${language.code}/${content.code}/${topic}`);
+        history.push(`/${language.code}/${content.code}/${topic}`);
     };

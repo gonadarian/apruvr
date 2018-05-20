@@ -1,24 +1,30 @@
 /* @flow */
 import React, { type Element } from 'react';
+import { withRouter, type RouterHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { chooseTopic } from '../actions';
 import { getTopicTree } from '../selectors';
-import { TopicTree } from '../components';
+import { TopicTree, type TopicTreeType } from '../components';
+import type { State, Dispatch } from '../flows';
 
-const SelectedTopicList = (props): Element<*> =>
+interface OwnPropsType {
+    history: RouterHistory,
+}
+
+const SelectedTopicList = (props: TopicTreeType): Element<*> =>
     <div className="col-xs-12 col-md-3">
         <h2>Topics</h2>
         <TopicTree
             {...props} />
     </div>;
 
-export default connect(
-    (state) => ({
+export default withRouter(connect(
+    (state: State) => ({
         tree:     getTopicTree(state),
         selected: state.topic,
     }),
-    (dispatch) => bindActionCreators({
-        onChoose: chooseTopic,
+    (dispatch: Dispatch, ownProps: OwnPropsType) => bindActionCreators({
+        onChoose: chooseTopic(ownProps.history),
     }, dispatch)
-)(SelectedTopicList);
+)(SelectedTopicList));

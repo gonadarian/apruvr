@@ -38,13 +38,13 @@ interface OwnPropsType {
     slug: string,
 }
 
-interface StatePropsType extends OwnPropsType {
+interface StatePropsType {
     workflow: ?WorkflowMapType,
     users: ?UserType[],
     roles: ?string,
 }
 
-interface PropsType extends StatePropsType {
+interface PropsType extends OwnPropsType, StatePropsType {
     onChoose: (uid: ?string) => void,
 }
 
@@ -58,8 +58,7 @@ const AgentPicker = ({ slug, workflow, users, roles, onChoose }: PropsType): Ele
             onChoose={(uid: ?string): void => onChoose(slug, uid)} />;
 
 export default connect(
-    (state: State, props: OwnPropsType): StatePropsType => ({
-        slug:     props.slug,
+    (state: State): StatePropsType => ({
         workflow: state.workflow,
         users:    state.users,
         roles:    state.roles,

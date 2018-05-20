@@ -1,31 +1,12 @@
 /* @flow */
+import { filterVisibility } from './filtering';
 import {
-    filterVisibility,
-} from './filtering';
-import {
-    fetchUsers,
-    fetchWorkflow,
-    fetchHistory,
-    userAuth,
-    setWorkflowStatus,
-    setWorkflowAgent,
-    userSignIn,
-    userSignOut,
+    fetchUsers, fetchWorkflow, fetchHistory, userAuth,
+    setWorkflowStatus, setWorkflowAgent, userSignIn, userSignOut,
 } from './firebasing';
-import {
-    routeChange,
-    chooseLanguage,
-    chooseContent,
-    chooseTopic,
-} from './routing';
-import {
-    fetchNodes,
-} from './fetching';
-
-import type {
-    Action,
-    Dispatch,
-} from './types';
+import { routeChange, chooseLanguage, chooseContent, chooseTopic } from './routing';
+import { fetchNodes } from './fetching';
+import type { Action, Dispatch } from './types';
 
 export type {
     Action,

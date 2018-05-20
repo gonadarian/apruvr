@@ -63,6 +63,13 @@ export type HistoryType = {
 
 export type ActionType = (dispatch: Dispatch, getState: GetState) => void;
 
+export type RouteParamsType = {
+    land?: string,
+    kind?: string,
+    topic?: string,
+};
+
+// re-export types for conveniance
 export type {
     Action,
     Dispatch,

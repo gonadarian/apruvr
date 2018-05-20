@@ -1,14 +1,13 @@
 /* @flow */
 import React, { type Element } from 'react';
-import PropTypes from 'prop-types';
+import { withRouter, type RouterHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { map, reduce } from 'lodash';
-import { iif } from '../utils';
-import { CONTENTS, contentKindLookup } from '../consts';
-import ApruvrTypes from '../types';
 import { chooseContent } from '../actions';
 import { Picker } from '../components';
+import type { State, Dispatch } from '../flows';
+import { CONTENTS, contentKindLookup, type ContentKindType } from '../consts';
 
 const getNameMap = () =>
     reduce(
@@ -20,27 +19,34 @@ const getNameMap = () =>
         {}
     );
 
-const ContentKindPicker = ({ content, onChoose }): Element<*> =>
+interface OwnPropsType {
+    history: RouterHistory,
+}
+
+interface StatePropsType {
+    content: ContentKindType,
+}
+
+interface PropsType extends OwnPropsType, StatePropsType {
+    onChoose: (content: ?ContentKindType) => void,
+}
+
+const ContentKindPicker = ({ content, onChoose }: PropsType): Element<*> =>
     <div className="col-xs-2">
         <h2>Content</h2>
         <Picker
             pickable
             states={map(CONTENTS, 'code')}
-            current={iif(content, content.code, null)}
+            current={content.code}
             nameMap={getNameMap()}
-            onChoose={(code) => onChoose(contentKindLookup(code))} />
+            onChoose={(code: ?string) => onChoose(contentKindLookup(code))} />
     </div>;
 
-ContentKindPicker.propTypes = {
-    content:  ApruvrTypes.item,
-    onChoose: PropTypes.func.isRequired,
-};
-
-export default connect(
-    (state) => ({
+export default withRouter(connect(
+    (state: State) => ({
         content: state.content,
     }),
-    (dispatch) => bindActionCreators({
-        onChoose: chooseContent,
+    (dispatch: Dispatch, ownProps: OwnPropsType) => bindActionCreators({
+        onChoose: chooseContent(ownProps.history),
     }, dispatch)
-)(ContentKindPicker);
+)(ContentKindPicker));

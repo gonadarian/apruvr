@@ -1,6 +1,7 @@
 /* @flow */
 import { createSelector } from 'reselect';
 import { size, forIn, filter, isEmpty, forEach } from 'lodash';
+import type { State } from '../flows';
 
 const handleTopicList = (topicList, topic) => {
     if (size(topicList) === 0) {
@@ -72,7 +73,7 @@ const createTopicTree = (nodes) => {
 
 export default createSelector(
     [
-        (state) => state.nodes,
+        (state: State) => state.nodes,
     ],
     (nodes) => createTopicTree(nodes)
 );

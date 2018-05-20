@@ -1,5 +1,6 @@
 /* @flow */
 import React, { Component } from 'react';
+import type { Match } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -11,14 +12,15 @@ import { languageLookup, type LanguageType } from '../consts';
 import type { State } from '../flows';
 
 interface OwnPropsType {
-    params: {lang: string},
+    match: Match,
 }
 
-interface StatePropsType extends OwnPropsType {
+interface StatePropsType {
+    lang: ?string,
     visible: boolean,
 }
 
-interface PropsType extends StatePropsType {
+interface PropsType extends OwnPropsType, StatePropsType {
     onLanguageChange: (language: LanguageType) => void,
 }
 
@@ -28,36 +30,38 @@ class LanguagePage extends Component<PropsType> {
     }
 
     componentDidUpdate (prevProps: PropsType) {
-        if (this.props.params.lang === prevProps.params.lang) {
+        const { lang } = this.props;
+        if (lang === prevProps.lang) {
             return;
         }
         this.fetching();
     }
 
     fetching () {
-        const language = languageLookup(this.props.params.lang);
+        const { lang, onLanguageChange } = this.props;
+        const language = languageLookup(lang);
         if (!language) {
             throw Error('Language should be available for this component.');
         }
         // load language translation data
-        this.props.onLanguageChange(language);
+        onLanguageChange(language);
     }
 
     render () {
-        return this.props.visible &&
-            <div>
-                <ContentKindPicker />
-                <VisibilityButtons />
-                <ExporterButton />
-                <SelectedTopicList />
-                <FilteredContentList />
-            </div>;
+        const { visible } = this.props;
+        return visible && <div>
+            <ContentKindPicker />
+            <VisibilityButtons />
+            <ExporterButton />
+            <SelectedTopicList />
+            <FilteredContentList />
+        </div>;
     }
 }
 
 export default connect(
     (state: State, props: OwnPropsType): StatePropsType => ({
-        params:  props.params,
+        lang:    props.match.params.lang,
         visible: state.nodes !== null,
     }),
     (dispatch: Dispatch): void => bindActionCreators({

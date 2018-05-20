@@ -1,31 +1,37 @@
 /* @flow */
-import React, { Component, type Element } from 'react';
+import React, { Component } from 'react';
+import {
+    Route, Switch, Redirect,
+    type RouterHistory, type Location, type Match,
+} from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import { pickBy, transform, isEmpty } from 'lodash';
+import { tracing } from '../hocs';
 import { routeChange, userAuth, fetchUsers } from '../actions';
 import { languageLookup, type LanguageType, type ContentKindType } from '../consts';
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
-import type { RouteParamsType } from '../routes';
-import type { State, UserType } from '../flows';
+import type { State, UserType, RouteParamsType } from '../flows';
+import LanguagePage from './LanguagePage';
 import styles from '../styles/main.less';
 
 interface OwnPropsType {
-    params: { lang: ?string },
-    location: { pathname: string },
+    match: Match,
+    history: RouterHistory,
+    location: Location,
 }
 
-interface StatePropsType extends OwnPropsType {
+interface StatePropsType {
+    params: { lang: ?string },
+    pathname: string,
     language: ?LanguageType,
     content: ContentKindType,
     topic: string,
 }
 
-interface PropsType extends StatePropsType {
-    children: ?Element<*>,
+interface PropsType extends OwnPropsType, StatePropsType {
     onRouteChange: (route: RouteParamsType) => void,
     onUserAuth: (user: UserType) => void,
     onUsersLoad: () => void,
@@ -47,12 +53,12 @@ class ApruvrPage extends Component<PropsType, {}> {
 
         // initialize user session, store user data in database
         firebase.auth().onAuthStateChanged((user: UserType) => {
-            userAuth(user);
+            this.props.onUserAuth(user);
         });
     }
 
     componentDidMount () {
-        const { onRouteChange, onUsersLoad, params } = this.props;
+        const { onRouteChange, onUsersLoad, params, history } = this.props;
         // save to state initial path params before components are loaded
         if (!isEmpty(params)) {
             onRouteChange(params);
@@ -62,13 +68,13 @@ class ApruvrPage extends Component<PropsType, {}> {
         // redirect to last used path
         const { language, content, topic } = this.props;
         if (language && content && topic) {
-            browserHistory.push(`/${language.code}/${content.code}/${topic}`);
+            history.push(`/${language.code}/${content.code}/${topic}`);
         }
     }
 
     componentDidUpdate (prevProps: PropsType) {
-        const { location, params } = this.props;
-        if (location.pathname === prevProps.location.pathname) {
+        const { pathname, params } = this.props;
+        if (pathname === prevProps.pathname) {
             return;
         }
         // ignore unchanged parameters
@@ -95,7 +101,7 @@ class ApruvrPage extends Component<PropsType, {}> {
     }
 
     render () {
-        const { language, children } = this.props;
+        const { language } = this.props;
         return <div>
             <div className={`jumbotron text-center ${styles.dark}`}>
                 <h1>Khan Academy Apruvr</h1>
@@ -105,7 +111,12 @@ class ApruvrPage extends Component<PropsType, {}> {
                 <LanguagePicker language={language} />
                 <SignInButton />
                 <LoadingSpinner />
-                {children}
+                <Switch>
+                    <Route path="/:lang/:kind/:topic"
+                        component={tracing('LANGUAGE ')(LanguagePage)} />
+                    <Redirect exact from="/:lang/:kind" to=":lang/:kind/root.math" />
+                    <Redirect exact from="/:lang" to=":lang/exercises/root.math" />
+                </Switch>
             </div>
         </div>;
     }
@@ -113,9 +124,9 @@ class ApruvrPage extends Component<PropsType, {}> {
 
 export default connect(
     (state: State, props: OwnPropsType): StatePropsType => ({
-        params:   props.params,
-        location: props.location,
-        language: languageLookup(props.params.lang),
+        params:   props.match.params,
+        pathname: props.location.pathname,
+        language: languageLookup(props.match.params.lang),
         content:  state.content,
         topic:    state.topic,
     }),

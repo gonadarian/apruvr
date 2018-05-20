@@ -23,7 +23,7 @@ const actions = {
 
 type ActionType = $Keys<typeof actions>;
 
-export type Action = { type: ActionType, payload: ?Object };
+export type Action = { type: ActionType, payload: string | ?Object };
 export type PromiseAction = Promise<Action>;
 type DispatchInner = (action: Action | PromiseAction | Array<Action>) => any;
 export type ThunkAction = (dispatch: DispatchInner, getState: GetState) => any;
