@@ -68,7 +68,7 @@ export const IMPORTANT_STATUSES: {[status: StatusType]: true} = {
     approved:   true,
 };
 
-export const VISIBILITIES = {
+export const VISIBILITIES: {[type: string]: string} = {
     fresh:      'New content',
     doing:      'In progress',
     translated: 'Translated',
@@ -77,7 +77,7 @@ export const VISIBILITIES = {
     dubbed:     'Dubbed',
 };
 
-export type VisibilityType = $Keys<typeof VISIBILITIES>;
+export type VisibilityType = 'fresh' | 'doing' | 'translated' | 'approved' | 'subtitled' | 'dubbed';
 export type VisibilityListType = {[type: VisibilityType]: boolean};
 
 export const CONTENT_LETTERS: {[contentCode: string]: string} = {
@@ -129,5 +129,5 @@ export const CONTENTS: Array<ContentKindType> = [
     { code: 'topics', name: 'Descriptions' },
 ];
 
-export const contentKindLookup = (kindCode: ?ContentCodeType): ?ContentKindType =>
+export const contentKindLookup = (kindCode: ContentCodeType): ContentKindType =>
     find(CONTENTS, ({ code }: ContentKindType): boolean => code === kindCode);

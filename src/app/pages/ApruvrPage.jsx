@@ -24,7 +24,7 @@ interface OwnPropsType {
 }
 
 interface StatePropsType {
-    params: { lang: ?string },
+    // params: { lang: ?string },
     pathname: string,
     language: ?LanguageType,
     content: ContentKindType,
@@ -37,10 +37,9 @@ interface PropsType extends OwnPropsType, StatePropsType {
     onUsersLoad: () => void,
 }
 
-class ApruvrPage extends Component<PropsType, {}> {
+class ApruvrPage extends Component<PropsType> {
     constructor (props: PropsType) {
         super(props);
-        this.state = {};
 
         // initialize firebase
         firebase.initializeApp({
@@ -58,7 +57,7 @@ class ApruvrPage extends Component<PropsType, {}> {
     }
 
     componentDidMount () {
-        const { onRouteChange, onUsersLoad, params, history } = this.props;
+        const { onRouteChange, onUsersLoad, match: { params }, history } = this.props;
         // save to state initial path params before components are loaded
         if (!isEmpty(params)) {
             onRouteChange(params);
@@ -73,19 +72,20 @@ class ApruvrPage extends Component<PropsType, {}> {
     }
 
     componentDidUpdate (prevProps: PropsType) {
-        const { pathname, params } = this.props;
+        const { pathname, match: { params } } = this.props;
+        const prevParams = prevProps.match.params;
         if (pathname === prevProps.pathname) {
             return;
         }
         // ignore unchanged parameters
         const newAndChangedParams = pickBy(
             params,
-            (value, param) =>
-                !(param in prevProps.params) || value !== prevProps.params[param]
+            (value: ?string, param: string) =>
+                !(param in prevParams) || value !== prevParams[param]
         );
         // keep information about removed parameters
         const removedParams = transform(
-            prevProps.params,
+            prevParams,
             (memo, value, param) => {
                 if (!(param in params)) {
                     memo[param] = null;
@@ -124,13 +124,13 @@ class ApruvrPage extends Component<PropsType, {}> {
 
 export default connect(
     (state: State, props: OwnPropsType): StatePropsType => ({
-        params:   props.match.params,
+        // params:   props.match.params,
         pathname: props.location.pathname,
         language: languageLookup(props.match.params.lang),
         content:  state.content,
         topic:    state.topic,
     }),
-    (dispatch: Dispatch): void => bindActionCreators({
+    (dispatch: Dispatch) => bindActionCreators({
         onRouteChange: routeChange,
         onUserAuth:    userAuth,
         onUsersLoad:   fetchUsers,

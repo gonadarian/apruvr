@@ -39,7 +39,7 @@ export default connect(
         workflow: state.workflow,
         user:     state.user,
     }),
-    (dispatch: Dispatch): void => bindActionCreators({
+    (dispatch: Dispatch) => bindActionCreators({
         onChoose: setWorkflowStatus,
     }, dispatch)
 )(StatusPicker);

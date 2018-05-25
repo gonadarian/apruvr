@@ -28,10 +28,10 @@ interface StatePropsType {
 }
 
 interface PropsType extends OwnPropsType, StatePropsType {
-    onChoose: (content: ?ContentKindType) => void,
+    onChoose: (content: ContentKindType) => void,
 }
 
-const ContentKindPicker = ({ content, onChoose }: PropsType): Element<*> =>
+const ContentKindPicker = ({ content, onChoose }: PropsType): Element<'div'> =>
     <div className="col-xs-2">
         <h2>Content</h2>
         <Picker

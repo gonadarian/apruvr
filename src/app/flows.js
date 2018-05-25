@@ -19,7 +19,7 @@ export type ItemType = {
     crowdin?: string,
 };
 
-type NodeType = {
+export type NodeType = {
     slug: string;
     title: string;
 }
@@ -51,8 +51,8 @@ export type WorkflowType = {
 export type WorkflowMapType = {[slug: string]: WorkflowType};
 
 export type HistoryRecordType = {
-    uid: string;
     time: number;
+    uid: ?string;
     status: ?string;
 }
 

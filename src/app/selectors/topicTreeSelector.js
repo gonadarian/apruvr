@@ -75,5 +75,7 @@ export default createSelector(
     [
         (state: State) => state.nodes,
     ],
-    (nodes) => createTopicTree(nodes)
+    (nodes) => nodes
+        ? createTopicTree(nodes)
+        : {}
 );

@@ -64,7 +64,7 @@ export default connect(
         lang:    props.match.params.lang,
         visible: state.nodes !== null,
     }),
-    (dispatch: Dispatch): void => bindActionCreators({
+    (dispatch: Dispatch) => bindActionCreators({
         onLanguageChange: fetchNodes,
     }, dispatch)
 )(LanguagePage);

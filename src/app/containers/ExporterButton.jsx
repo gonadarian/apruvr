@@ -6,7 +6,10 @@ import { map, reduce } from 'lodash';
 import { startExport } from '../actions';
 import { getVisibleNodes } from '../selectors';
 import { CONTENT_GROUPS, type ContentKindType } from '../consts';
-import type { State, Dispatch, NodeMapType, WorkflowMapType, UserType } from '../flows';
+import type {
+    State, Dispatch,
+    NodeType, NodeMapType, WorkflowMapType, UserMapType,
+} from '../flows';
 
 const getStatus = (slug, workflow): string =>
     workflow && slug in workflow
@@ -81,7 +84,8 @@ const generateExport = (code, nodes, workflow, users): string => {
         reduce(
             map(
                 nodes,
-                (node, slug) => exporter(slug, node, workflow, users)
+                (node: NodeType, slug: string) =>
+                    exporter(slug, node, workflow, users)
             ),
             (result, row) => `${result}\n${row}`,
             columns.join('\t')
@@ -96,7 +100,7 @@ interface StatePropsType {
     topic: string,
     nodes: ?NodeMapType,
     workflow: ?WorkflowMapType,
-    users: ?UserType[],
+    users: ?UserMapType,
 }
 
 interface PropsType extends StatePropsType {
@@ -113,11 +117,13 @@ const ExporterButton = ({
                 download={`${content.name} ${topic}.csv`}
                 href={generateExport(content.code, nodes, workflow, users)}
                 target="_blank">
-                Download Report
+                {'Download Report '}
+                <span className="fas fa-download" />
             </a>
             : <a className="btn btn-default"
                 onClick={(): void => onExportStarted()}>
                 Generate Report
+                <span className="fas fa-download" />
             </a>
         }
     </div>;

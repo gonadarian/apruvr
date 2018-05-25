@@ -6,6 +6,7 @@ import ContentList from './ContentList';
 import CrowdinItem from './CrowdinItem';
 import CrowdinList from './CrowdinList';
 import Picker from './Picker';
+import TopicItem from './TopicItem';
 import TopicTree, { type TopicTreeType } from './TopicTree';
 import VideoItem from './VideoItem';
 import VideoList from './VideoList';
@@ -23,6 +24,7 @@ export {
     CrowdinItem,
     CrowdinList,
     Picker,
+    TopicItem,
     TopicTree,
     VideoItem,
     VideoList,

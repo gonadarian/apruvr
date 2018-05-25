@@ -2,7 +2,7 @@
 import React, { type Element } from 'react';
 import { map } from 'lodash';
 
-const getName = (state: string, nameMap?: {[id: string]: string}): string =>
+const getName = (state: string, nameMap?: ?{[id: string]: string}): string =>
     nameMap && state in nameMap
         ? nameMap[state]
         : state;
@@ -11,7 +11,7 @@ type PropsType = {
     states: Array<?string>,
     current: ?string,
     pickable: boolean,
-    nameMap?: {[id: string]: string},
+    nameMap?: ?{[id: string]: string},
     onChoose: (state: ?string) => void,
 };
 

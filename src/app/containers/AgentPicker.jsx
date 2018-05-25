@@ -40,22 +40,26 @@ interface OwnPropsType {
 
 interface StatePropsType {
     workflow: ?WorkflowMapType,
-    users: ?UserType[],
+    users: ?UserMapType,
     roles: ?string,
 }
 
 interface PropsType extends OwnPropsType, StatePropsType {
-    onChoose: (uid: ?string) => void,
+    onChoose: (slug: string, uid: ?string) => void,
 }
 
-const AgentPicker = ({ slug, workflow, users, roles, onChoose }: PropsType): Element<*> | false =>
-    workflow !== null && slug in workflow &&
-        <Picker
+const AgentPicker = ({ slug, workflow, users, roles, onChoose }: PropsType): ?Element<*> =>
+    workflow && slug in workflow
+        ? <Picker
             states={[...getUIDs(workflow), null]}
             current={workflow[slug].uid}
             pickable={roles === 'advocate'}
-            nameMap={getNameMap(users)}
-            onChoose={(uid: ?string): void => onChoose(slug, uid)} />;
+            nameMap={users
+                ? getNameMap(users)
+                : null
+            }
+            onChoose={(uid: ?string): void => onChoose(slug, uid)} />
+        : null;
 
 export default connect(
     (state: State): StatePropsType => ({

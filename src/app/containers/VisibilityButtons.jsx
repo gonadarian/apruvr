@@ -29,7 +29,7 @@ export default connect(
         choices: state.visibility,
         used:    PICKS[state.content.code],
     }),
-    (dispatch: Dispatch): void => bindActionCreators({
+    (dispatch: Dispatch) => bindActionCreators({
         onChoose: filterVisibility,
     }, dispatch)
 )(VisibilityButtons);

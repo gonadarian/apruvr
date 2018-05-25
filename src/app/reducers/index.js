@@ -1,7 +1,7 @@
 /* @flow */
 import { combineReducers } from 'redux';
 import type { LanguageType, ContentKindType, VisibilityListType } from '../consts';
-import type { UserType, NodeMapType, WorkflowMapType, HistoryType } from '../flows';
+import type { UserType, UserMapType, NodeMapType, WorkflowMapType, HistoryType } from '../flows';
 import languageReducer from './languageReducer';
 import loadingReducer from './loadingReducer';
 import nodesReducer from './nodesReducer';
@@ -40,7 +40,7 @@ export type State = {
     workflow: ?WorkflowMapType,
     user: ?UserType,
     roles: ?string,
-    users: ?UserType[],
+    users: ?UserMapType,
     history: ?HistoryType,
     exporting: boolean,
 };

@@ -14,6 +14,7 @@ type PropsType = {
     content: TopicNodeType,
     language: ItemType,
     code: string,
+    onHistory: (slug: string) => void,
 };
 
 const TopicItem = ({
@@ -26,6 +27,7 @@ const TopicItem = ({
     },
     language,
     code,
+    onHistory,
 }: PropsType): Element<*> => {
     const trnsp = iif(metadataWordCount === 0, 0,
         metadataTranslatedWordCount / metadataWordCount * 100);
@@ -38,6 +40,8 @@ const TopicItem = ({
     return (
         <tr className={className}>
             <td>
+                <span className="fas fa-angle-double-down"
+                    onClick={(): void => onHistory(slug)}/>
                 <a className="btn btn-link"
                     href={`${khan}/${code}/${slug}`}
                     target="_blank">

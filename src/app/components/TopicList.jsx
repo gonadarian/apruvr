@@ -1,10 +1,10 @@
 /* @flow */
-import React, { type Element } from 'react';
+import React, { Fragment, type Element } from 'react';
 import { map, transform } from 'lodash';
 import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
-import TopicItem from './TopicItem';
-import type { TopicNodeType, NodeMapType, ItemType } from '../flows';
+import { TopicItem, HistoryList } from '.';
+import type { TopicNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
 
 type StatType = { cnt: number, sum: number };
 type StatsType = { totl: StatType, trns: StatType };
@@ -50,9 +50,11 @@ type PropsType = {
     type: string,
     nodes: NodeMapType,
     language: ItemType,
+    history: ?HistoryType,
+    onHistory: (slug: string) => void,
 };
 
-const TopicList = ({ type, nodes, ...other }: PropsType): Element<*> =>
+const TopicList = ({ type, nodes, history, ...other }: PropsType): Element<*> =>
     <div>
         <table className="table">
             <thead>
@@ -67,11 +69,17 @@ const TopicList = ({ type, nodes, ...other }: PropsType): Element<*> =>
                 {map(
                     nodes,
                     (node: TopicNodeType, slug: string): Element<*> =>
-                        <TopicItem
-                            {...other}
-                            key={slug}
-                            code={CONTENT_LETTERS[type]}
-                            content={node} />
+                        <Fragment>
+                            <TopicItem
+                                {...other}
+                                key={slug}
+                                code={CONTENT_LETTERS[type]}
+                                content={node} />
+                            {history && history.slug === slug &&
+                                 <HistoryList
+                                     history={history} />
+                            }
+                        </Fragment>
                 )}
             </tbody>
             <tfoot>

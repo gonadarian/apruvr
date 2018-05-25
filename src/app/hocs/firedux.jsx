@@ -1,11 +1,15 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { Component, type ComponentType } from 'react';
 import PropTypes from 'prop-types';
 import firebase from '@firebase/app';
 import '@firebase/database';
 
-const firedux = (calcPath: (any) => string) => (WrappedComponent) =>
-    class FireduxHOC extends Component {
+type PropsType = {
+    onFire: (snapshot: any) => void,
+};
+
+const firedux = <T: PropsType>(calcPath: (any) => string) => (WrappedComponent: ComponentType<T>) =>
+    class HOC extends Component<T> {
         static propTypes = {
             onFire: PropTypes.func.isRequired,
         }
@@ -19,6 +23,8 @@ const firedux = (calcPath: (any) => string) => (WrappedComponent) =>
         componentWillUnmount () {
             this.ref.off();
         }
+
+        ref: any;
 
         render () {
             return <WrappedComponent {...this.props} />;

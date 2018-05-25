@@ -1,38 +1,47 @@
 /* @flow */
 import React, { type Element } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userSignIn, userSignOut } from '../actions';
+import type { State, Dispatch, UserType } from '../flows';
 
-const SignInButton = ({ user, signIn, signOut }): Element<*> =>
-    <div className="pull-right col-xs-2">
-        <h2>
-            {user
-                ? user.displayName
-                : 'User'}
-        </h2>
-        <a className="btn btn-primary"
-            onClick={() => user
-                ? signOut()
-                : signIn() }>
-            {user
-                ? 'Sign out'
-                : 'Sign in'}
-        </a>
-    </div>;
+interface StatePropsType {
+    user: ?UserType,
+}
 
-SignInButton.propTypes = {
-    user:    PropTypes.object,
-    signIn:  PropTypes.func.isRequired,
-    signOut: PropTypes.func.isRequired,
-};
+interface PropsType extends StatePropsType {
+    signIn: () => void,
+    signOut: () => void,
+}
+
+const SignInButton = ({ user, signIn, signOut }: PropsType): Element<*> =>
+    user
+        ? <div className="pull-right col-xs-2">
+            <h2>
+                {user.displayName}
+            </h2>
+            <a className="btn btn-primary"
+                onClick={() => signOut()}>
+                {'Sign out'}
+                <span className="fas fa-sign-out-alt" />
+            </a>
+        </div>
+        : <div className="pull-right col-xs-2">
+            <h2>
+                {'User'}
+            </h2>
+            <a className="btn btn-primary"
+                onClick={() => signIn() }>
+                {'Sign in'}
+                <span className="fas fa-sign-in-alt" />
+            </a>
+        </div>;
 
 export default connect(
-    (state) => ({
+    (state: State): StatePropsType => ({
         user: state.user,
     }),
-    (dispatch) => bindActionCreators({
+    (dispatch: Dispatch) => bindActionCreators({
         signIn:  userSignIn,
         signOut: userSignOut,
     }, dispatch)

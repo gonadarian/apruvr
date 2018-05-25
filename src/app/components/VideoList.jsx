@@ -1,9 +1,9 @@
 /* @flow */
-import React, { type Element } from 'react';
+import React, { Fragment, type Element } from 'react';
 import { map, transform } from 'lodash';
 import { iif } from '../utils';
-import type { VideoNodeType, NodeMapType, ItemType } from '../flows';
-import VideoItem from './VideoItem';
+import type { VideoNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
+import { VideoItem, HistoryList } from '.';
 
 type StatsType = { totl: number, subd: number, dubd: number };
 
@@ -41,36 +41,43 @@ const VideoStats = ({ stats: { totl, subd, dubd } }: PropsStatsType): Element<*>
 type PropsType = {
     language: ItemType,
     nodes: ?NodeMapType,
+    history: ?HistoryType,
+    onHistory: (slug: string) => void,
 };
 
-const VideoList = ({ nodes, ...other }: PropsType): Element<*> =>
-    <div>
-        <table className="table">
-            <thead>
-                <tr className="active">
-                    <th>Name</th>
-                    <th>Agent</th>
-                    <th>Status</th>
-                    <th>Subtitle</th>
-                    <th>Dub</th>
-                </tr>
-            </thead>
-            <tbody>
-                {map(
-                    nodes,
-                    (node: VideoNodeType, slug: string): Element<*> =>
+const VideoList = ({ nodes, history, ...other }: PropsType): Element<*> =>
+    <table className="table">
+        <thead>
+            <tr className="active">
+                <th>Name</th>
+                <th>Agent</th>
+                <th>Status</th>
+                <th>Subtitle</th>
+                <th>Dub</th>
+            </tr>
+        </thead>
+        <tbody>
+            {map(
+                nodes,
+                (node: VideoNodeType, slug: string): Element<*> =>
+                    <Fragment>
                         <VideoItem
                             {...other}
                             key={slug}
                             content={node} />
-                )}
-            </tbody>
-            <tfoot>
-                {nodes &&
-                    <VideoStats stats={calcStats(nodes)} />
-                }
-            </tfoot>
-        </table>
-    </div>;
+                        {history && history.slug === slug &&
+                             <HistoryList
+                                 history={history} />
+                        }
+                    </Fragment>
+            )}
+        </tbody>
+        <tfoot>
+            {nodes &&
+                <VideoStats
+                    stats={calcStats(nodes)} />
+            }
+        </tfoot>
+    </table>;
 
 export default VideoList;

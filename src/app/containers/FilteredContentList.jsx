@@ -9,7 +9,7 @@ import { firedux } from '../hocs';
 import { ContentList } from '../components';
 import type { LanguageType, ContentKindType } from '../consts';
 import type {
-    State, ActionType, Dispatch,
+    State, Dispatch,
     WorkflowMapType, NodeMapType, HistoryType,
 } from '../flows';
 
@@ -21,15 +21,14 @@ interface StatePropsType {
 }
 
 interface PropsType extends StatePropsType {
-    onFire: (snapshot: WorkflowMapType) => ActionType,
+    onFire: (snapshot: WorkflowMapType) => void,
     onHistory: (slug: string) => void,
 }
 
 const FilteredContentList = ({ content, nodes, ...props }: PropsType): Element<*> =>
     <div className="col-xs-12 col-md-9">
         <h2>
-            {content.name}
-            {' '}
+            {`${content.name} `}
             <span className="badge">
                 {nodes
                     ? size(nodes)

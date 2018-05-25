@@ -14,7 +14,7 @@ const ButtonChoice = ({ choices, used, names, onChoose }: PropsType): Element<*>
     <div className="btn-group">
         {map(
             pick(choices, used),
-            (choice: boolean, key: string): Element<*> =>
+            (choice, key): Element<*> =>
                 <Button
                     key={key}
                     name={names[key]}

@@ -17,7 +17,7 @@ export const fetchUsers = (): ActionType =>
         const db = firebase.database();
         db.ref('users').on(
             'value',
-            (snapshot: UserType[]): void => dispatch({
+            (snapshot: UserType[]) => dispatch({
                 type:    FIREBASE_USERS,
                 payload: snapshot,
             })

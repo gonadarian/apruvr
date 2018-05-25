@@ -1,10 +1,10 @@
 /* @flow */
-import React, { type Element } from 'react';
+import React, { Fragment, type Element } from 'react';
 import { map, transform } from 'lodash';
 import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import type { CrowdinNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
-import CrowdinItem from './CrowdinItem';
+import { CrowdinItem, HistoryList } from '.';
 
 type StatType = { cnt: number, sum: number };
 type StatsType = { totl: StatType, trns: StatType, appr: StatType };
@@ -65,34 +65,39 @@ type PropsType = {
     onHistory: (slug: string) => void,
 };
 
-const CrowdinList = ({ type, nodes, ...other }: PropsType): Element<*> =>
-    <div>
-        <table className="table table-condensed">
-            <thead>
-                <tr className="active">
-                    <th>Name</th>
-                    <th>Agent</th>
-                    <th>Status</th>
-                    <th>WYSIWYG</th>
-                    <th>Translate</th>
-                    <th>Approve</th>
-                </tr>
-            </thead>
-            <tbody>
-                {map(
-                    nodes,
-                    (node: CrowdinNodeType, slug: string): Element<*> =>
+const CrowdinList = ({ type, nodes, history, ...other }: PropsType): Element<*> =>
+    <table className="table table-condensed">
+        <thead>
+            <tr className="active">
+                <th>Name</th>
+                <th>Agent</th>
+                <th>Status</th>
+                <th>WYSIWYG</th>
+                <th>Translate</th>
+                <th>Approve</th>
+            </tr>
+        </thead>
+        <tbody>
+            {map(
+                nodes,
+                (node: CrowdinNodeType, slug: string): Element<*> =>
+                    <Fragment>
                         <CrowdinItem
                             {...other}
                             key={slug}
                             code={CONTENT_LETTERS[type]}
                             content={node} />
-                )}
-            </tbody>
-            <tfoot>
-                <CrowdinStats stats={calcStats(nodes)} />
-            </tfoot>
-        </table>
-    </div>;
+                        {history && history.slug === slug &&
+                             <HistoryList
+                                 history={history} />
+                        }
+                    </Fragment>
+            )}
+        </tbody>
+        <tfoot>
+            <CrowdinStats
+                stats={calcStats(nodes)} />
+        </tfoot>
+    </table>;
 
 export default CrowdinList;
