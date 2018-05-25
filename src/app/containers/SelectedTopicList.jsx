@@ -14,7 +14,7 @@ interface OwnPropsType {
 
 const SelectedTopicList = (props: TopicTreeType): Element<*> =>
     <div className="col-xs-12 col-md-3">
-        <h2>Topics</h2>
+        <h3>Topics</h3>
         <TopicTree
             {...props} />
     </div>;

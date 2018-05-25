@@ -17,9 +17,9 @@ interface PropsType extends StatePropsType {
 const SignInButton = ({ user, signIn, signOut }: PropsType): Element<*> =>
     user
         ? <div className="pull-right col-xs-2">
-            <h2>
+            <h3>
                 {user.displayName}
-            </h2>
+            </h3>
             <a className="btn btn-primary"
                 onClick={() => signOut()}>
                 {'Sign out'}
@@ -27,9 +27,9 @@ const SignInButton = ({ user, signIn, signOut }: PropsType): Element<*> =>
             </a>
         </div>
         : <div className="pull-right col-xs-2">
-            <h2>
+            <h3>
                 {'User'}
-            </h2>
+            </h3>
             <a className="btn btn-primary"
                 onClick={() => signIn() }>
                 {'Sign in'}

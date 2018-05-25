@@ -37,7 +37,7 @@ interface PropsType extends OwnPropsType, StatePropsType {
 
 const LanguagePicker = ({ language, onChoose }: PropsType): Element<*> =>
     <div className="col-xs-2">
-        <h2>Language</h2>
+        <h3>Language</h3>
         <Picker
             pickable
             states={[...map(LANGUAGES, 'code'), null]}

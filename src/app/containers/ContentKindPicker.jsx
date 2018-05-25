@@ -33,7 +33,7 @@ interface PropsType extends OwnPropsType, StatePropsType {
 
 const ContentKindPicker = ({ content, onChoose }: PropsType): Element<'div'> =>
     <div className="col-xs-2">
-        <h2>Content</h2>
+        <h3>Content</h3>
         <Picker
             pickable
             states={map(CONTENTS, 'code')}

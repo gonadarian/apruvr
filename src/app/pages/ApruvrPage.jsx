@@ -103,10 +103,16 @@ class ApruvrPage extends Component<PropsType> {
     render () {
         const { language } = this.props;
         return <div>
-            <div className={`jumbotron text-center ${styles.dark}`}>
-                <h1>Khan Academy Apruvr</h1>
-                <h3>Approval workflow for Khan Academy translations</h3>
-            </div>
+            <nav className="navbar navbar-default">
+                <div className="container-fluid">
+                    <h1>
+                        Khan Academy Apruvr
+                        <small className="text-muted">
+                            <em> approval workflow for Khan Academy translations</em>
+                        </small>
+                    </h1>
+                </div>
+            </nav>
             <div className="container-fluid">
                 <LanguagePicker language={language} />
                 <SignInButton />

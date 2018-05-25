@@ -17,9 +17,15 @@ const HistoryList = ({ users, history }: PropsType): Element<*> =>
         {map(history.timeline, (record) =>
             <tr key={record.time}>
                 <td>
-                    {moment(record.time).
-                        startOf('day').
-                        fromNow()}
+                    <span className="badge badge-light">
+                        {moment(record.time).
+                            startOf('day').
+                            fromNow()}
+                    </span>
+                    <small className="text-muted">
+                        {moment(record.time).
+                            format(' dddd, MMMM Do YYYY, h:mm:ss')}
+                    </small>
                 </td>
                 <td>
                     <span className="badge badge-primary">

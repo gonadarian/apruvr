@@ -18,7 +18,7 @@ interface PropsType extends StatePropsType {
 
 const VisibilityButtons = ({ ...props }: PropsType): Element<*> =>
     <div className="col-xs-12 col-sm-4">
-        <h2>States</h2>
+        <h3>States</h3>
         <ButtonChoice
             {...props}
             names={VISIBILITIES} />

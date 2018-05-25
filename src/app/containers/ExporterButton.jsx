@@ -111,7 +111,7 @@ const ExporterButton = ({
     exporting, content, topic, nodes, workflow, users, onExportStarted,
 }: PropsType): Element<*> =>
     <div className="col-xs-12 col-sm-2">
-        <h2>Export</h2>
+        <h3>Export</h3>
         {exporting
             ? <a className="btn btn-primary"
                 download={`${content.name} ${topic}.csv`}

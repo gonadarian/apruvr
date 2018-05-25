@@ -27,14 +27,14 @@ interface PropsType extends StatePropsType {
 
 const FilteredContentList = ({ content, nodes, ...props }: PropsType): Element<*> =>
     <div className="col-xs-12 col-md-9">
-        <h2>
+        <h3>
             {`${content.name} `}
             <span className="badge">
                 {nodes
                     ? size(nodes)
                     : 0}
             </span>
-        </h2>
+        </h3>
         <ContentList
             {...props}
             nodes={nodes}
