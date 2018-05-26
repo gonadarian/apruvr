@@ -20,7 +20,7 @@ const loadSlugs = (topic, slugs, path) => {
     );
 };
 
-const filterNodes = (nodes, topic, tree, content) => {
+const filterNodes = (nodes, topic, content, tree) => {
     const startPath = topic.split('.').slice(1);
     const localTopic = reduce(
         startPath,
@@ -50,5 +50,5 @@ export default createSelector(
         (state) => state.content,
         topicTreeSelector,
     ],
-    (nodes, topic, content, tree) => filterNodes(nodes, topic, tree, content)
+    (nodes, topic, content, tree) => filterNodes(nodes, topic, content, tree)
 );
