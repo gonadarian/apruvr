@@ -9,6 +9,7 @@ import SelectedTopicList from './SelectedTopicList';
 import SignInButton from './SignInButton';
 import StatusPicker from './StatusPicker';
 import VisibilityButtons from './VisibilityButtons';
+import HistoryList from './HistoryList';
 
 export {
     AgentPicker,
@@ -21,4 +22,5 @@ export {
     SignInButton,
     StatusPicker,
     VisibilityButtons,
+    HistoryList,
 };

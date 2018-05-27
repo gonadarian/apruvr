@@ -2,8 +2,9 @@
 import React, { Fragment, type Element } from 'react';
 import { map, transform } from 'lodash';
 import { iif } from '../utils';
+import { HistoryList } from '../containers';
+import { VideoItem } from '.';
 import type { VideoNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
-import { VideoItem, HistoryList } from '.';
 
 type StatsType = { totl: number, subd: number, dubd: number };
 

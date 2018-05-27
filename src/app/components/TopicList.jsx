@@ -3,7 +3,8 @@ import React, { Fragment, type Element } from 'react';
 import { map, transform } from 'lodash';
 import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
-import { TopicItem, HistoryList } from '.';
+import { HistoryList } from '../containers';
+import { TopicItem } from '.';
 import type { TopicNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
 
 type StatType = { cnt: number, sum: number };

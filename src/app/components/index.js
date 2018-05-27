@@ -11,7 +11,6 @@ import TopicItem from './TopicItem';
 import TopicTree, { type TopicTreeType } from './TopicTree';
 import VideoItem from './VideoItem';
 import VideoList from './VideoList';
-import HistoryList from './HistoryList';
 
 export type {
     TopicTreeType,
@@ -30,5 +29,4 @@ export {
     TopicTree,
     VideoItem,
     VideoList,
-    HistoryList,
 };

@@ -3,8 +3,9 @@ import React, { Fragment, type Element } from 'react';
 import { map, transform } from 'lodash';
 import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
+import { HistoryList } from '../containers';
+import { CrowdinItem } from '.';
 import type { CrowdinNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
-import { CrowdinItem, HistoryList } from '.';
 
 type StatType = { cnt: number, sum: number };
 type StatsType = { totl: StatType, trns: StatType, appr: StatType };
