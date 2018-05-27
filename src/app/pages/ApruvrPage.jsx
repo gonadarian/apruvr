@@ -118,8 +118,7 @@ class ApruvrPage extends Component<PropsType> {
                 <SignInButton />
                 <LoadingSpinner />
                 <Switch>
-                    <Route path="/:lang/:kind/:topic"
-                        component={tracing('LANGUAGE ')(LanguagePage)} />
+                    <Route path="/:lang/:kind/:topic" component={LanguagePage} />
                     <Redirect exact from="/:lang/:kind" to=":lang/:kind/root.math" />
                     <Redirect exact from="/:lang" to=":lang/exercises/root.math" />
                 </Switch>

@@ -12,13 +12,13 @@ type StatsType = { totl: StatType, trns: StatType, appr: StatType };
 const calcStats = (nodes: NodeMapType): StatsType =>
     transform(
         nodes,
-        (mem: StatsType, node: CrowdinNodeType) => {
+        (mem: StatsType, { data: [, totl, trns, appr] }: CrowdinNodeType) => {
             mem.totl.cnt += 1;
-            mem.totl.sum += node.translatableWordCount;
-            mem.trns.cnt += iif(node.translatedWordCount === node.translatableWordCount, 1, 0);
-            mem.trns.sum += node.translatedWordCount;
-            mem.appr.cnt += iif(node.approvedWordCount === node.translatableWordCount, 1, 0);
-            mem.appr.sum += node.approvedWordCount;
+            mem.totl.sum += totl;
+            mem.trns.cnt += iif(trns === totl, 1, 0);
+            mem.trns.sum += trns;
+            mem.appr.cnt += iif(appr === totl, 1, 0);
+            mem.appr.sum += appr;
         },
         {
             totl: { cnt: 0, sum: 0 },

@@ -7,53 +7,67 @@ import filteredNodesSelector from './filteredNodesSelector';
 /**
  * Checks to see whether given Crowdin based node (exercise, article, scratchpad) should be made
  * visible according to visibility filters.
+ * @param  {string}  slug       item slug
  * @param  {Object}  node       content item to check
  * @param  {Object}  visibility filter to apply
  * @return {Boolean}            whether node should be visible or not
  */
-const isVisibleCrowdin = (node, visibility): boolean => {
-    const totl = node.translatableWordCount;
-    const trns = node.translatedWordCount;
-    const appr = node.approvedWordCount;
-
+const isVisibleCrowdin = (slug, node, visibility): boolean => {
+    // data was missing for slugs that had special chars not supported by firebase
+    if (!node.data) {
+        throw Error(`No crowdin data found in node for slug ${slug}`);
+    }
+    // extract relevant statistics for translation of content data
+    const [, totl, trns, appr] = node.data;
+    // calculate whether node should be visible for given visibility state
     const isAppr = appr === totl && visibility.approved;
     const isTrns = trns === totl && appr !== totl && visibility.translated;
     const isFrsh = trns === 0 && visibility.fresh;
     const isDoin = trns > 0 && trns < totl && visibility.doing;
-
+    // return final node visibility
     return isTrns || isAppr || isFrsh || isDoin;
 };
 
 /**
 * Checks to see whether given video node should be made visible according to visibility filters.
+* @param  {string}  slug       item slug
 * @param  {Object}  node       content item to check
 * @param  {Object}  visibility filter to apply
 * @return {Boolean}            whether node should be visible or not
  */
-const isVisibleVideo = (node, visibility) => {
+const isVisibleVideo = (slug, node, visibility) => {
+    // data was missing for slugs that had special chars not supported by firebase
+    if (!node.subdub) {
+        throw Error(`No video data found in node for slug ${slug}`);
+    }
+    // calculate whether node should be visible for given visibility state
     const isDubd = node.dubbed && visibility.dubbed;
     const isSubd = node.subbed && !node.dubbed && visibility.subtitled;
     const isFrsh = !node.subbed && !node.dubbed && visibility.fresh;
-
+    // return final node visibility
     return isSubd || isDubd || isFrsh;
 };
 
 /**
 * Checks to see whether given topic node should be made visible according to visibility filters.
+* @param  {string}  slug       item slug
 * @param  {Object}  node       content item to check
 * @param  {Object}  visibility filter to apply
 * @return {Boolean}            whether node should be visible or not
  */
-const isVisibleTopic = (node, visibility): boolean => {
-    const totl = node.metadataWordCount;
-    const trns = node.metadataTranslatedWordCount;
-    const appr = node.metadataApprovedWordCount;
-
+const isVisibleTopic = (slug, node, visibility): boolean => {
+    // metadata was missing for slugs that had special chars not supported by firebase
+    if (!node.meta) {
+        throw Error(`No topic metadata found in node for slug ${slug}`);
+    }
+    // extract relevant statistics for translation of metadata
+    const [, totl, trns, appr] = node.meta;
+    // calculate whether node should be visible for given visibility state
     const isAppr = appr === totl && visibility.approved;
     const isTrns = trns === totl && appr !== totl && visibility.translated;
     const isFrsh = trns === 0 && visibility.fresh;
     const isDoin = trns > 0 && trns < totl && visibility.doing;
-
+    // return final node visibility
     return isTrns || isAppr || isFrsh || isDoin;
 };
 
@@ -78,7 +92,7 @@ const visibleNodes = (nodes, content, visibility) => {
     // filter the nodes via pickBy for objects which is the same as map is for arrays
     const filtered = pickBy(
         nodes,
-        (node) => isVisible(node, visibility)
+        (node, slug) => isVisible(slug, node, visibility)
     );
     return filtered;
 };

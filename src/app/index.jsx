@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { tracing } from './hocs';
 import { store } from './store';
 import { ApruvrPage } from './pages';
 
@@ -12,8 +11,7 @@ if (app) {
     render((
         <Provider store={store}>
             <BrowserRouter>
-                <Route path="/:lang?/:kind?/:topic?"
-                    component={tracing('APRUVR ')(ApruvrPage)} />
+                <Route path="/:lang?/:kind?/:topic?" component={ApruvrPage} />
             </BrowserRouter>
         </Provider>
     ), app);

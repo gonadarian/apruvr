@@ -46,7 +46,7 @@ type PropsType = {
 };
 
 const VideoList = ({ nodes, history, ...other }: PropsType): Element<*> =>
-    <table className="table">
+    <table className="table table-condensed">
         <thead>
             <tr className="active">
                 <th>Name</th>

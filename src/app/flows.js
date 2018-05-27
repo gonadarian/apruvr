@@ -27,20 +27,15 @@ export type NodeType = {
 export type NodeMapType = {[slug: string]: NodeType};
 
 export type VideoNodeType = NodeType & {
-    subbed: boolean;
-    dubbed: boolean;
+    subdub: boolean[];
 }
 
 export type CrowdinNodeType = NodeType & {
-    translatableWordCount: number;
-    translatedWordCount: number;
-    approvedWordCount: number;
+    data: number[];
 }
 
 export type TopicNodeType = NodeType & {
-    metadataWordCount: number;
-    metadataTranslatedWordCount: number;
-    metadataApprovedWordCount: number;
+    meta: number[];
 }
 
 export type WorkflowType = {

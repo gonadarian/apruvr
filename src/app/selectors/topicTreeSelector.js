@@ -92,7 +92,7 @@ const createTopicTree = (nodes) => {
     forEach(
         nodes.topics,
         // find a place in the tree for topics one by one
-        (topic) => handleTopic(topicTree, topic)
+        (topic, slug) => handleTopic(topicTree, { slug, ...topic })
     );
     return topicTree;
 };

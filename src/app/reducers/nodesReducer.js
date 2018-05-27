@@ -10,7 +10,7 @@ const handlers: Handlers<?NodeMapType> = {
         : state,
     // translation data has been fetched
     [FETCH_NODES]: (state, { payload }) => payload
-        ? payload.data.nodes
+        ? payload.val()
         : null,
 };
 

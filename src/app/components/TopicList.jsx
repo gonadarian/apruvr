@@ -12,11 +12,11 @@ type StatsType = { totl: StatType, trns: StatType };
 const calcStats = (nodes: NodeMapType): StatsType =>
     transform(
         nodes,
-        (mem: StatsType, node: TopicNodeType) => {
+        (mem: StatsType, { meta: [, totl, trns] }: TopicNodeType) => {
             mem.totl.cnt += 1;
-            mem.totl.sum += node.metadataWordCount;
-            mem.trns.cnt += iif(node.metadataTranslatedWordCount === node.metadataWordCount, 1, 0);
-            mem.trns.sum += node.metadataTranslatedWordCount;
+            mem.totl.sum += totl;
+            mem.trns.cnt += iif(trns === totl, 1, 0);
+            mem.trns.sum += trns;
         },
         {
             totl: { cnt: 0, sum: 0 },
@@ -51,12 +51,12 @@ type PropsType = {
     nodes: NodeMapType,
     language: ItemType,
     history: ?HistoryType,
-    onHistory: (slug: string) => void,
+    onHistory: (slug: ?string) => void,
 };
 
 const TopicList = ({ type, nodes, history, ...other }: PropsType): Element<*> =>
     <div>
-        <table className="table">
+        <table className="table table-condensed">
             <thead>
                 <tr className="active">
                     <th>Name</th>

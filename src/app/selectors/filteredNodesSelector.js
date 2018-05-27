@@ -60,7 +60,7 @@ const filterNodes = (nodes, topic, content, tree) => {
         slugs[content.code],
         (result, path, slug) => {
             // take the entire node plus add topic path
-            result[slug] = { ...contentNodes[slug], path };
+            result[slug] = { slug, ...contentNodes[slug], path };
         },
         {}
     );

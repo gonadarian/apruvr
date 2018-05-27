@@ -5,6 +5,7 @@ import ButtonGroup from './ButtonGroup';
 import ContentList from './ContentList';
 import CrowdinItem from './CrowdinItem';
 import CrowdinList from './CrowdinList';
+import DetailsButton from './DetailsButton';
 import Picker from './Picker';
 import TopicItem from './TopicItem';
 import TopicTree, { type TopicTreeType } from './TopicTree';
@@ -23,6 +24,7 @@ export {
     ContentList,
     CrowdinItem,
     CrowdinList,
+    DetailsButton,
     Picker,
     TopicItem,
     TopicTree,

@@ -3,18 +3,15 @@ import React, { type Element } from 'react';
 import { iif } from '../utils';
 import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
+import { DetailsButton } from './';
 import type { CrowdinNodeType, ItemType } from '../flows';
 
 const { khan, proofread, translate } = urls;
 
-const getRowClass = (
-    translatableWordCount: number,
-    translatedWordCount: number,
-    approvedWordCount: number
-): string =>
-    iif(approvedWordCount === translatableWordCount, 'success',
-        iif(translatedWordCount === translatableWordCount, 'info',
-            iif(translatedWordCount > 0, 'warning',
+const getRowClass = (totl, trns, appr): string =>
+    iif(appr === totl, 'success',
+        iif(trns === totl, 'info',
+            iif(trns > 0, 'warning',
                 'danger')));
 
 const getPercent = (total: number, done: number): number =>
@@ -28,25 +25,24 @@ type PropsType = {
     content: CrowdinNodeType,
     language: ItemType,
     code: string,
-    onHistory: (slug: string) => void,
+    onHistory: (slug: ?string) => void,
 };
 
 const CrowdinItem = ({
-    content: { slug, title, translatableWordCount, translatedWordCount, approvedWordCount },
+    content: { slug, title, data: [, totl, trns, appr] },
     language,
     code,
     onHistory,
 }: PropsType): Element<*> =>
-    <tr className={getRowClass(translatableWordCount, translatedWordCount, approvedWordCount)}>
+    <tr className={getRowClass(totl, trns, appr)}>
         <td>
-            <span className="fas fa-angle-double-down"
-                onClick={(): void => onHistory(slug)}/>
+            <DetailsButton id={slug} onExpand={onHistory} />
             <a className="btn btn-link"
                 href={`${khan}/${code}/${slug}`}
                 target="_blank">
                 {`${title} `}
                 <span className="badge">
-                    {translatableWordCount}
+                    {totl}
                 </span>
             </a>
         </td>
@@ -72,8 +68,8 @@ const CrowdinItem = ({
                 target="_blank">
                 {'go '}
                 <span className="badge">
-                    {`${translatedWordCount} \
-                    (${getPercent(translatableWordCount, translatedWordCount)}%)`}
+                    {`${trns} \
+                    (${getPercent(totl, trns)}%)`}
                 </span>
             </a>
         </td>
@@ -83,8 +79,8 @@ const CrowdinItem = ({
                 target="_blank">
                 {'go '}
                 <span className="badge">
-                    {`${approvedWordCount} \
-                    (${getPercent(translatableWordCount, approvedWordCount)}%)`}
+                    {`${appr} \
+                    (${getPercent(totl, appr)}%)`}
                 </span>
             </a>
         </td>

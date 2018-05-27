@@ -21,16 +21,18 @@ const getAgent = (slug, workflow, users): string =>
         ? users[workflow[slug].uid].displayName
         : 'x';
 
-const exporterCrowdin = (slug, node, workflow, users): string =>
+const exporterCrowdin = (
+    slug, { title, path, data: [, totl, trns, appr] }, workflow, users
+): string =>
     [
         slug,
-        node.title,
+        title,
         getStatus(slug, workflow),
         getAgent(slug, workflow, users),
-        node.translatableWordCount,
-        node.translatedWordCount,
-        node.approvedWordCount,
-        ...node.path,
+        totl,
+        trns,
+        appr,
+        ...path,
     ].join('\t');
 
 const exporterVideo = (slug, node, workflow, users): string =>
@@ -44,16 +46,18 @@ const exporterVideo = (slug, node, workflow, users): string =>
         ...node.path,
     ].join('\t');
 
-const exporterTopic = (slug, node, workflow, users): string =>
+const exporterTopic = (
+    slug, { title, path, data: [, totl, trns, appr] }, workflow, users
+): string =>
     [
         slug,
-        node.title,
+        title,
         getStatus(slug, workflow),
         getAgent(slug, workflow, users),
-        node.metadataWordCount,
-        node.metadataTranslatedWordCount,
-        node.metadataApprovedWordCount,
-        ...node.path,
+        totl,
+        trns,
+        appr,
+        ...path,
     ].join('\t');
 
 const EXPORTERS = {

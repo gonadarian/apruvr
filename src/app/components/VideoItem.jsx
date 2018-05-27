@@ -3,6 +3,7 @@ import React, { type Element } from 'react';
 import { iif } from '../utils';
 import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
+import { DetailsButton } from './';
 import type { VideoNodeType, ItemType } from '../flows';
 
 const { khan } = urls;
@@ -14,7 +15,7 @@ const getRowClass = (subbed: boolean, dubbed: boolean): string =>
 type PropsType = {
     content: VideoNodeType,
     language: ItemType,
-    onHistory: (slug: string) => void,
+    onHistory: (slug: ?string) => void,
 };
 
 const VideoItem = ({
@@ -24,8 +25,7 @@ const VideoItem = ({
 }: PropsType): Element<*> =>
     <tr className={getRowClass(subbed, dubbed)}>
         <td>
-            <span className="fas fa-angle-double-down"
-                onClick={(): void => onHistory(slug)}/>
+            <DetailsButton id={slug} onExpand={onHistory} />
             <a className="btn btn-link"
                 href={`${khan}/v/${slug}`}
                 target="_blank">
