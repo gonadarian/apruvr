@@ -14,34 +14,42 @@ interface PropsType extends StatePropsType {
 
 const HistoryList = ({ users, history }: PropsType): Element<*> =>
     <Fragment>
-        {map(history.timeline, (record) =>
-            <tr key={record.time}>
+        {history.timeline
+            ? map(history.timeline, (record) =>
+                <tr key={record.time}>
+                    <td>
+                        <span className="badge badge-light">
+                            {moment(record.time).
+                                startOf('day').
+                                fromNow()}
+                        </span>
+                        <small className="text-muted">
+                            {moment(record.time).
+                                format(' dddd, MMMM Do YYYY, h:mm:ss')}
+                        </small>
+                    </td>
+                    <td>
+                        <span className="badge badge-primary">
+                            {record.uid && users
+                                ? users[record.uid].displayName
+                                : '...'}
+                        </span>
+                    </td>
+                    <td>
+                        <span className="badge badge-primary">
+                            {record.status}
+                        </span>
+                    </td>
+                    <td colSpan="3" />
+                </tr>
+            ).reverse()
+            : <tr key={'empty'}>
                 <td>
-                    <span className="badge badge-light">
-                        {moment(record.time).
-                            startOf('day').
-                            fromNow()}
-                    </span>
                     <small className="text-muted">
-                        {moment(record.time).
-                            format(' dddd, MMMM Do YYYY, h:mm:ss')}
+                        No entries in history found...
                     </small>
                 </td>
-                <td>
-                    <span className="badge badge-primary">
-                        {record.uid && users
-                            ? users[record.uid].displayName
-                            : '...'}
-                    </span>
-                </td>
-                <td>
-                    <span className="badge badge-primary">
-                        {record.status}
-                    </span>
-                </td>
-                <td colSpan="3" />
-            </tr>
-        ).reverse()}
+            </tr>}
     </Fragment>;
 
 export default connect(

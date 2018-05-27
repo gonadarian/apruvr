@@ -19,7 +19,7 @@ type PropsType = {
 };
 
 const VideoItem = ({
-    content: { slug, title, subbed, dubbed },
+    content: { slug, title, subdub: [subbed, dubbed] },
     language,
     onHistory,
 }: PropsType): Element<*> =>

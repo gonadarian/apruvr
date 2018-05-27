@@ -10,10 +10,10 @@ type StatsType = { totl: number, subd: number, dubd: number };
 const calcStats = (nodes: NodeMapType): StatsType =>
     transform(
         nodes,
-        (mem: StatsType, node: VideoNodeType) => {
+        (mem: StatsType, { subdub: [subbed, dubbed] }: VideoNodeType) => {
             mem.totl += 1;
-            mem.subd += iif(node.subbed, 1, 0);
-            mem.dubd += iif(node.dubbed, 1, 0);
+            mem.subd += iif(subbed, 1, 0);
+            mem.dubd += iif(dubbed, 1, 0);
         },
         { totl: 0, subd: 0, dubd: 0 }
     );

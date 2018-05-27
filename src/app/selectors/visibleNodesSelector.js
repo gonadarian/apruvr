@@ -40,10 +40,12 @@ const isVisibleVideo = (slug, node, visibility) => {
     if (!node.subdub) {
         throw Error(`No video data found in node for slug ${slug}`);
     }
+    // extract relevant staatuses for video translations
+    const [subbed, dubbed] = node.subdub;
     // calculate whether node should be visible for given visibility state
-    const isDubd = node.dubbed && visibility.dubbed;
-    const isSubd = node.subbed && !node.dubbed && visibility.subtitled;
-    const isFrsh = !node.subbed && !node.dubbed && visibility.fresh;
+    const isDubd = dubbed && visibility.dubbed;
+    const isSubd = subbed && !dubbed && visibility.subtitled;
+    const isFrsh = !subbed && !dubbed && visibility.fresh;
     // return final node visibility
     return isSubd || isDubd || isFrsh;
 };

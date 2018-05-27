@@ -36,7 +36,9 @@ const CrowdinItem = ({
 }: PropsType): Element<*> =>
     <tr className={getRowClass(totl, trns, appr)}>
         <td>
-            <DetailsButton id={slug} onExpand={onHistory} />
+            <DetailsButton
+                id={slug}
+                onExpand={onHistory} />
             <a className="btn btn-link"
                 href={`${khan}/${code}/${slug}`}
                 target="_blank">

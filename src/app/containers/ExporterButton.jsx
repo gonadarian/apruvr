@@ -35,15 +35,15 @@ const exporterCrowdin = (
         ...path,
     ].join('\t');
 
-const exporterVideo = (slug, node, workflow, users): string =>
+const exporterVideo = (slug, { title, path, subdub: [subbed, dubbed] }, workflow, users): string =>
     [
         slug,
-        node.title,
+        title,
         getStatus(slug, workflow),
         getAgent(slug, workflow, users),
-        node.subbed,
-        node.dubbed,
-        ...node.path,
+        subbed,
+        dubbed,
+        ...path,
     ].join('\t');
 
 const exporterTopic = (
@@ -126,7 +126,7 @@ const ExporterButton = ({
             </a>
             : <a className="btn btn-default"
                 onClick={(): void => onExportStarted()}>
-                Generate Report
+                {'Generate Report '}
                 <span className="fas fa-download" />
             </a>
         }
