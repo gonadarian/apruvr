@@ -5,7 +5,7 @@ import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import { HistoryList } from '../containers';
 import { TopicItem } from '.';
-import type { TopicNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
+import type { TopicNodeType, NodeMapType, ItemType } from '../flows';
 
 type StatType = { cnt: number, sum: number };
 type StatsType = { totl: StatType, trns: StatType };
@@ -51,11 +51,11 @@ type PropsType = {
     type: string,
     nodes: NodeMapType,
     language: ItemType,
-    history: ?HistoryType,
+    historySlug: ?string,
     onHistory: (slug: ?string) => void,
 };
 
-const TopicList = ({ type, nodes, history, ...other }: PropsType): Element<*> =>
+const TopicList = ({ type, nodes, historySlug, ...other }: PropsType): Element<*> =>
     <div>
         <table className="table table-condensed">
             <thead>
@@ -74,9 +74,10 @@ const TopicList = ({ type, nodes, history, ...other }: PropsType): Element<*> =>
                             <TopicItem
                                 {...other}
                                 key={slug}
+                                historySlug={historySlug}
                                 code={CONTENT_LETTERS[type]}
                                 content={node} />
-                            {history && history.slug === slug &&
+                            {historySlug === slug &&
                                  <HistoryList
                                      history={history} />
                             }

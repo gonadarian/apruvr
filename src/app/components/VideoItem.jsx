@@ -15,17 +15,17 @@ const getRowClass = (subbed: boolean, dubbed: boolean): string =>
 type PropsType = {
     content: VideoNodeType,
     language: ItemType,
+    historySlug: ?string,
     onHistory: (slug: ?string) => void,
 };
 
 const VideoItem = ({
     content: { slug, title, subdub: [subbed, dubbed] },
-    language,
-    onHistory,
+    language, ...other
 }: PropsType): Element<*> =>
     <tr className={getRowClass(subbed, dubbed)}>
         <td>
-            <DetailsButton id={slug} onExpand={onHistory} />
+            <DetailsButton {...other} slug={slug} />
             <a className="btn btn-link"
                 href={`${khan}/v/${slug}`}
                 target="_blank">

@@ -25,20 +25,17 @@ type PropsType = {
     content: CrowdinNodeType,
     language: ItemType,
     code: string,
+    historySlug: ?string,
     onHistory: (slug: ?string) => void,
 };
 
 const CrowdinItem = ({
     content: { slug, title, data: [, totl, trns, appr] },
-    language,
-    code,
-    onHistory,
+    language, code, ...other
 }: PropsType): Element<*> =>
     <tr className={getRowClass(totl, trns, appr)}>
         <td>
-            <DetailsButton
-                id={slug}
-                onExpand={onHistory} />
+            <DetailsButton {...other} slug={slug} />
             <a className="btn btn-link"
                 href={`${khan}/${code}/${slug}`}
                 target="_blank">

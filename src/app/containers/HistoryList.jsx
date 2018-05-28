@@ -5,16 +5,14 @@ import { map } from 'lodash';
 import moment from 'moment';
 import type { State, UserMapType, HistoryType } from '../flows';
 
-interface StatePropsType {
+interface PropsType {
+    history: ?HistoryType;
     users: ?UserMapType,
-}
-interface PropsType extends StatePropsType {
-    history: HistoryType;
 }
 
 const HistoryList = ({ users, history }: PropsType): Element<*> =>
     <Fragment>
-        {history.timeline
+        {history && history.timeline
             ? map(history.timeline, (record) =>
                 <tr key={record.time}>
                     <td>
@@ -53,7 +51,8 @@ const HistoryList = ({ users, history }: PropsType): Element<*> =>
     </Fragment>;
 
 export default connect(
-    (state: State): StatePropsType => ({
-        users: state.users,
+    (state: State): PropsType => ({
+        history: state.history,
+        users:   state.users,
     }),
 )(HistoryList);

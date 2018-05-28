@@ -8,16 +8,13 @@ import { fetchWorkflow, fetchHistory } from '../actions';
 import { firedux } from '../hocs';
 import { ContentList } from '../components';
 import type { LanguageType, ContentKindType } from '../consts';
-import type {
-    State, Dispatch,
-    WorkflowMapType, NodeMapType, HistoryType,
-} from '../flows';
+import type { State, Dispatch, WorkflowMapType, NodeMapType } from '../flows';
 
 interface StatePropsType {
     content: ContentKindType,
     language: ?LanguageType,
     nodes: ?NodeMapType,
-    history: ?HistoryType;
+    historySlug: ?string;
 }
 
 interface PropsType extends StatePropsType {
@@ -44,10 +41,12 @@ const FilteredContentList = ({ content, nodes, ...props }: PropsType): Element<*
 
 export default connect(
     (state: State): StatePropsType => ({
-        content:  state.content,
-        language: state.language,
-        nodes:    getVisibleNodes(state),
-        history:  state.history,
+        content:     state.content,
+        language:    state.language,
+        nodes:       getVisibleNodes(state),
+        historySlug: state.history
+            ? state.history.slug
+            : null,
     }),
     (dispatch: Dispatch) => bindActionCreators({
         onFire:    fetchWorkflow,

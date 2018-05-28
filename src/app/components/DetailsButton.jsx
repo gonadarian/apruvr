@@ -1,34 +1,16 @@
 /* @flow */
-import React from 'react';
+import React, { type Element } from 'react';
 import { iif } from '../utils';
 
 type PropsType = {
-    id: string,
-    onExpand: (id: ?string) => void,
+    slug: string,
+    historySlug: ?string,
+    onHistory: (id: ?string) => void,
 };
 
-type StateType = {
-    isExpanded: boolean,
-};
-
-class DetailsButton extends React.Component<PropsType, StateType> {
-    state = {
-        isExpanded: false,
-    }
-
-    expand () {
-        const { onExpand, id } = this.props;
-        onExpand(iif(this.state.isExpanded, null, id));
-        this.setState((prevState) => ({
-            isExpanded: !prevState.isExpanded,
-        }));
-    }
-
-    render () {
-        const { isExpanded } = this.state;
-        return <span className={`fas fa-angle-double-${iif(isExpanded, 'up', 'down')}`}
-            onClick={(): void => this.expand()} />;
-    }
-}
+const DetailsButton = ({ slug, historySlug, onHistory }: PropsType): Element<'span'> =>
+    <span
+        className={`fas fa-angle-double-${iif(historySlug === slug, 'up', 'down')}`}
+        onClick={(): void => onHistory(iif(historySlug === slug, null, slug))} />;
 
 export default DetailsButton;

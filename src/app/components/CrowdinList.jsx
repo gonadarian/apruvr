@@ -5,7 +5,7 @@ import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import { HistoryList } from '../containers';
 import { CrowdinItem } from '.';
-import type { CrowdinNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
+import type { CrowdinNodeType, NodeMapType, ItemType } from '../flows';
 
 type StatType = { cnt: number, sum: number };
 type StatsType = { totl: StatType, trns: StatType, appr: StatType };
@@ -62,11 +62,11 @@ type PropsType = {
     type: string,
     nodes: NodeMapType,
     language: ItemType,
-    history: ?HistoryType,
-    onHistory: (slug: string) => void,
+    historySlug: ?string,
+    onHistory: (slug: ?string) => void,
 };
 
-const CrowdinList = ({ type, nodes, history, ...other }: PropsType): Element<*> =>
+const CrowdinList = ({ type, nodes, historySlug, ...other }: PropsType): Element<*> =>
     <table className="table table-condensed">
         <thead>
             <tr className="active">
@@ -86,11 +86,11 @@ const CrowdinList = ({ type, nodes, history, ...other }: PropsType): Element<*> 
                         <CrowdinItem
                             {...other}
                             key={slug}
+                            historySlug={historySlug}
                             code={CONTENT_LETTERS[type]}
                             content={node} />
-                        {history && history.slug === slug &&
-                             <HistoryList
-                                 history={history} />
+                        {historySlug === slug &&
+                             <HistoryList />
                         }
                     </Fragment>
             )}

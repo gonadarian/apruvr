@@ -4,7 +4,7 @@ import { map, transform } from 'lodash';
 import { iif } from '../utils';
 import { HistoryList } from '../containers';
 import { VideoItem } from '.';
-import type { VideoNodeType, NodeMapType, ItemType, HistoryType } from '../flows';
+import type { VideoNodeType, NodeMapType, ItemType } from '../flows';
 
 type StatsType = { totl: number, subd: number, dubd: number };
 
@@ -42,11 +42,11 @@ const VideoStats = ({ stats: { totl, subd, dubd } }: PropsStatsType): Element<*>
 type PropsType = {
     language: ItemType,
     nodes: ?NodeMapType,
-    history: ?HistoryType,
-    onHistory: (slug: string) => void,
+    historySlug: ?string,
+    onHistory: (slug: ?string) => void,
 };
 
-const VideoList = ({ nodes, history, ...other }: PropsType): Element<*> =>
+const VideoList = ({ nodes, historySlug, ...other }: PropsType): Element<*> =>
     <table className="table table-condensed">
         <thead>
             <tr className="active">
@@ -65,8 +65,9 @@ const VideoList = ({ nodes, history, ...other }: PropsType): Element<*> =>
                         <VideoItem
                             {...other}
                             key={slug}
+                            historySlug={historySlug}
                             content={node} />
-                        {history && history.slug === slug &&
+                        {historySlug === slug &&
                              <HistoryList
                                  history={history} />
                         }

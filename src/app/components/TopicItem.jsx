@@ -15,14 +15,13 @@ type PropsType = {
     content: TopicNodeType,
     language: ItemType,
     code: string,
+    historySlug: ?string,
     onHistory: (slug: ?string) => void,
 };
 
 const TopicItem = ({
     content: { slug, title, meta: [, totl, trns, appr] },
-    language,
-    code,
-    onHistory,
+    language, code, ...other
 }: PropsType): Element<*> => {
     const trnsp = iif(totl === 0, 0, trns / totl * 100);
     const apprp = iif(totl === 0, 0, appr / totl * 100);
@@ -33,7 +32,7 @@ const TopicItem = ({
     return (
         <tr className={className}>
             <td>
-                <DetailsButton id={slug} onExpand={onHistory} />
+                <DetailsButton {...other} slug={slug} />
                 <a className="btn btn-link"
                     href={`${khan}/${code}/${slug}`}
                     target="_blank">
