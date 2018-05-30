@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import { pickBy, transform, isEmpty } from 'lodash';
-import { tracing } from '../hocs';
 import { routeChange, userAuth, fetchUsers } from '../actions';
 import { languageLookup, type LanguageType, type ContentKindType } from '../consts';
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { size } from 'lodash';
 import { getVisibleNodes } from '../selectors';
-import { fetchWorkflow, fetchHistory } from '../actions';
+import { fetchWorkflow, fetchHistory, pageExpand } from '../actions';
 import { firedux } from '../hocs';
 import { ContentList } from '../components';
 import type { LanguageType, ContentKindType } from '../consts';
@@ -15,14 +15,16 @@ interface StatePropsType {
     language: ?LanguageType,
     nodes: ?NodeMapType,
     historySlug: ?string;
+    pageSize: number,
 }
 
 interface PropsType extends StatePropsType {
     onFire: (snapshot: WorkflowMapType) => void,
     onHistory: (slug: string) => void,
+    onPageExpand: (fullExpand: boolean) => void,
 }
 
-const FilteredContentList = ({ content, nodes, ...props }: PropsType): Element<*> =>
+const FilteredContentList = ({ content, nodes, ...other }: PropsType): Element<*> =>
     <div className="col-xs-12 col-md-9">
         <h3>
             {`${content.name} `}
@@ -33,7 +35,7 @@ const FilteredContentList = ({ content, nodes, ...props }: PropsType): Element<*
             </span>
         </h3>
         <ContentList
-            {...props}
+            {...other}
             nodes={nodes}
             type={content.code}
             title={content.name} />
@@ -44,13 +46,15 @@ export default connect(
         content:     state.content,
         language:    state.language,
         nodes:       getVisibleNodes(state),
+        pageSize:    state.pageSize,
         historySlug: state.history
             ? state.history.slug
             : null,
     }),
     (dispatch: Dispatch) => bindActionCreators({
-        onFire:    fetchWorkflow,
-        onHistory: fetchHistory,
+        onPageExpand: pageExpand,
+        onFire:       fetchWorkflow,
+        onHistory:    fetchHistory,
     }, dispatch)
 )(firedux(
     ({ language }) => `status/${language.code}`

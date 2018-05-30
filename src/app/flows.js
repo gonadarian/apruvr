@@ -24,19 +24,29 @@ export type NodeType = {
     title: string;
 }
 
-export type NodeMapType = {[slug: string]: NodeType};
+export type CrowdinNodeType = NodeType & {
+    data: number[];
+}
 
 export type VideoNodeType = NodeType & {
     subdub: boolean[];
 }
 
-export type CrowdinNodeType = NodeType & {
-    data: number[];
-}
-
 export type TopicNodeType = NodeType & {
     meta: number[];
+    children: Array<Array<string>>,
+    topics?: ?{[slug: string]: TopicNodeType}
 }
+
+export type NodeMapType = {[slug: string]: NodeType};
+
+export type NodesType = {
+    exercises: {[slug: string]: CrowdinNodeType},
+    articles: {[slug: string]: CrowdinNodeType},
+    scratchpads: {[slug: string]: CrowdinNodeType},
+    videos: {[slug: string]: VideoNodeType},
+    topics: {[slug: string]: TopicNodeType},
+};
 
 export type WorkflowType = {
     uid?: string,

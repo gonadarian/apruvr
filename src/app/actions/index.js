@@ -6,6 +6,7 @@ import {
 } from './firebasing';
 import { routeChange, chooseLanguage, chooseContent, chooseTopic } from './routing';
 import { fetchNodes } from './fetching';
+import { pageExpand } from './listing';
 import type { Action, Dispatch } from './types';
 
 export type {
@@ -29,4 +30,5 @@ export {
     chooseLanguage,
     chooseContent,
     chooseTopic,
+    pageExpand,
 };

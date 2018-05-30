@@ -1,11 +1,11 @@
 /* @flow */
 import React, { Fragment, type Element } from 'react';
-import { map, transform } from 'lodash';
+import { map, transform, keys, pick, take, size } from 'lodash';
 import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import { HistoryList } from '../containers';
-import { CrowdinItem } from '.';
-import type { CrowdinNodeType, NodeMapType, ItemType } from '../flows';
+import { CrowdinItem, PageExpander, type ContentListType } from '.';
+import type { CrowdinNodeType, NodeMapType } from '../flows';
 
 type StatType = { cnt: number, sum: number };
 type StatsType = { totl: StatType, trns: StatType, appr: StatType };
@@ -58,15 +58,9 @@ const CrowdinStats = ({ stats: { totl, trns, appr } }: PropsStatsType): Element<
             </th>
         </tr>;
 
-type PropsType = {
-    type: string,
-    nodes: NodeMapType,
-    language: ItemType,
-    historySlug: ?string,
-    onHistory: (slug: ?string) => void,
-};
-
-const CrowdinList = ({ type, nodes, historySlug, ...other }: PropsType): Element<*> =>
+const CrowdinList = ({
+    type, nodes, historySlug, pageSize, onPageExpand, ...other
+}: ContentListType): Element<*> =>
     <table className="table table-condensed">
         <thead>
             <tr className="active">
@@ -80,12 +74,13 @@ const CrowdinList = ({ type, nodes, historySlug, ...other }: PropsType): Element
         </thead>
         <tbody>
             {map(
-                nodes,
+                pageSize
+                    ? pick(nodes, take(keys(nodes), pageSize))
+                    : nodes,
                 (node: CrowdinNodeType, slug: string): Element<*> =>
-                    <Fragment>
+                    <Fragment key={slug}>
                         <CrowdinItem
                             {...other}
-                            key={slug}
                             historySlug={historySlug}
                             code={CONTENT_LETTERS[type]}
                             content={node} />
@@ -94,6 +89,9 @@ const CrowdinList = ({ type, nodes, historySlug, ...other }: PropsType): Element
                         }
                     </Fragment>
             )}
+            {pageSize && pageSize < size(nodes) &&
+                <PageExpander onPageExpand={onPageExpand} />
+            }
         </tbody>
         <tfoot>
             <CrowdinStats

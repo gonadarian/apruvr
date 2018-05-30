@@ -1,10 +1,10 @@
 /* @flow */
 import React, { Fragment, type Element } from 'react';
-import { map, transform } from 'lodash';
+import { map, transform, keys, pick, take, size } from 'lodash';
 import { iif } from '../utils';
 import { HistoryList } from '../containers';
-import { VideoItem } from '.';
-import type { VideoNodeType, NodeMapType, ItemType } from '../flows';
+import { VideoItem, PageExpander, type ContentListType } from '.';
+import type { VideoNodeType, NodeMapType } from '../flows';
 
 type StatsType = { totl: number, subd: number, dubd: number };
 
@@ -39,14 +39,9 @@ const VideoStats = ({ stats: { totl, subd, dubd } }: PropsStatsType): Element<*>
             </th>
         </tr>;
 
-type PropsType = {
-    language: ItemType,
-    nodes: ?NodeMapType,
-    historySlug: ?string,
-    onHistory: (slug: ?string) => void,
-};
-
-const VideoList = ({ nodes, historySlug, ...other }: PropsType): Element<*> =>
+const VideoList = ({
+    nodes, historySlug, pageSize, onPageExpand, ...other
+}: ContentListType): Element<*> =>
     <table className="table table-condensed">
         <thead>
             <tr className="active">
@@ -59,7 +54,9 @@ const VideoList = ({ nodes, historySlug, ...other }: PropsType): Element<*> =>
         </thead>
         <tbody>
             {map(
-                nodes,
+                pageSize
+                    ? pick(nodes, take(keys(nodes), pageSize))
+                    : nodes,
                 (node: VideoNodeType, slug: string): Element<*> =>
                     <Fragment>
                         <VideoItem
@@ -73,6 +70,9 @@ const VideoList = ({ nodes, historySlug, ...other }: PropsType): Element<*> =>
                         }
                     </Fragment>
             )}
+            {pageSize && pageSize < size(nodes) &&
+                <PageExpander onPageExpand={onPageExpand} />
+            }
         </tbody>
         <tfoot>
             {nodes &&

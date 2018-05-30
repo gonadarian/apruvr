@@ -1,11 +1,11 @@
 /* @flow */
 import React, { Fragment, type Element } from 'react';
-import { map, transform } from 'lodash';
+import { map, transform, keys, pick, take, size } from 'lodash';
 import { iif } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import { HistoryList } from '../containers';
-import { TopicItem } from '.';
-import type { TopicNodeType, NodeMapType, ItemType } from '../flows';
+import { TopicItem, PageExpander, type ContentListType } from '.';
+import type { TopicNodeType, NodeMapType } from '../flows';
 
 type StatType = { cnt: number, sum: number };
 type StatsType = { totl: StatType, trns: StatType };
@@ -47,15 +47,9 @@ const TopicStats = ({ stats: { totl, trns } }: PropsStatsType): Element<*> | fal
             </th>
         </tr>;
 
-type PropsType = {
-    type: string,
-    nodes: NodeMapType,
-    language: ItemType,
-    historySlug: ?string,
-    onHistory: (slug: ?string) => void,
-};
-
-const TopicList = ({ type, nodes, historySlug, ...other }: PropsType): Element<*> =>
+const TopicList = ({
+    type, nodes, historySlug, pageSize, onPageExpand, ...other
+}: ContentListType): Element<*> =>
     <div>
         <table className="table table-condensed">
             <thead>
@@ -68,7 +62,9 @@ const TopicList = ({ type, nodes, historySlug, ...other }: PropsType): Element<*
             </thead>
             <tbody>
                 {map(
-                    nodes,
+                    pageSize
+                        ? pick(nodes, take(keys(nodes), pageSize))
+                        : nodes,
                     (node: TopicNodeType, slug: string): Element<*> =>
                         <Fragment>
                             <TopicItem
@@ -83,6 +79,9 @@ const TopicList = ({ type, nodes, historySlug, ...other }: PropsType): Element<*
                             }
                         </Fragment>
                 )}
+                {pageSize && pageSize < size(nodes) &&
+                    <PageExpander onPageExpand={onPageExpand} />
+                }
             </tbody>
             <tfoot>
                 <TopicStats stats={calcStats(nodes)} />

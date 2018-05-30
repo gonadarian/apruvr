@@ -1,9 +1,10 @@
 /* @flow */
 import React, { type Element } from 'react';
-import { CONTENT_GROUPS, type ContentCodeType } from '../consts';
 import CrowdinList from './CrowdinList';
-import VideoList from './VideoList';
 import TopicList from './TopicList';
+import VideoList from './VideoList';
+import { CONTENT_GROUPS, type ContentCodeType } from '../consts';
+import type { NodeMapType, ItemType } from '../flows';
 
 const LISTS = {
     videos:  VideoList,
@@ -11,12 +12,19 @@ const LISTS = {
     topics:  TopicList,
 };
 
-type PropsType = {
+export type ContentListType = {
     type: ContentCodeType,
+    nodes: NodeMapType,
+    language: ItemType,
+    historySlug: ?string,
+    onHistory: (slug: ?string) => void,
+    pageSize: ?number,
+    onPageExpand: (fullExpand: boolean) => void,
 };
 
-const ContentList = ({ type, ...other }: PropsType): Element<*> => {
-    const List = LISTS[CONTENT_GROUPS[type]];
+const ContentList = ({ type, ...other }: ContentListType): Element<*> => {
+    const group = CONTENT_GROUPS[type];
+    const List = LISTS[group];
     return <List type={type} { ...other } />;
 };
 
