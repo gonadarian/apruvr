@@ -1,7 +1,7 @@
 /* @flow */
 import { filterVisibility, startExport } from './filtering';
 import {
-    fetchUsers, fetchWorkflow, fetchHistory, userAuth,
+    fetchUsers, fetchWorkflow, fetchHistory, fetchDurations, userAuth,
     setWorkflowStatus, setWorkflowAgent, userSignIn, userSignOut,
 } from './firebasing';
 import { routeChange, chooseLanguage, chooseContent, chooseTopic } from './routing';
@@ -20,6 +20,7 @@ export {
     fetchUsers,
     fetchWorkflow,
     fetchHistory,
+    fetchDurations,
     fetchNodes,
     userAuth,
     setWorkflowStatus,

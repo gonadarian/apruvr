@@ -5,11 +5,8 @@ import '@firebase/auth';
 import type { ActionType, Dispatch, GetState, UserType, WorkflowMapType } from '../flows';
 import { IMPORTANT_STATUSES } from '../consts';
 import {
-    FIREBASE_WORKFLOW,
-    FIREBASE_AUTH,
-    FIREBASE_ROLES,
-    FIREBASE_USERS,
-    FIREBASE_HISTORY,
+    FIREBASE_WORKFLOW, FIREBASE_AUTH, FIREBASE_ROLES,
+    FIREBASE_USERS, FIREBASE_HISTORY, FIREBASE_DURATIONS,
 } from './types';
 
 export const fetchUsers = (): ActionType =>
@@ -17,9 +14,21 @@ export const fetchUsers = (): ActionType =>
         const db = firebase.database();
         db.ref('users').on(
             'value',
-            (snapshot: UserType[]) => dispatch({
+            (snapshot: {val: () => UserType[]}) => dispatch({
                 type:    FIREBASE_USERS,
                 payload: snapshot,
+            })
+        );
+    };
+
+export const fetchDurations = (): ActionType =>
+    (dispatch: Dispatch) => {
+        const db = firebase.database();
+        db.ref('videos').once(
+            'value',
+            (snapshot: { val: () => { [string]: number } }) => dispatch({
+                type:    FIREBASE_DURATIONS,
+                payload: snapshot.val(),
             })
         );
     };
@@ -46,7 +55,7 @@ export const fetchHistory = (slug: string): ActionType =>
         const db = firebase.database();
         db.ref(`history/${language.code}/${slug}`).on(
             'value',
-            (snapshot: UserType[]): void => dispatch({
+            (snapshot: { val: () => UserType[] }): void => dispatch({
                 type:    FIREBASE_HISTORY,
                 payload: { slug, snapshot },
             })

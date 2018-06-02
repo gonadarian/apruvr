@@ -10,6 +10,7 @@ export const FIREBASE_AUTH = 'FIREBASE_AUTH';
 export const FIREBASE_ROLES = 'FIREBASE_ROLES';
 export const FIREBASE_USERS = 'FIREBASE_USERS';
 export const FIREBASE_HISTORY = 'FIREBASE_HISTORY';
+export const FIREBASE_DURATIONS = 'FIREBASE_DURATIONS';
 export const PAGE_EXPAND = 'PAGE_EXPAND';
 
 const actions = {
@@ -22,6 +23,7 @@ const actions = {
     FIREBASE_ROLES,
     FIREBASE_USERS,
     FIREBASE_HISTORY,
+    FIREBASE_DURATIONS,
     PAGE_EXPAND,
 };
 

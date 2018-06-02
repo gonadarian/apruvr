@@ -66,6 +66,8 @@ export type HistoryType = {
     timeline: ?{[key: string]: HistoryRecordType};
 }
 
+export type DurationsType = {[ytid: string]: number};
+
 export type ActionType = (dispatch: Dispatch, getState: GetState) => void;
 
 export type RouteParamsType = {

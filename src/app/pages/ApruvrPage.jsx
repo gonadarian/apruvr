@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import { pickBy, transform, isEmpty } from 'lodash';
-import { routeChange, userAuth, fetchUsers } from '../actions';
+import { routeChange, userAuth, fetchUsers, fetchDurations } from '../actions';
 import { languageLookup, type LanguageType, type ContentKindType } from '../consts';
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
 import type { State, UserType, RouteParamsType } from '../flows';
@@ -34,6 +34,7 @@ interface PropsType extends OwnPropsType, StatePropsType {
     onRouteChange: (route: RouteParamsType) => void,
     onUserAuth: (user: UserType) => void,
     onUsersLoad: () => void,
+    onDuratiosLoad: () => void,
 }
 
 class ApruvrPage extends Component<PropsType> {
@@ -56,13 +57,16 @@ class ApruvrPage extends Component<PropsType> {
     }
 
     componentDidMount () {
-        const { onRouteChange, onUsersLoad, match: { params }, history } = this.props;
+        const { onRouteChange, onUsersLoad, onDuratiosLoad } = this.props;
+        const { match: { params }, history } = this.props;
         // save to state initial path params before components are loaded
         if (!isEmpty(params)) {
             onRouteChange(params);
         }
         // get list of users
         onUsersLoad();
+        // get durations of all videos
+        onDuratiosLoad();
         // redirect to last used path
         const { language, content, topic } = this.props;
         if (language && content && topic) {
@@ -128,15 +132,15 @@ class ApruvrPage extends Component<PropsType> {
 
 export default connect(
     (state: State, props: OwnPropsType): StatePropsType => ({
-        // params:   props.match.params,
         pathname: props.location.pathname,
         language: languageLookup(props.match.params.lang),
         content:  state.content,
         topic:    state.topic,
     }),
     (dispatch: Dispatch) => bindActionCreators({
-        onRouteChange: routeChange,
-        onUserAuth:    userAuth,
-        onUsersLoad:   fetchUsers,
+        onRouteChange:  routeChange,
+        onUserAuth:     userAuth,
+        onUsersLoad:    fetchUsers,
+        onDuratiosLoad: fetchDurations,
     }, dispatch)
 )(ApruvrPage);
