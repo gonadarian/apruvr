@@ -1,6 +1,6 @@
 /* @flow */
 import React, { type Element } from 'react';
-import { iif } from '../utils';
+import { iif, seconds, words, minsec } from '../utils';
 import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
 import { DetailsButton } from './';
@@ -20,7 +20,7 @@ type PropsType = {
 };
 
 const VideoItem = ({
-    content: { slug, title, subdub: [subbed, dubbed] },
+    content: { slug, title, subdub: [subbed, dubbed], duration },
     language, ...other
 }: PropsType): Element<*> =>
     <tr className={getRowClass(subbed, dubbed)}>
@@ -31,6 +31,11 @@ const VideoItem = ({
                 target="_blank">
                 {title}
             </a>
+            { duration &&
+                <small className="text-muted">
+                    {minsec(duration)}
+                </small>
+            }
         </td>
         <td>
             <AgentPicker
@@ -40,6 +45,14 @@ const VideoItem = ({
             <StatusPicker
                 slug={slug}
                 statuses={STATUSES.videos} />
+        </td>
+        <td>
+            { duration
+                ? <span className="badge">
+                    { seconds(duration) }s / { words(duration) }w
+                </span>
+                : <span className="badge">...</span>
+            }
         </td>
         <td>
             <a className="btn btn-default"

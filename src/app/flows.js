@@ -30,6 +30,7 @@ export type CrowdinNodeType = NodeType & {
 
 export type VideoNodeType = NodeType & {
     subdub: boolean[];
+    duration?: number;
 }
 
 export type TopicNodeType = NodeType & {

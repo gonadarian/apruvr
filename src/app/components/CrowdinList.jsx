@@ -1,7 +1,7 @@
 /* @flow */
 import React, { Fragment, type Element } from 'react';
 import { map, transform, keys, pick, take, size } from 'lodash';
-import { iif } from '../utils';
+import { iif, words, percent } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import { HistoryList } from '../containers';
 import { CrowdinItem, PageExpander, type ContentListType } from '.';
@@ -43,18 +43,18 @@ const CrowdinStats = ({ stats: { totl, trns, appr } }: PropsStatsType): Element<
                 items:
             </th>
             <th>
-                {`${trns.sum} / ${totl.sum} `}
-                <span className="badge">{`${Math.floor(100 * trns.sum / totl.sum)}%`}</span>
+                {`${words(trns.sum)} / ${words(totl.sum)} `}
+                <span className="badge">{percent(trns.sum / totl.sum)}</span>
                 <br />
-                {`${trns.cnt} / ${totl.cnt} `}
-                <span className="badge">{`${Math.floor(100 * trns.cnt / totl.cnt)}%`}</span>
+                {`${words(trns.cnt)} / ${words(totl.cnt)} `}
+                <span className="badge">{percent(trns.cnt / totl.cnt)}</span>
             </th>
             <th>
-                {`${appr.sum} / ${totl.sum} `}
-                <span className="badge">{`${Math.floor(100 * appr.sum / totl.sum)}%`}</span>
+                {`${words(appr.sum)} / ${words(totl.sum)} `}
+                <span className="badge">{percent(appr.sum / totl.sum)}</span>
                 <br />
-                {`${appr.cnt} / ${totl.cnt} `}
-                <span className="badge">{`${Math.floor(100 * appr.cnt / totl.cnt)}%`}</span>
+                {`${words(appr.cnt)} / ${words(totl.cnt)} `}
+                <span className="badge">{percent(appr.cnt / totl.cnt)}</span>
             </th>
         </tr>;
 

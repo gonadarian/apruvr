@@ -1,6 +1,6 @@
 /* @flow */
 import React, { type Element } from 'react';
-import { iif } from '../utils';
+import { iif, words } from '../utils';
 import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
 import { DetailsButton } from './';
@@ -40,10 +40,10 @@ const CrowdinItem = ({
                 href={`${khan}/${code}/${slug}`}
                 target="_blank">
                 {`${title} `}
-                <span className="badge">
-                    {totl}
-                </span>
             </a>
+            <small className="text-muted">
+                {`${words(totl)} words`}
+            </small>
         </td>
         <td>
             <AgentPicker

@@ -66,7 +66,7 @@ const TopicList = ({
                         ? pick(nodes, take(keys(nodes), pageSize))
                         : nodes,
                     (node: TopicNodeType, slug: string): Element<*> =>
-                        <Fragment>
+                        <Fragment key={slug}>
                             <TopicItem
                                 {...other}
                                 key={slug}
