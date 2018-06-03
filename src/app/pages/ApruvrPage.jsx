@@ -14,7 +14,6 @@ import { languageLookup, type LanguageType, type ContentKindType } from '../cons
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
 import type { State, UserType, RouteParamsType } from '../flows';
 import LanguagePage from './LanguagePage';
-import styles from '../styles/main.less';
 
 interface OwnPropsType {
     match: Match,
@@ -23,7 +22,6 @@ interface OwnPropsType {
 }
 
 interface StatePropsType {
-    // params: { lang: ?string },
     pathname: string,
     language: ?LanguageType,
     content: ContentKindType,
