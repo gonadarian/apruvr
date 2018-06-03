@@ -25,7 +25,9 @@ export type ContentListType = {
 const ContentList = ({ type, ...other }: ContentListType): Element<*> => {
     const group = CONTENT_GROUPS[type];
     const List = LISTS[group];
-    return <List type={type} { ...other } />;
+    return <List
+        { ...other }
+        type={type} />;
 };
 
 export default ContentList;

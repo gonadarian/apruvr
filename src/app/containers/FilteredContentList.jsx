@@ -15,16 +15,16 @@ interface StatePropsType {
     language: ?LanguageType,
     nodes: ?NodeMapType,
     historySlug: ?string;
-    pageSize: number,
+    pageSize: ?number,
 }
 
 interface PropsType extends StatePropsType {
     onFire: (snapshot: WorkflowMapType) => void,
-    onHistory: (slug: string) => void,
+    onHistory: (slug: ?string) => void,
     onPageExpand: (fullExpand: boolean) => void,
 }
 
-const FilteredContentList = ({ content, nodes, ...other }: PropsType): Element<*> =>
+const FilteredContentList = ({ content, nodes, language, ...other }: PropsType): Element<'div'> =>
     <div className="col-xs-12 col-md-9">
         <h3>
             {`${content.name} `}
@@ -34,11 +34,17 @@ const FilteredContentList = ({ content, nodes, ...other }: PropsType): Element<*
                     : 0}
             </span>
         </h3>
-        <ContentList
-            {...other}
-            nodes={nodes}
-            type={content.code}
-            title={content.name} />
+        { nodes && language
+            ? <ContentList
+                {...other}
+                nodes={nodes}
+                language={language}
+                type={content.code}
+                title={content.name} />
+            : <small className="text-muted">
+                no content found
+            </small>
+        }
     </div>;
 
 export default connect(
