@@ -1,5 +1,6 @@
 /* @flow */
 import moment from 'moment';
+import { some, values } from 'lodash';
 
 const iif = <T>(flag: boolean, trueValue: T, falseValue: T): T =>
     flag
@@ -33,6 +34,9 @@ const percent = (num: number): string =>
 const minsec = (sec: number): string =>
     moment.utc(sec * MS_PER_SEC).format('m[m] s[s]');
 
+const hasValues = (object: Object): boolean =>
+    some(values(object), (value) => value);
+
 export {
     iif,
     iiff,
@@ -41,4 +45,5 @@ export {
     words,
     percent,
     minsec,
+    hasValues,
 };

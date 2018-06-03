@@ -8,12 +8,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import firebase from '@firebase/app';
 import '@firebase/auth';
-import { pickBy, transform, isEmpty } from 'lodash';
+import { pickBy, transform } from 'lodash';
+import { LanguagePage } from './';
 import { routeChange, userAuth, fetchUsers, fetchDurations } from '../actions';
-import { languageLookup, type LanguageType, type ContentKindType } from '../consts';
+import { type LanguageType, type ContentKindType } from '../consts';
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
+import { hasValues } from '../utils';
 import type { State, UserType, RouteParamsType } from '../flows';
-import LanguagePage from './LanguagePage';
 
 interface OwnPropsType {
     match: Match,
@@ -58,7 +59,7 @@ class ApruvrPage extends Component<PropsType> {
         const { onRouteChange, onUsersLoad, onDuratiosLoad } = this.props;
         const { match: { params }, history } = this.props;
         // save to state initial path params before components are loaded
-        if (!isEmpty(params)) {
+        if (hasValues(params)) {
             onRouteChange(params);
         }
         // get list of users
@@ -96,7 +97,7 @@ class ApruvrPage extends Component<PropsType> {
         );
         // and merge them before sending
         const updateParams = { ...newAndChangedParams, ...removedParams };
-        if (!isEmpty(updateParams)) {
+        if (hasValues(updateParams)) {
             this.props.onRouteChange(updateParams);
         }
     }
@@ -104,7 +105,11 @@ class ApruvrPage extends Component<PropsType> {
     render () {
         const { language } = this.props;
         return <div>
-            <nav className="navbar navbar-default">
+            <nav className="navbar navbar-default"
+                style={{
+                    backgroundColor: '#314453',
+                    color:           '#f5f5f5',
+                }}>
                 <div className="container-fluid">
                     <h1>
                         Khan Academy Apruvr
@@ -131,7 +136,7 @@ class ApruvrPage extends Component<PropsType> {
 export default connect(
     (state: State, props: OwnPropsType): StatePropsType => ({
         pathname: props.location.pathname,
-        language: languageLookup(props.match.params.lang),
+        language: state.language,
         content:  state.content,
         topic:    state.topic,
     }),
