@@ -1,6 +1,6 @@
 /* @flow */
 import { createSelector } from 'reselect';
-import { filter, forEach } from 'lodash';
+import { filter, forEach, reduce } from 'lodash';
 import type { State, NodesType } from '../flows';
 
 /**
@@ -10,19 +10,19 @@ import type { State, NodesType } from '../flows';
  * @return {void}
  */
 const createTopicSubTree = (nodes, topic) => {
-    // initially. this topic has empty list of sub-topics
-    topic.topics = {};
-    // repeat for all sub-topics of given topic
-    forEach(
+    // repeat for all sub-topics of given topic and populate new topics list
+    topic.topics = reduce(
         // extract sub-topics from children list
         filter(
             topic.children,
             (child) => child[0] === 'Topic'
         ),
-        ([, slug]) => {
+        (mem, [, slug]) => {
             // under sub-topic slug, inject entire topic from the original nodes structure
-            topic.topics[slug] = nodes.topics[slug];
-        }
+            mem[slug] = nodes.topics[slug];
+            return mem;
+        },
+        {}
     );
     // remove topic from children list and leave only true content items there
     topic.children = filter(

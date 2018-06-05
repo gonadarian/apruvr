@@ -113,8 +113,8 @@ class ApruvrPage extends Component<PropsType> {
                 <div className="container-fluid">
                     <h1>
                         Khan Academy Apruvr
-                        <small className="text-muted">
-                            <em> approval workflow for Khan Academy translations</em>
+                        <small>
+                            <em> - approval workflow for Khan Academy translations</em>
                         </small>
                     </h1>
                 </div>

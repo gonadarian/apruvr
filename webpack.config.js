@@ -17,15 +17,32 @@ const config = {
         rules: [{
             test:    /\.jsx?/,
             include: APP_DIR,
-            use:     { loader: 'babel-loader' },
+            use:     {
+                loader: 'babel-loader',
+            },
         },
         {
             test: /\.css$/,
-            use:  [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+            use:  [{
+                loader: 'style-loader',
+            }, {
+                loader: 'css-loader',
+            }],
         },
         {
             test: /\.less$/,
-            use:  [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'less-loader' }],
+            use:  [{
+                loader: 'style-loader',
+            }, {
+                loader:  'css-loader',
+                options: {
+                    sourceMap:      true,
+                    modules:        true,
+                    localIdentName: '[local]___[hash:base64:5]',
+                },
+            }, {
+                loader: 'less-loader',
+            }],
         }],
     },
 };

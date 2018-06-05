@@ -15,7 +15,12 @@
 ./flow-typed
 
 [options]
-all=true
+module.file_ext=.js
+module.file_ext=.jsx
+module.file_ext=.json
+module.file_ext=.css
+module.file_ext=.less
+module.name_mapper.extension='less' -> 'empty/object'
 
 [version]
-^0.72.0
+^0.73.0
