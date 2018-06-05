@@ -20,16 +20,14 @@ const config = {
             use:     {
                 loader: 'babel-loader',
             },
-        },
-        {
+        }, {
             test: /\.css$/,
             use:  [{
                 loader: 'style-loader',
             }, {
                 loader: 'css-loader',
             }],
-        },
-        {
+        }, {
             test: /\.less$/,
             use:  [{
                 loader: 'style-loader',

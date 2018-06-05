@@ -8,22 +8,25 @@ const config = Object.assign(
         output: Object.assign(
             commonConfig.output,
             {
-                filename: 'bundle.min.js',
+                filename:      '[name].bundle.js',
+                chunkFilename: '[name].bundle.js',
             }
         ),
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        test:   /[\\/]node_modules[\\/]/,
+                        name:   'vendor',
+                        chunks: 'all',
+                    },
+                },
+            },
+        },
         plugins: [
             new webpack.DefinePlugin({
                 'process.env': {
                     'NODE_ENV': JSON.stringify('production'),
-                },
-            }),
-            new webpack.optimize.UglifyJsPlugin({
-                minimize: true,
-                output:   {
-                    comments: false,
-                },
-                compress: {
-                    warnings: false,
                 },
             }),
         ],

@@ -6,7 +6,6 @@ import type { ActionType, Dispatch } from '../flows';
 import { FETCH_NODES } from './types';
 
 // TODO: Move to firebase file and remove this one.
-// TODO: Remove axios package as it's no longer needed.
 export const fetchNodes = (language: LanguageType): ActionType =>
     (dispatch: Dispatch) => {
         if (!language) {

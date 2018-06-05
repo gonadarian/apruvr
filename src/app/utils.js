@@ -1,5 +1,5 @@
 /* @flow */
-import moment from 'moment';
+import moment from 'moment-mini';
 import { some, values } from 'lodash';
 
 const iif = <T>(flag: boolean, trueValue: T, falseValue: T): T =>

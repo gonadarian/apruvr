@@ -2,7 +2,7 @@
 import React, { Fragment, type Element } from 'react';
 import { connect } from 'react-redux';
 import { map } from 'lodash';
-import moment from 'moment';
+import moment from 'moment-mini';
 import type { State, UserMapType, HistoryType } from '../flows';
 
 interface PropsType {
