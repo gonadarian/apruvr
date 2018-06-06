@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
 const commonConfig = require('./webpack.config');
 
 const config = Object.assign(
@@ -29,6 +30,7 @@ const config = Object.assign(
                     'NODE_ENV': JSON.stringify('production'),
                 },
             }),
+            new CompressionPlugin(),
         ],
     }
 );
