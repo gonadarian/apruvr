@@ -18,10 +18,13 @@ const INITIAL_VALUE = {
 const handlers: Handlers<VisibilityListType> = {
     // one of the visiblity filters has been switched
     [FILTER_VISIBIITY]: (state, { payload }) =>
-        mapValues(
-            state,
-            (visible, key) => iif(key === payload, !visible, visible),
-        ),
+        payload in state
+            ? mapValues(
+                state,
+                (visible, key) => iif(key === payload, !visible, visible),
+            )
+            // bad visibility key was passed, so don't mutate the state
+            : state,
 };
 
 export default (state: VisibilityListType = INITIAL_VALUE, action: Action) =>

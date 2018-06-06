@@ -72,7 +72,7 @@ export type DurationsType = {[ytid: string]: number};
 export type ActionType = (dispatch: Dispatch, getState: GetState) => void;
 
 export type RouteParamsType = {
-    land: ?string,
+    lang: ?string,
     kind: ?string,
     topic: ?string,
 };

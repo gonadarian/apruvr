@@ -2,13 +2,15 @@
     "parser": "babel-eslint",
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "jest/globals": true
     },
     "plugins": [
         "babel",
         "react",
         "flowtype",
-        "import"
+        "import",
+        "jest"
     ],
     "settings": {
         "flowtype": {
@@ -25,7 +27,8 @@
         "plugin:react/recommended",
         "plugin:flowtype/recommended",
         "plugin:import/errors",
-        "plugin:import/warnings"
+        "plugin:import/warnings",
+        "plugin:jest/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {

@@ -3,13 +3,13 @@ import { isEqual } from 'lodash';
 import { languageLookup, type LanguageType } from '../consts';
 import { ROUTE_CHANGE } from '../actions/types';
 import handleReducers, { type Handlers } from './handler';
-import type { Action } from '../flows';
+import type { Action, RouteParamsType } from '../flows';
 
 const INITIAL_VALUE = null;
 
 const handlers: Handlers<?LanguageType> = {
-    [ROUTE_CHANGE]: (state, { payload }) => {
-        if ('lang' in payload) {
+    [ROUTE_CHANGE]: (state, { payload }: { payload: RouteParamsType }) => {
+        if (payload.lang) {
             // language has been chosen or cleared
             const language = languageLookup(payload.lang);
             return isEqual(state, language)
