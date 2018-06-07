@@ -7,11 +7,11 @@ const INITIAL_VALUE = 'root.math';
 
 const handlers: Handlers<string> = {
     [ROUTE_CHANGE]: (state, { payload }) => {
-        if ('topic' in payload) {
+        if (payload.topic) {
             // topic has been chosen or cleared
             return state === payload.topic
                 ? state
-                : (payload.topic || INITIAL_VALUE);
+                : payload.topic;
         }
         return state;
     },

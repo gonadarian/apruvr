@@ -34,4 +34,11 @@ describe('Language Reducer', () => {
         deepFreeze(oldState);
         expect(languageReducer(oldState, action)).toBe(oldState);
     });
+
+    test('should not touch the state if language is not provided', () => {
+        const oldState = { code: 'bg', name: 'Bulgarian' };
+        const action = { type: ROUTE_CHANGE, payload: { lang: null } };
+        deepFreeze(oldState);
+        expect(languageReducer(oldState, action)).toBe(oldState);
+    });
 });
