@@ -9,7 +9,7 @@ type PropsType = {
 };
 
 const DetailsButton = ({ slug, historySlug, onHistory }: PropsType): Element<'span'> =>
-    <span
+    <span style={{ padding: '0 1em 0 1em', cursor: 'pointer' }}
         className={`fas fa-angle-double-${iif(historySlug === slug, 'up', 'down')}`}
         onClick={(): void => onHistory(iif(historySlug === slug, null, slug))} />;
 

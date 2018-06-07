@@ -98,6 +98,10 @@ const generateExport = (code, nodes, workflow, users): string => {
     return `data:attachment/csv,${encoded}`;
 };
 
+const iconStyle = {
+    marginLeft: '1em',
+};
+
 interface StatePropsType {
     exporting: boolean,
     content: ContentKindType,
@@ -121,13 +125,13 @@ const ExporterButton = ({
                 download={`${content.name} ${topic}.csv`}
                 href={generateExport(content.code, nodes, workflow, users)}
                 target="_blank">
-                {'Download Report '}
-                <span className="fas fa-download" />
+                {'Download Report'}
+                <span className="fas fa-download" style={iconStyle} />
             </a>
             : <a className="btn btn-default"
                 onClick={(): void => onExportStarted()}>
-                {'Generate Report '}
-                <span className="fas fa-download" />
+                {'Generate Report'}
+                <span className="fas fa-download" style={iconStyle} />
             </a>
         }
     </div>;

@@ -14,6 +14,10 @@ interface PropsType extends StatePropsType {
     signOut: () => void,
 }
 
+const iconStyle = {
+    marginLeft: '1em',
+};
+
 const SignInButton = ({ user, signIn, signOut }: PropsType): Element<*> =>
     user
         ? <div className="pull-right col-xs-2">
@@ -23,7 +27,7 @@ const SignInButton = ({ user, signIn, signOut }: PropsType): Element<*> =>
             <a className="btn btn-primary"
                 onClick={() => signOut()}>
                 {'Sign out'}
-                <span className="fas fa-sign-out-alt" />
+                <span className="fas fa-sign-out-alt" style={iconStyle} />
             </a>
         </div>
         : <div className="pull-right col-xs-2">
@@ -33,7 +37,7 @@ const SignInButton = ({ user, signIn, signOut }: PropsType): Element<*> =>
             <a className="btn btn-primary"
                 onClick={() => signIn() }>
                 {'Sign in'}
-                <span className="fas fa-sign-in-alt" />
+                <i className="fas fa-sign-in-alt" style={iconStyle} />
             </a>
         </div>;
 

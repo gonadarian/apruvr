@@ -31,9 +31,9 @@ const TopicItem = ({
                 'danger')));
     return (
         <tr className={className}>
-            <td>
+            <td style={{ verticalAlign: 'middle' }}>
                 <DetailsButton {...other} slug={slug} />
-                <a className="btn btn-link"
+                <a style={{ marginRight: '1em' }}
                     href={`${khan}/${code}/${slug}`}
                     target="_blank">
                     {`${title} `}

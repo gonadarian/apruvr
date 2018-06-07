@@ -1,5 +1,5 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
     Route, Switch, Redirect,
     type RouterHistory, type Location, type Match,
@@ -15,6 +15,20 @@ import { type LanguageType, type ContentKindType } from '../consts';
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
 import { hasValues } from '../utils';
 import type { State, UserType, RouteParamsType } from '../flows';
+
+const headerStyle = {
+    backgroundColor: '#314453',
+    color:           '#f5f5f5',
+};
+
+const footerStyle = {
+    ...headerStyle,
+    position: 'absolute',
+    padding:  '10px',
+    bottom:   0,
+    right:    0,
+    left:     0,
+};
 
 interface OwnPropsType {
     match: Match,
@@ -104,22 +118,18 @@ class ApruvrPage extends Component<PropsType> {
 
     render () {
         const { language } = this.props;
-        return <div>
-            <nav className="navbar navbar-default"
-                style={{
-                    backgroundColor: '#314453',
-                    color:           '#f5f5f5',
-                }}>
+        return <Fragment>
+            <nav className="navbar navbar-default navbar-fixed-top" style={headerStyle}>
                 <div className="container-fluid">
-                    <h1>
+                    <h1 className="col-xs-12">
                         Khan Academy Apruvr
-                        <small>
-                            <em> - approval workflow for Khan Academy translations</em>
+                        <small style={{ marginLeft: '1em' }}>
+                            <em>approval workflow for Khan Academy translations</em>
                         </small>
                     </h1>
                 </div>
             </nav>
-            <div className="container-fluid">
+            <main className="container-fluid">
                 <LanguagePicker language={language} />
                 <SignInButton />
                 <LoadingSpinner />
@@ -128,8 +138,13 @@ class ApruvrPage extends Component<PropsType> {
                     <Redirect exact from="/:lang/:kind" to=":lang/:kind/root.math" />
                     <Redirect exact from="/:lang" to=":lang/exercises/root.math" />
                 </Switch>
-            </div>
-        </div>;
+            </main>
+            <footer style={footerStyle}>
+                <div className="col-xs-12" style={{ textAlign: 'center' }}>
+                    <small>© 2018 Gonadarian</small>
+                </div>
+            </footer>
+        </Fragment>;
     }
 }
 

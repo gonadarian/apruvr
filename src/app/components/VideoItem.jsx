@@ -24,9 +24,9 @@ const VideoItem = ({
     language, ...other
 }: PropsType): Element<*> =>
     <tr className={getRowClass(subbed, dubbed)}>
-        <td>
+        <td style={{ verticalAlign: 'middle' }}>
             <DetailsButton {...other} slug={slug} />
-            <a className="btn btn-link"
+            <a style={{ marginRight: '1em' }}
                 href={`${khan}/v/${slug}`}
                 target="_blank">
                 {title}
