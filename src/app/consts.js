@@ -44,7 +44,7 @@ export const LANGUAGES: LanguageType[] = [
 
 export const languageLookup = (langCode: ?string): ?LanguageType =>
     langCode
-        ? find(LANGUAGES, ({ code }: LanguageType): boolean => code === langCode)
+        ? find(LANGUAGES, ({ code }: LanguageType): boolean => code === langCode) || null
         : null;
 
 export type StatusType =
@@ -130,4 +130,7 @@ export const CONTENTS: Array<ContentKindType> = [
 ];
 
 export const contentKindLookup = (kindCode: ContentCodeType): ContentKindType =>
-    find(CONTENTS, ({ code }: ContentKindType): boolean => code === kindCode);
+    find(CONTENTS,
+        ({ code }: ContentKindType): boolean =>
+            code === kindCode
+    ) || CONTENTS[0];
