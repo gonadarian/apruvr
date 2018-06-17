@@ -22,14 +22,17 @@ const SEC_PER_MIN = 60;
 const WORDS_PER_MIN = 150;
 const WORDS_PER_SEC = WORDS_PER_MIN / SEC_PER_MIN;
 
+const localize = (num: number): string =>
+    num.toLocaleString('sr');
+
 const seconds = (sec: number): string =>
-    Math.floor(sec).toLocaleString('sr');
+    localize(Math.floor(sec));
 
 const words = (sec: number): string =>
     seconds(sec * WORDS_PER_SEC);
 
 const percent = (num: number): string =>
-    `${Math.floor(100 * num).toLocaleString('sr')}%`;
+    `${localize(Math.floor(100 * num))}%`;
 
 const minsec = (sec: number): string =>
     moment.utc(sec * MS_PER_SEC).format('m[m] s[s]');
@@ -41,6 +44,7 @@ export {
     iif,
     iiff,
     iifn,
+    localize,
     seconds,
     words,
     percent,
