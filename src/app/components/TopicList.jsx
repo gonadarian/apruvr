@@ -1,7 +1,7 @@
 /* @flow */
 import React, { Fragment, type Element } from 'react';
 import { map, transform, keys, pick, take, size } from 'lodash';
-import { iif } from '../utils';
+import { iif, percent } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import { HistoryList } from '../containers';
 import { TopicItem, PageExpander, type ContentListType } from '.';
@@ -40,10 +40,10 @@ const TopicStats = ({ stats: { totl, trns } }: PropsStatsType): Element<*> | fal
             </th>
             <th>
                 {`${trns.sum} / ${totl.sum} `}
-                <span className="badge">{`${Math.floor(100 * trns.sum / totl.sum)}%`}</span>
+                <span className="badge">{percent(trns.sum / totl.sum)}</span>
                 <br />
                 {`${trns.cnt} / ${totl.cnt} `}
-                <span className="badge">{`${Math.floor(100 * trns.cnt / totl.cnt)}%`}</span>
+                <span className="badge">{percent(trns.cnt / totl.cnt)}</span>
             </th>
         </tr>;
 

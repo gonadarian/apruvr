@@ -1,7 +1,7 @@
 /* @flow */
 import React, { Fragment, type Element } from 'react';
 import { map, transform, keys, pick, take, size } from 'lodash';
-import { iif, words, percent } from '../utils';
+import { iif, percent } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import { HistoryList } from '../containers';
 import { CrowdinItem, PageExpander, type ContentListType } from '.';
@@ -43,17 +43,17 @@ const CrowdinStats = ({ stats: { totl, trns, appr } }: PropsStatsType): Element<
                 items:
             </th>
             <th>
-                {`${words(trns.sum)} / ${words(totl.sum)} `}
+                {`${trns.sum} / ${totl.sum} `}
                 <span className="badge">{percent(trns.sum / totl.sum)}</span>
                 <br />
-                {`${words(trns.cnt)} / ${words(totl.cnt)} `}
+                {`${trns.cnt} / ${totl.cnt} `}
                 <span className="badge">{percent(trns.cnt / totl.cnt)}</span>
             </th>
             <th>
-                {`${words(appr.sum)} / ${words(totl.sum)} `}
+                {`${appr.sum} / ${totl.sum} `}
                 <span className="badge">{percent(appr.sum / totl.sum)}</span>
                 <br />
-                {`${words(appr.cnt)} / ${words(totl.cnt)} `}
+                {`${appr.cnt} / ${totl.cnt} `}
                 <span className="badge">{percent(appr.cnt / totl.cnt)}</span>
             </th>
         </tr>;
