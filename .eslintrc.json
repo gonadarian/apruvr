@@ -17,9 +17,9 @@
             "onlyFilesWithFlowAnnotation": false
         },
         "import/resolver": {
-          "node": {
-            "extensions": [".js", ".jsx"]
-          }
+            "node": {
+                "extensions": [".js", ".jsx"]
+            }
         }
     },
     "extends": [

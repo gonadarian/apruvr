@@ -1,7 +1,6 @@
 /* @flow */
 import React, { type Element } from 'react';
 import { connect } from 'react-redux';
-import Spinner from 'react-spinkit';
 import type { State } from '../flows';
 
 interface PropsType {
@@ -12,7 +11,7 @@ const LoadingSpinner = ({ loading }: PropsType): Element<*> | false =>
     loading &&
         <div className="col-xs-12">
             <h3>Loading</h3>
-            <Spinner name="three-bounce" />
+            <i className="fas fa-spinner fa-spin fa-4x" />
         </div>;
 
 export default connect(
