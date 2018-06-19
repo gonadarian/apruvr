@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonChoice component renders correctly by default 1`] = `
+<div
+  className="btn-group"
+/>
+`;
+
+exports[`ButtonChoice component renders correctly with multiple choices 1`] = `
+<div
+  className="btn-group"
+>
+  <div
+    className="btn btn-default"
+    onClick={[Function]}
+  >
+    Work
+  </div>
+  <div
+    className="btn btn-primary"
+    onClick={[Function]}
+  >
+    Sleep
+  </div>
+</div>
+`;
+
+exports[`ButtonChoice component renders correctly with single choice 1`] = `
+<div
+  className="btn-group"
+>
+  <div
+    className="btn btn-primary"
+    onClick={[Function]}
+  >
+    Work
+  </div>
+</div>
+`;

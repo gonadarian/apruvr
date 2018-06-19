@@ -10,7 +10,7 @@ type PropsType = {
     onChoose: (key: string) => void,
 };
 
-const ButtonChoice = ({ choices, used, names, onChoose }: PropsType): Element<*> =>
+export const ButtonChoice = ({ choices, used, names, onChoose }: PropsType): Element<*> =>
     <div className="btn-group">
         {map(
             pick(choices, used),

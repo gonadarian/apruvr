@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button component renders correctly by default 1`] = `
+<div
+  className="btn btn-default"
+/>
+`;
+
+exports[`Button component renders correctly when active 1`] = `
+<div
+  className="btn btn-primary"
+/>
+`;
+
+exports[`Button component renders correctly when inactive 1`] = `
+<div
+  className="btn btn-default"
+/>
+`;
