@@ -1,6 +1,6 @@
 import deepFreeze from 'deep-freeze';
-import { ROUTE_CHANGE } from '../actions/types';
-import languageReducer from './languageReducer';
+import { ROUTE_CHANGE } from '../../actions/types';
+import languageReducer from '../languageReducer';
 
 describe('Language Reducer', () => {
     test('should handle action with unknown type', () => {

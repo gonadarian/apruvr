@@ -1,5 +1,5 @@
-import { ROUTE_CHANGE, FETCH_NODES } from '../actions/types';
-import loadingReducer from './loadingReducer';
+import { ROUTE_CHANGE, FETCH_NODES } from '../../actions/types';
+import loadingReducer from '../loadingReducer';
 
 describe('Loading Reducer', () => {
     test('should handle action with unknown type', () => {

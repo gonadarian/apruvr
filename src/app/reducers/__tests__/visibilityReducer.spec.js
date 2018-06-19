@@ -1,6 +1,6 @@
 import { forOwn } from 'lodash';
-import { FILTER_VISIBIITY } from '../actions/types';
-import visibilityReducer from './visibilityReducer';
+import { FILTER_VISIBIITY } from '../../actions/types';
+import visibilityReducer from '../visibilityReducer';
 
 describe('Topic Reducer', () => {
     test('should initialize to full visibility for any action', () => {

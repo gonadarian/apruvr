@@ -1,7 +1,7 @@
 import {
     iif, iiff, iifn,
     seconds, words, percent, minsec, hasValues,
-} from './utils';
+} from '../utils';
 
 describe('Utility functions', () => {
     /* eslint-disable no-magic-numbers */

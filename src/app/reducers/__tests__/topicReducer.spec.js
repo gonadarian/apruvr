@@ -1,5 +1,5 @@
-import { ROUTE_CHANGE } from '../actions/types';
-import topicReducer from './topicReducer';
+import { ROUTE_CHANGE } from '../../actions/types';
+import topicReducer from '../topicReducer';
 
 describe('Topic Reducer', () => {
     test('handles initialization actions', () => {

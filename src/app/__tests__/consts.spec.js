@@ -1,4 +1,4 @@
-import { languageLookup, contentKindLookup, CONTENTS } from './consts';
+import { languageLookup, contentKindLookup, CONTENTS } from '../consts';
 
 describe('Constants functions', () => {
     /* eslint-disable no-magic-numbers */
