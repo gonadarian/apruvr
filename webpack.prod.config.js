@@ -1,12 +1,13 @@
 const webpack = require('webpack');
+const { assign } = require('lodash');
 const CompressionPlugin = require('compression-webpack-plugin');
 const commonConfig = require('./webpack.config');
 
-const config = Object.assign(
+const config = assign(
     commonConfig,
     {
         mode:   'production',
-        output: Object.assign(
+        output: assign(
             commonConfig.output,
             {
                 filename:      '[name].bundle.js',

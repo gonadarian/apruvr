@@ -1,12 +1,13 @@
 const webpack = require('webpack');
+const { assign } = require('lodash');
 const commonConfig = require('./webpack.config');
 
-const config = Object.assign(
+const config = assign(
     commonConfig,
     {
         mode:    'development',
         devtool: 'source-map',
-        output:  Object.assign(
+        output:  assign(
             commonConfig.output,
             {
                 sourceMapFilename: 'bundle.js.map',
