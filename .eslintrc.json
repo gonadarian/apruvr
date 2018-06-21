@@ -9,6 +9,7 @@
         "babel",
         "react",
         "flowtype",
+        "lodash",
         "import",
         "jest"
     ],
@@ -26,6 +27,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:flowtype/recommended",
+        "plugin:lodash/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
         "plugin:jest/recommended"
