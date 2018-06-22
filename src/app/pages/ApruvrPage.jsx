@@ -6,10 +6,9 @@ import {
 } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import firebase from '@firebase/app';
-import '@firebase/auth';
 import { pickBy, transform } from 'lodash';
 import { LanguagePage } from './';
+import { importFirebaseAuth } from '../imports';
 import { routeChange, userAuth, fetchUsers, fetchDurations } from '../actions';
 import { type LanguageType, type ContentKindType } from '../consts';
 import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
@@ -53,19 +52,20 @@ interface PropsType extends OwnPropsType, StatePropsType {
 class ApruvrPage extends Component<PropsType> {
     constructor (props: PropsType) {
         super(props);
+        importFirebaseAuth((firebase) => {
+            // initialize firebase
+            firebase.initializeApp({
+                apiKey:            'AIzaSyBXjOncuS3h9Fz9Boar8t3OcJhiDZL_sgE',
+                authDomain:        'apruvr.firebaseapp.com',
+                databaseURL:       'https://apruvr.firebaseio.com',
+                storageBucket:     'apruvr.appspot.com',
+                messagingSenderId: '1081977594498',
+            });
 
-        // initialize firebase
-        firebase.initializeApp({
-            apiKey:            'AIzaSyBXjOncuS3h9Fz9Boar8t3OcJhiDZL_sgE',
-            authDomain:        'apruvr.firebaseapp.com',
-            databaseURL:       'https://apruvr.firebaseio.com',
-            storageBucket:     'apruvr.appspot.com',
-            messagingSenderId: '1081977594498',
-        });
-
-        // initialize user session, store user data in database
-        firebase.auth().onAuthStateChanged((user: UserType) => {
-            this.props.onUserAuth(user);
+            // initialize user session, store user data in database
+            firebase.auth().onAuthStateChanged((user: UserType) => {
+                this.props.onUserAuth(user);
+            });
         });
     }
 

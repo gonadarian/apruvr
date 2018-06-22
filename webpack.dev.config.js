@@ -19,11 +19,6 @@ const config = assign(
                 disableDotRule: true,
             },
         },
-        plugins: [
-            new webpack.LoaderOptionsPlugin({
-                debug: true,
-            }),
-        ],
     }
 );
 

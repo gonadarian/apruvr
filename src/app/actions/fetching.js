@@ -1,6 +1,5 @@
 /* @flow */
-import firebase from '@firebase/app';
-import '@firebase/database';
+import { importFirebaseDatabase } from '../imports';
 import { type LanguageType } from '../consts';
 import type { ActionType, Dispatch } from '../flows';
 import { FETCH_NODES } from './types';
@@ -15,12 +14,14 @@ export const fetchNodes = (language: LanguageType): ActionType =>
             });
             return;
         }
-        const db = firebase.database();
-        db.ref(`translation/${language.code}`).on(
-            'value',
-            (snapshot): void => dispatch({
-                type:    FETCH_NODES,
-                payload: snapshot,
-            })
-        );
+        importFirebaseDatabase((firebase) => {
+            const db = firebase.default.database();
+            db.ref(`translation/${language.code}`).on(
+                'value',
+                (snapshot): void => dispatch({
+                    type:    FETCH_NODES,
+                    payload: snapshot,
+                })
+            );
+        });
     };

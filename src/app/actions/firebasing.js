@@ -1,7 +1,5 @@
 /* @flow */
-import firebase from '@firebase/app';
-import '@firebase/database';
-import '@firebase/auth';
+import { importFirebaseAuth, importFirebaseDatabase } from '../imports';
 import type { ActionType, Dispatch, GetState, UserType, WorkflowMapType } from '../flows';
 import { IMPORTANT_STATUSES } from '../consts';
 import {
@@ -11,26 +9,30 @@ import {
 
 export const fetchUsers = (): ActionType =>
     (dispatch: Dispatch) => {
-        const db = firebase.database();
-        db.ref('users').on(
-            'value',
-            (snapshot: {val: () => UserType[]}) => dispatch({
-                type:    FIREBASE_USERS,
-                payload: snapshot,
-            })
-        );
+        importFirebaseDatabase((firebase) => {
+            const db = firebase.database();
+            db.ref('users').on(
+                'value',
+                (snapshot: {val: () => UserType[]}) => dispatch({
+                    type:    FIREBASE_USERS,
+                    payload: snapshot,
+                })
+            );
+        });
     };
 
 export const fetchDurations = (): ActionType =>
     (dispatch: Dispatch) => {
-        const db = firebase.database();
-        db.ref('videos').once(
-            'value',
-            (snapshot: { val: () => { [string]: number } }) => dispatch({
-                type:    FIREBASE_DURATIONS,
-                payload: snapshot.val(),
-            })
-        );
+        importFirebaseDatabase((firebase) => {
+            const db = firebase.database();
+            db.ref('videos').once(
+                'value',
+                (snapshot: { val: () => { [string]: number } }) => dispatch({
+                    type:    FIREBASE_DURATIONS,
+                    payload: snapshot.val(),
+                })
+            );
+        });
     };
 
 export const fetchWorkflow = (snapshot: WorkflowMapType): ActionType =>
@@ -52,14 +54,16 @@ export const fetchHistory = (slug: string): ActionType =>
             type:    FIREBASE_HISTORY,
             payload: { slug },
         });
-        const db = firebase.database();
-        db.ref(`history/${language.code}/${slug}`).on(
-            'value',
-            (snapshot: { val: () => UserType[] }): void => dispatch({
-                type:    FIREBASE_HISTORY,
-                payload: { slug, snapshot },
-            })
-        );
+        importFirebaseDatabase((firebase) => {
+            const db = firebase.database();
+            db.ref(`history/${language.code}/${slug}`).on(
+                'value',
+                (snapshot: { val: () => UserType[] }): void => dispatch({
+                    type:    FIREBASE_HISTORY,
+                    payload: { slug, snapshot },
+                })
+            );
+        });
     };
 
 export const userAuth = (user: ?UserType): ActionType =>
@@ -73,20 +77,22 @@ export const userAuth = (user: ?UserType): ActionType =>
         if (!user) {
             return;
         }
-        const db = firebase.database();
-        const { uid, displayName, email, photoURL } = user;
-        // get user roles if there are any
-        db.ref(`roles/${uid}`).on(
-            'value',
-            (snapshot: { val: () => string }): void => dispatch({
-                type:    FIREBASE_ROLES,
-                payload: snapshot.val(),
-            })
-        );
-        // save user data on server for future reference
-        db.ref(`users/${uid}`).set(
-            { displayName, email, photoURL }
-        );
+        importFirebaseDatabase((firebase) => {
+            const db = firebase.database();
+            const { uid, displayName, email, photoURL } = user;
+            // get user roles if there are any
+            db.ref(`roles/${uid}`).on(
+                'value',
+                (snapshot: { val: () => string }): void => dispatch({
+                    type:    FIREBASE_ROLES,
+                    payload: snapshot.val(),
+                })
+            );
+            // save user data on server for future reference
+            db.ref(`users/${uid}`).set(
+                { displayName, email, photoURL }
+            );
+        });
     };
 
 export const setWorkflowStatus = (slug: string, status: string): ActionType =>
@@ -102,15 +108,17 @@ export const setWorkflowStatus = (slug: string, status: string): ActionType =>
         if (status in IMPORTANT_STATUSES) {
             value = { ...value, [status]: uid };
         }
-        const db = firebase.database();
-        db.ref(`status/${language.code}/${slug}`).update(value);
-        // keep history of all changes, just in case
-        const history = {
-            uid,
-            status,
-            time: firebase.database.ServerValue.TIMESTAMP,
-        };
-        db.ref(`history/${language.code}/${slug}`).push(history);
+        importFirebaseDatabase((firebase) => {
+            const db = firebase.database();
+            db.ref(`status/${language.code}/${slug}`).update(value);
+            // keep history of all changes, just in case
+            const history = {
+                uid,
+                status,
+                time: firebase.database.ServerValue.TIMESTAMP,
+            };
+            db.ref(`history/${language.code}/${slug}`).push(history);
+        });
     };
 
 export const setWorkflowAgent = (slug: string, uid: string): ActionType =>
@@ -119,15 +127,17 @@ export const setWorkflowAgent = (slug: string, uid: string): ActionType =>
         if (!language) {
             throw new Error(`Language is not set [${slug}, ${uid}]`);
         }
-        const db = firebase.database();
-        // save change to the agent, something only advocate is allowed to do
-        db.ref(`status/${language.code}/${slug}`).update({ uid });
-        // keep this change in history, too
-        const history = {
-            uid,
-            time: firebase.database.ServerValue.TIMESTAMP,
-        };
-        db.ref(`history/${language.code}/${slug}`).push(history);
+        importFirebaseDatabase((firebase) => {
+            const db = firebase.database();
+            // save change to the agent, something only advocate is allowed to do
+            db.ref(`status/${language.code}/${slug}`).update({ uid });
+            // keep this change in history, too
+            const history = {
+                uid,
+                time: firebase.database.ServerValue.TIMESTAMP,
+            };
+            db.ref(`history/${language.code}/${slug}`).push(history);
+        });
     };
 
 /**
@@ -138,9 +148,11 @@ export const setWorkflowAgent = (slug: string, uid: string): ActionType =>
  */
 export const userSignIn = (): ActionType =>
     () => {
-        firebase.auth().signInWithPopup(
-            new firebase.auth.GoogleAuthProvider()
-        );
+        importFirebaseAuth((firebase) => {
+            firebase.auth().signInWithPopup(
+                new firebase.auth.GoogleAuthProvider()
+            );
+        });
     };
 
 /**
@@ -150,5 +162,7 @@ export const userSignIn = (): ActionType =>
  */
 export const userSignOut = (): ActionType =>
     () => {
-        firebase.auth().signOut();
+        importFirebaseAuth((firebase) => {
+            firebase.auth().signOut();
+        });
     };

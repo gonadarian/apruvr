@@ -10,27 +10,39 @@ const config = assign(
         output: assign(
             commonConfig.output,
             {
-                filename:      '[name].bundle.js',
-                chunkFilename: '[name].bundle.js',
+                filename:      '[name].[chunkhash].js',
+                chunkFilename: '[name].[chunkhash].js',
             }
         ),
         optimization: {
             splitChunks: {
+                chunks:      'all',
                 cacheGroups: {
-                    commons: {
-                        test:   /[\\/]node_modules[\\/]/,
-                        name:   'vendor',
-                        chunks: 'all',
+                    lodash: {
+                        test: /.*lodash.*/,
+                        name: 'lodash',
+                    },
+                    react: {
+                        test: /[\\/](react|redux)/,
+                        name: 'react',
+                    },
+                    firebaseApp: {
+                        test:     /firebase-app/,
+                        name:     'firebase-app',
+                        priority: 10,
+                    },
+                    firebaseAuth: {
+                        test: /firebase-auth/,
+                        name: 'firebase-auth',
+                    },
+                    firebaseDatabase: {
+                        test: /firebase-database/,
+                        name: 'firebase-database',
                     },
                 },
             },
         },
         plugins: [
-            new webpack.DefinePlugin({
-                'process.env': {
-                    'NODE_ENV': JSON.stringify('production'),
-                },
-            }),
             new CompressionPlugin(),
         ],
     }
