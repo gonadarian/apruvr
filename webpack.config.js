@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const APP_DIR = path.resolve(__dirname, 'src/app');
 const BUILD_DIR = path.resolve(__dirname, 'src/public');
@@ -6,9 +7,9 @@ const BUILD_DIR = path.resolve(__dirname, 'src/public');
 const config = {
     entry:  `${APP_DIR}/index.jsx`,
     output: {
+        publicPath: '/',
         path:       BUILD_DIR,
         filename:   'bundle.js',
-        publicPath: '/public/',
     },
     resolve: {
         extensions: ['.js', '.jsx'],
@@ -43,6 +44,15 @@ const config = {
             }],
         }],
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title:    'Apruvr :: Khan Academy',
+            template: 'src/index.html',
+            favicon:  'src/favicon.ico',
+            inject:   false,
+            xhtml:    true,
+        }),
+    ],
 };
 
 module.exports = config;
