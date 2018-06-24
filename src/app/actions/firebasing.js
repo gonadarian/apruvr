@@ -77,9 +77,12 @@ export const userAuth = (user: ?UserType): ActionType =>
         if (!user) {
             return;
         }
+        // added to capture non-null type information needed in below code
+        const loggedInUser = user;
+        // call logice depndent on dynamically imported firebase library
         importFirebaseDatabase((firebase) => {
             const db = firebase.database();
-            const { uid, displayName, email, photoURL } = user;
+            const { uid, displayName, email, photoURL } = loggedInUser;
             // get user roles if there are any
             db.ref(`roles/${uid}`).on(
                 'value',
