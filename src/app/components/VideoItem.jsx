@@ -28,7 +28,7 @@ const VideoItem = ({
             <DetailsButton {...other} slug={slug} />
             <a style={{ marginRight: '1em' }}
                 href={`${khan}/v/${slug}`}
-                target="_blank">
+                target="_blank" rel="noreferrer noopener">
                 {title}
             </a>
             { duration &&
@@ -57,7 +57,7 @@ const VideoItem = ({
         <td>
             <a className="btn btn-default"
                 href={`${khan}/translate/videos/${slug}/subtitle?lang=${language.code}`}
-                target="_blank">
+                target="_blank" rel="noreferrer noopener">
                 {'go '}
                 <span className="badge">
                     {iif(subbed, 'yes', 'no')}
@@ -67,7 +67,7 @@ const VideoItem = ({
         <td>
             <a className="btn btn-default"
                 href={`v/${slug}`}
-                target="_blank">
+                target="_blank" rel="noreferrer noopener">
                 {'go '}
                 <span className="badge">
                     {iif(dubbed, 'yes', 'no')}

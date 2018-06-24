@@ -38,7 +38,7 @@ const CrowdinItem = ({
             <DetailsButton {...other} slug={slug} />
             <a style={{ marginRight: '1em' }}
                 href={`${khan}/${code}/${slug}`}
-                target="_blank">
+                target="_blank" rel="noreferrer noopener">
                 {`${title} `}
             </a>
             <small className="text-muted">
@@ -57,14 +57,14 @@ const CrowdinItem = ({
         <td>
             <a className="btn btn-default"
                 href={`${translate}/${code}/${slug}`}
-                target="_blank">
+                target="_blank" rel="noreferrer noopener">
                 {'go '}
             </a>
         </td>
         <td>
             <a className="btn btn-default"
                 href={`${khan}/translations/edit/${language.code}/${code}/${slug}`}
-                target="_blank">
+                target="_blank" rel="noreferrer noopener">
                 {'go '}
                 <span className="badge">
                     {`${trns} \
@@ -75,7 +75,7 @@ const CrowdinItem = ({
         <td>
             <a className="btn btn-default"
                 href={`${proofread}/all/enus-${getLangCode(language)}#q=/${slug}`}
-                target="_blank">
+                target="_blank" rel="noreferrer noopener">
                 {'go '}
                 <span className="badge">
                     {`${appr} \

@@ -35,7 +35,7 @@ const TopicItem = ({
                 <DetailsButton {...other} slug={slug} />
                 <a style={{ marginRight: '1em' }}
                     href={`${khan}/${code}/${slug}`}
-                    target="_blank">
+                    target="_blank" rel="noreferrer noopener">
                     {`${title} `}
                     <span className="badge">
                         {totl}
@@ -54,7 +54,7 @@ const TopicItem = ({
             <td>
                 <a className="btn btn-default"
                     href={`${khan}/translations/edit/${language.code}/${slug}`}
-                    target="_blank">
+                    target="_blank" rel="noreferrer noopener">
                     {'go '}
                     <span className="badge">
                         {`${trns} \

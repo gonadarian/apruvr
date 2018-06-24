@@ -124,7 +124,7 @@ const ExporterButton = ({
             ? <a className="btn btn-primary"
                 download={`${content.name} ${topic}.csv`}
                 href={generateExport(content.code, nodes, workflow, users)}
-                target="_blank">
+                target="_blank" rel="noreferrer noopener">
                 {'Download Report'}
                 <span className="fas fa-download" style={iconStyle} />
             </a>
