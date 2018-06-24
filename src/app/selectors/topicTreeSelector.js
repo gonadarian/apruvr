@@ -12,10 +12,10 @@ import type { State, NodesType } from '../flows';
 const createTopicSubTree = (nodes, topic) => {
     // repeat for all sub-topics of given topic and populate new topics list
     topic.topics = reduce(
-        // extract sub-topics from children list
+        // extract sub-topics from children list based on child array's 0th element value
         filter(
             topic.children,
-            (child) => child[0] === 'Topic'
+            ['0', 'Topic']
         ),
         (mem, [, slug]) => {
             // under sub-topic slug, inject entire topic from the original nodes structure
@@ -24,10 +24,11 @@ const createTopicSubTree = (nodes, topic) => {
         },
         {}
     );
-    // remove topic from children list and leave only true content items there
+    // remove topics based on 0th element value and leave only true content items
     topic.children = reject(
         topic.children,
-        (child) => child[0] === 'Topic');
+        ['0', 'Topic']
+    );
     // repeat this process for all sub-topics of this topic
     forEach(
         topic.topics,
