@@ -53,15 +53,6 @@ class ApruvrPage extends Component<PropsType> {
     constructor (props: PropsType) {
         super(props);
         importFirebaseAuth((firebase) => {
-            // initialize firebase
-            firebase.initializeApp({
-                apiKey:            'AIzaSyBXjOncuS3h9Fz9Boar8t3OcJhiDZL_sgE',
-                authDomain:        'apruvr.firebaseapp.com',
-                databaseURL:       'https://apruvr.firebaseio.com',
-                storageBucket:     'apruvr.appspot.com',
-                messagingSenderId: '1081977594498',
-            });
-
             // initialize user session, store user data in database
             firebase.auth().onAuthStateChanged((user: UserType) => {
                 this.props.onUserAuth(user);
