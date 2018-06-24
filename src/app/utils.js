@@ -38,8 +38,7 @@ const minsec = (sec: number): string =>
     moment.utc(sec * MS_PER_SEC).format('m[m] s[s]');
 
 const hasValues = (object: Object): boolean =>
-    // FIXME: remove the iteratee
-    some(values(object), (value) => value);
+    some(values(object));
 
 export {
     iif,

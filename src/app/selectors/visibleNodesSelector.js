@@ -100,10 +100,9 @@ const visibleNodes = (nodes, group, visibility) => {
 
 const enrichVideos = (nodes, { durations }) => {
     if (!durations) {
-        return nodes;
+        return;
     }
-    // FIXME: forEach returns undefined, not sure how this works...
-    return forEach(
+    forEach(
         nodes,
         (node) => {
             node.duration = durations[node.yt[0]].duration;
@@ -119,8 +118,8 @@ const CONTENT_ENRICHERS = {
 const enrichNodes = (nodes, group, other) => {
     if (group in CONTENT_ENRICHERS) {
         // get content enricjer for given content group
-        const enricher = CONTENT_ENRICHERS[group];
-        return enricher(nodes, other);
+        const enrich = CONTENT_ENRICHERS[group];
+        enrich(nodes, other);
     }
     return nodes;
 };
