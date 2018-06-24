@@ -102,6 +102,7 @@ const enrichVideos = (nodes, { durations }) => {
     if (!durations) {
         return nodes;
     }
+    // FIXME: forEach returns undefined, not sure how this works...
     return forEach(
         nodes,
         (node) => {

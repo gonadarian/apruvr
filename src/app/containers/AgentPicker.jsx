@@ -2,7 +2,7 @@
 import React, { type Element } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduce } from 'lodash';
+import { reduce, includes } from 'lodash';
 import { setWorkflowAgent } from '../actions';
 import { Picker } from '../components';
 import type {
@@ -26,7 +26,7 @@ const getUIDs = (workflows: WorkflowMapType): string[] =>
     reduce(
         workflows,
         (memo: string[], { uid }: WorkflowType): string[] => {
-            if (uid && !memo.includes(uid)) {
+            if (uid && !includes(memo, uid)) {
                 memo.push(uid);
             }
             return memo;

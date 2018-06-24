@@ -1,6 +1,6 @@
 /* @flow */
 import { createSelector } from 'reselect';
-import { forIn, reduce, forEach, transform } from 'lodash';
+import { forIn, reduce, forEach, transform, split } from 'lodash';
 import { NAMES } from '../consts';
 import topicTreeSelector from './topicTreeSelector';
 
@@ -42,7 +42,7 @@ const loadSlugs = (topic, slugs, path: string[]) => {
  */
 const filterNodes = (nodes, topic, content, tree) => {
     // remove starting 'root' from the topic path, e.g. from 'root.math' to ['math']
-    const startPath = topic.split('.').slice(1);
+    const startPath = split(topic, '.').slice(1);
     // go through the topic path, slug by slug, and traverse the tree to find target topic
     const localTopic = reduce(
         startPath,

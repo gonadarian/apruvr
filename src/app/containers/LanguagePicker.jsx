@@ -46,10 +46,7 @@ const LanguagePicker = ({ language, onChoose }: PropsType): Element<*> =>
                 : null}
             nameMap={getNameMap()}
             onChoose={(code: ?string): void => onChoose(
-                find(
-                    LANGUAGES,
-                    (item: LanguageType): boolean => item.code === code
-                )
+                find(LANGUAGES, ['code', code])
             )} />
     </div>;
 

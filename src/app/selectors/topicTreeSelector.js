@@ -1,6 +1,6 @@
 /* @flow */
 import { createSelector } from 'reselect';
-import { filter, forEach, reduce } from 'lodash';
+import { filter, reject, forEach, reduce } from 'lodash';
 import type { State, NodesType } from '../flows';
 
 /**
@@ -25,9 +25,9 @@ const createTopicSubTree = (nodes, topic) => {
         {}
     );
     // remove topic from children list and leave only true content items there
-    topic.children = filter(
+    topic.children = reject(
         topic.children,
-        (child) => child[0] !== 'Topic');
+        (child) => child[0] === 'Topic');
     // repeat this process for all sub-topics of this topic
     forEach(
         topic.topics,

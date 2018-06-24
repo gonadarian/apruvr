@@ -1,6 +1,6 @@
 /* @flow */
 import React, { type Element } from 'react';
-import { map, size } from 'lodash';
+import { map, size, startsWith } from 'lodash';
 import styles from '../styles/main.less';
 
 const TOPIC_INDENT = 20;
@@ -49,7 +49,7 @@ const TopicList = ({ topics, path, ...other }: ListPropsType): Element<*> =>
 const getItemClass = (selected: string, path: string): string => {
     const className = selected === path
         ? 'btn-primary'
-        : selected.startsWith(`${path}.`)
+        : startsWith(selected, `${path}.`)
             ? 'btn-info'
             : 'btn-default';
     const style = `btn btn-block ${styles.btnText} ${className}`;
@@ -75,7 +75,7 @@ const TopicItem = ({ topic, path, selected, level, onChoose }: ItemPropsType): E
             }}>
             {topic.title}
         </div>
-        {size(topic.topics) > 0 && `${selected}.`.startsWith(`${path}.`) &&
+        {size(topic.topics) > 0 && startsWith(`${selected}.`, `${path}.`) &&
             <TopicList
                 path={path}
                 selected={selected}
