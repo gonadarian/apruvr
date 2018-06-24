@@ -1,11 +1,10 @@
 /* @flow */
 import { filterVisibility, startExport } from './filtering';
 import {
-    fetchUsers, fetchWorkflow, fetchHistory, fetchDurations, userAuth,
-    setWorkflowStatus, setWorkflowAgent, userSignIn, userSignOut,
+    fetchUsers, fetchWorkflow, fetchHistory, fetchDurations, fetchNodes,
+    userAuth, setWorkflowStatus, setWorkflowAgent, userSignIn, userSignOut,
 } from './firebasing';
 import { routeChange, chooseLanguage, chooseContent, chooseTopic } from './routing';
-import { fetchNodes } from './fetching';
 import { pageExpand } from './listing';
 import type { Action, Dispatch } from './types';
 

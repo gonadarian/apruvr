@@ -1,10 +1,10 @@
 /* @flow */
 import { importFirebaseAuth, importFirebaseDatabase } from '../imports';
 import type { ActionType, Dispatch, GetState, UserType, WorkflowMapType } from '../flows';
-import { IMPORTANT_STATUSES } from '../consts';
+import { IMPORTANT_STATUSES, type LanguageType } from '../consts';
 import {
     FIREBASE_WORKFLOW, FIREBASE_AUTH, FIREBASE_ROLES,
-    FIREBASE_USERS, FIREBASE_HISTORY, FIREBASE_DURATIONS,
+    FIREBASE_USERS, FIREBASE_HISTORY, FIREBASE_DURATIONS, FETCH_NODES,
 } from './types';
 
 export const fetchUsers = (): ActionType =>
@@ -61,6 +61,27 @@ export const fetchHistory = (slug: string): ActionType =>
                 (snapshot: { val: () => UserType[] }): void => dispatch({
                     type:    FIREBASE_HISTORY,
                     payload: { slug, snapshot },
+                })
+            );
+        });
+    };
+
+export const fetchNodes = (language: LanguageType): ActionType =>
+    (dispatch: Dispatch) => {
+        if (!language) {
+            dispatch({
+                type:    FETCH_NODES,
+                payload: null,
+            });
+            return;
+        }
+        importFirebaseDatabase((firebase) => {
+            const db = firebase.default.database();
+            db.ref(`translation/${language.code}`).on(
+                'value',
+                (snapshot): void => dispatch({
+                    type:    FETCH_NODES,
+                    payload: snapshot,
                 })
             );
         });
