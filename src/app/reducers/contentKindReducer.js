@@ -1,11 +1,11 @@
 /* @flow */
 import { isEqual } from 'lodash';
 import { ROUTE_CHANGE } from '../actions/types';
-import { contentKindLookup, type ContentKindType } from '../consts';
+import { DEFAULT_CONTENT_KIND, contentKindLookup, type ContentKindType } from '../consts';
 import handleReducers, { type Handlers } from './handler';
 import type { Action } from '../flows';
 
-const INITIAL_VALUE = contentKindLookup('exercises');
+const INITIAL_VALUE = DEFAULT_CONTENT_KIND;
 
 const handlers: Handlers<ContentKindType> = {
     [ROUTE_CHANGE]: (state, { payload }) => {

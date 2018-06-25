@@ -68,7 +68,19 @@ export const IMPORTANT_STATUSES: {[status: StatusType]: true} = {
     approved:   true,
 };
 
-export const VISIBILITIES: {[type: string]: string} = {
+export type VisibilityType = 'fresh' | 'doing' | 'translated' | 'approved' | 'subtitled' | 'dubbed';
+export type VisibilityListType = {[type: VisibilityType]: boolean};
+
+export const VISIBLITY_CODES:{[type: VisibilityType]: string} = {
+    fresh:      'fresh',
+    doing:      'doing',
+    translated: 'translated',
+    approved:   'approved',
+    subtitled:  'subtitled',
+    dubbed:     'dubbed',
+};
+
+export const VISIBILITY_NAMES: {[type: VisibilityType]: string} = {
     fresh:      'New content',
     doing:      'In progress',
     translated: 'Translated',
@@ -76,9 +88,6 @@ export const VISIBILITIES: {[type: string]: string} = {
     subtitled:  'Subtitled',
     dubbed:     'Dubbed',
 };
-
-export type VisibilityType = 'fresh' | 'doing' | 'translated' | 'approved' | 'subtitled' | 'dubbed';
-export type VisibilityListType = {[type: VisibilityType]: boolean};
 
 export const CONTENT_LETTERS: {[contentCode: string]: string} = {
     exercises:   'e',
@@ -121,6 +130,9 @@ export type ContentKindType = {
     name: ContentNameType,
 };
 
+export const DEFAULT_CONTENT_KIND: ContentKindType =
+    { code: 'exercises', name: 'Exercises' };
+
 export const CONTENTS: Array<ContentKindType> = [
     { code: 'exercises', name: 'Exercises' },
     { code: 'articles', name: 'Articles' },
@@ -129,8 +141,8 @@ export const CONTENTS: Array<ContentKindType> = [
     { code: 'topics', name: 'Descriptions' },
 ];
 
-export const contentKindLookup = (kindCode: ContentCodeType): ContentKindType =>
+export const contentKindLookup = (kindCode: ?ContentCodeType): ?ContentKindType =>
     find(CONTENTS,
         ({ code }: ContentKindType): boolean =>
             code === kindCode
-    ) || CONTENTS[0];
+    );

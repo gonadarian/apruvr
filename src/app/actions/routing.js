@@ -38,8 +38,11 @@ export const chooseLanguage = (history: RouterHistory) => (language: LanguageTyp
         history.push(`/${language.code}/${content.code}/${topic}`);
     };
 
-export const chooseContent = (history: RouterHistory) => (content: ContentKindType): ActionType =>
+export const chooseContent = (history: RouterHistory) => (content: ?ContentKindType): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
+        if (!content) {
+            throw Error('No content kind was provided');
+        }
         const { language, topic } = getState();
         if (!language) {
             throw Error(`Can not change content kind [${content.code}] if language is not set`);
