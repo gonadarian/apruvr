@@ -7,9 +7,9 @@ import {
     ContentKindPicker, VisibilityButtons, SelectedTopicList,
     FilteredContentList, ExporterButton,
 } from '../containers';
-import { fetchNodes } from '../actions';
+import { fetchNodes, fetchWorkflow } from '../actions';
 import { languageLookup, type LanguageType } from '../consts';
-import type { State } from '../flows';
+import type { State, WorkflowMapType } from '../flows';
 
 interface OwnPropsType {
     match: Match,
@@ -22,6 +22,7 @@ interface StatePropsType {
 
 interface PropsType extends OwnPropsType, StatePropsType {
     onLanguageChange: (language: LanguageType) => void,
+    onFiredux: (snapshot: WorkflowMapType) => void,
 }
 
 class LanguagePage extends Component<PropsType> {
@@ -48,13 +49,13 @@ class LanguagePage extends Component<PropsType> {
     }
 
     render () {
-        const { visible } = this.props;
+        const { visible, onFiredux } = this.props;
         return visible && <div>
             <ContentKindPicker />
             <VisibilityButtons />
             <ExporterButton />
             <SelectedTopicList />
-            <FilteredContentList />
+            <FilteredContentList onFiredux={onFiredux}/>
         </div>;
     }
 }
@@ -66,5 +67,6 @@ export default connect(
     }),
     (dispatch: Dispatch) => bindActionCreators({
         onLanguageChange: fetchNodes,
+        onFiredux:        fetchWorkflow,
     }, dispatch)
 )(LanguagePage);

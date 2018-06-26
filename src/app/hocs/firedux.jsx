@@ -2,17 +2,17 @@
 import React, { Component, type ComponentType } from 'react';
 import { importFirebaseDatabase } from '../imports';
 
-type PropsType = {
-    onFire: (snapshot: any) => void,
-};
+type Props = {|
+    onFiredux: (snapshot: any) => void,
+|};
 
-const firedux = (calcPath: (any) => string) => (WrappedComponent: ComponentType<PropsType>) =>
-    class HOC extends Component<PropsType> {
+const firedux = <T: Props>(WrappedComponent: ComponentType<*>, calcPath: (props: T) => string) =>
+    class Firedux extends Component<T> {
         componentDidMount () {
             importFirebaseDatabase((firebase) => {
                 const path = calcPath(this.props);
                 this.ref = firebase.database().ref(path);
-                this.ref.on('value', this.props.onFire);
+                this.ref.on('value', this.props.onFiredux);
             });
         }
 
@@ -23,7 +23,7 @@ const firedux = (calcPath: (any) => string) => (WrappedComponent: ComponentType<
         ref: any;
 
         render () {
-            return <WrappedComponent {...this.props} />;
+            return <WrappedComponent />;
         }
     };
 
