@@ -9,12 +9,12 @@ import { LANGUAGES, type LanguageType } from '../consts';
 import { Picker } from '../components';
 import type { State, Dispatch } from '../flows';
 
-type NameMapType = {[code: string]: string};
+type NameMap = {[code: string]: string};
 
-const getNameMap = (): NameMapType =>
+const getNameMap = (): NameMap =>
     reduce(
         LANGUAGES,
-        (memo: NameMapType, { code, name, note }: LanguageType): NameMapType => {
+        (memo: NameMap, { code, name, note }: LanguageType): NameMap => {
             memo[code] = name + (note
                 ? ` (${note})`
                 : '');
@@ -23,19 +23,21 @@ const getNameMap = (): NameMapType =>
         {}
     );
 
-interface OwnPropsType {
+type OwnProps = {|
     history: RouterHistory,
-}
+|};
 
-interface StatePropsType {
+type StateProps = {|
     language: ?LanguageType,
-}
+|};
 
-interface PropsType extends OwnPropsType, StatePropsType {
+type Props = {|
+    ...OwnProps,
+    ...StateProps,
     onChoose: (language: ?LanguageType) => void,
-}
+|};
 
-const LanguagePicker = ({ language, onChoose }: PropsType): Element<*> =>
+const LanguagePicker = ({ language, onChoose }: Props): Element<*> =>
     <div className="col-xs-2">
         <h3>Language</h3>
         <Picker
@@ -51,10 +53,10 @@ const LanguagePicker = ({ language, onChoose }: PropsType): Element<*> =>
     </div>;
 
 export default withRouter(connect(
-    (state: State): StatePropsType => ({
+    (state: State): StateProps => ({
         language: state.language,
     }),
-    (dispatch: Dispatch, ownProps: OwnPropsType) => bindActionCreators({
+    (dispatch: Dispatch, ownProps: OwnProps) => bindActionCreators({
         onChoose: chooseLanguage(ownProps.history),
     }, dispatch)
 )(LanguagePicker));

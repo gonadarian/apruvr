@@ -8,21 +8,23 @@ import { Picker } from '../components';
 import type { StatusType } from '../consts';
 import type { State, Dispatch, UserType, WorkflowMapType } from '../flows';
 
-interface OwnPropsType {
+type OwnProps = {|
     slug: string,
     statuses: StatusType[],
-}
+|};
 
-interface StatePropsType extends OwnPropsType {
+type StateProps = {|
     workflow: ?WorkflowMapType,
     user: ?UserType,
-}
+|};
 
-interface PropsType extends StatePropsType {
+type Props = {|
+    ...OwnProps,
+    ...StateProps,
     onChoose: (slug: string, status: ?string) => void,
-}
+|};
 
-const StatusPicker = ({ slug, statuses, workflow, user, onChoose }: PropsType): Element<*> =>
+const StatusPicker = ({ slug, statuses, workflow, user, onChoose }: Props): Element<*> =>
     <Picker
         states={[...statuses, null]}
         current={ workflow && workflow[slug]
@@ -33,9 +35,7 @@ const StatusPicker = ({ slug, statuses, workflow, user, onChoose }: PropsType): 
         onChoose={(status: ?string): void => onChoose(slug, status)} />;
 
 export default connect(
-    (state: State, ownProps: OwnPropsType): StatePropsType => ({
-        slug:     ownProps.slug,
-        statuses: ownProps.statuses,
+    (state: State): StateProps => ({
         workflow: state.workflow,
         user:     state.user,
     }),

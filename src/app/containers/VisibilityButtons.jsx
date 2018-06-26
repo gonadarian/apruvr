@@ -11,16 +11,17 @@ import {
 import { ButtonChoice } from '../components';
 import type { State, Dispatch } from '../flows';
 
-interface StatePropsType {
+type StateProps = {|
     choices: VisibilityListType,
     used: VisibilityType[],
-}
+|};
 
-interface PropsType extends StatePropsType {
+type Props = {|
+    ...StateProps,
     onChoose: (choice: string) => void,
-}
+|};
 
-const VisibilityButtons = ({ choices, used, ...other }: PropsType): Element<*> =>
+const VisibilityButtons = ({ choices, used, ...other }: Props): Element<*> =>
     <div className="col-xs-12 col-sm-4">
         <h3>States</h3>
         <ButtonChoice
@@ -31,7 +32,7 @@ const VisibilityButtons = ({ choices, used, ...other }: PropsType): Element<*> =
     </div>;
 
 export default connect(
-    (state: State): StatePropsType => ({
+    (state: State): StateProps => ({
         choices: state.visibility,
         used:    PICKS[state.content.code],
     }),

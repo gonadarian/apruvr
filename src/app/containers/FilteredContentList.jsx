@@ -10,7 +10,7 @@ import { ContentList } from '../components';
 import type { LanguageType, ContentKindType } from '../consts';
 import type { State, Dispatch, NodeMapType } from '../flows';
 
-type StatePropsType = {|
+type StateProps = {|
     content: ContentKindType,
     language: ?LanguageType,
     nodes: ?NodeMapType,
@@ -18,14 +18,17 @@ type StatePropsType = {|
     pageSize: ?number,
 |};
 
-type DispatchPropsType = {|
+type DispatchProps = {|
     onHistory: (slug: ?string) => void,
     onPageExpand: (fullExpand: boolean) => void,
 |};
 
-type PropsType = {| ...DispatchPropsType, ...StatePropsType |};
+type Props = {|
+    ...DispatchProps,
+    ...StateProps
+|};
 
-const FilteredContentList = ({ content, nodes, language, ...other }: PropsType): Element<'div'> =>
+const FilteredContentList = ({ content, nodes, language, ...other }: Props): Element<'div'> =>
     <div className="col-xs-12 col-md-9">
         <h3>
             {`${content.name} `}
@@ -49,7 +52,7 @@ const FilteredContentList = ({ content, nodes, language, ...other }: PropsType):
 
 export default firedux(
     connect(
-        (state: State): StatePropsType => ({
+        (state: State): StateProps => ({
             content:     state.content,
             language:    state.language,
             nodes:       getVisibleNodes(state),
@@ -58,7 +61,7 @@ export default firedux(
                 ? state.history.slug
                 : null,
         }),
-        (dispatch: Dispatch): DispatchPropsType => bindActionCreators({
+        (dispatch: Dispatch): DispatchProps => bindActionCreators({
             onPageExpand: pageExpand,
             onHistory:    fetchHistory,
         }, dispatch)

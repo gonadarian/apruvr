@@ -19,19 +19,21 @@ const getNameMap = () =>
         {}
     );
 
-interface OwnPropsType {
+type OwnProps = {|
     history: RouterHistory,
-}
+|};
 
-interface StatePropsType {
+type StateProps = {|
     content: ContentKindType,
-}
+|};
 
-interface PropsType extends OwnPropsType, StatePropsType {
+type Props = {|
+    ...OwnProps,
+    ...StateProps,
     onChoose: (content: ?ContentKindType) => void,
-}
+|};
 
-const ContentKindPicker = ({ content, onChoose }: PropsType): Element<'div'> =>
+const ContentKindPicker = ({ content, onChoose }: Props): Element<'div'> =>
     <div className="col-xs-2">
         <h3>Content</h3>
         <Picker
@@ -43,10 +45,10 @@ const ContentKindPicker = ({ content, onChoose }: PropsType): Element<'div'> =>
     </div>;
 
 export default withRouter(connect(
-    (state: State): StatePropsType => ({
+    (state: State): StateProps => ({
         content: state.content,
     }),
-    (dispatch: Dispatch, ownProps: OwnPropsType) => bindActionCreators({
+    (dispatch: Dispatch, ownProps: OwnProps) => bindActionCreators({
         onChoose: chooseContent(ownProps.history),
     }, dispatch)
 )(ContentKindPicker));

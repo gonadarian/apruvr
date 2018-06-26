@@ -102,22 +102,23 @@ const iconStyle = {
     marginLeft: '1em',
 };
 
-interface StatePropsType {
+type StateProps = {|
     exporting: boolean,
     content: ContentKindType,
     topic: string,
     nodes: ?NodeMapType,
     workflow: ?WorkflowMapType,
     users: ?UserMapType,
-}
+|};
 
-interface PropsType extends StatePropsType {
+type Props = {|
+    ...StateProps,
     onExportStarted: () => void,
-}
+|};
 
 const ExporterButton = ({
     exporting, content, topic, nodes, workflow, users, onExportStarted,
-}: PropsType): Element<*> =>
+}: Props): Element<*> =>
     <div className="col-xs-12 col-sm-2">
         <h3>Export</h3>
         {exporting
@@ -137,7 +138,7 @@ const ExporterButton = ({
     </div>;
 
 export default connect(
-    (state: State): StatePropsType => ({
+    (state: State): StateProps => ({
         exporting: state.exporting,
         content:   state.content,
         topic:     state.topic,

@@ -10,12 +10,12 @@ import type {
     UserType, UserMapType, WorkflowType, WorkflowMapType,
 } from '../flows';
 
-type NameMapType = {[uid: string]: string};
+type NameMap = {[uid: string]: string};
 
-const getNameMap = (users: UserMapType): NameMapType =>
+const getNameMap = (users: UserMapType): NameMap =>
     reduce(
         users,
-        (memo: NameMapType, user: UserType, uid: string): NameMapType => {
+        (memo: NameMap, user: UserType, uid: string): NameMap => {
             memo[uid] = user.displayName;
             return memo;
         },
@@ -34,19 +34,21 @@ const getUIDs = (workflows: WorkflowMapType): string[] =>
         []
     );
 
-interface OwnPropsType {
+type OwnProps = {|
     slug: string,
-}
+|};
 
-interface StatePropsType {
+type StateProps = {|
     workflow: ?WorkflowMapType,
     users: ?UserMapType,
     roles: ?string,
-}
+|};
 
-interface PropsType extends OwnPropsType, StatePropsType {
+type PropsType = {
+    ...OwnProps,
+    ...StateProps,
     onChoose: (slug: string, uid: ?string) => void,
-}
+};
 
 const AgentPicker = ({ slug, workflow, users, roles, onChoose }: PropsType): ?Element<*> =>
     workflow && slug in workflow
@@ -62,7 +64,7 @@ const AgentPicker = ({ slug, workflow, users, roles, onChoose }: PropsType): ?El
         : null;
 
 export default connect(
-    (state: State): StatePropsType => ({
+    (state: State): StateProps => ({
         workflow: state.workflow,
         users:    state.users,
         roles:    state.roles,

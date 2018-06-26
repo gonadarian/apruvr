@@ -3,11 +3,11 @@ import React, { type Element } from 'react';
 import { connect } from 'react-redux';
 import type { State } from '../flows';
 
-interface PropsType {
+type Props = {|
     loading: boolean,
-}
+|};
 
-const LoadingSpinner = ({ loading }: PropsType): Element<*> | false =>
+const LoadingSpinner = ({ loading }: Props): Element<*> | false =>
     loading &&
         <div className="col-xs-12">
             <h3>Loading</h3>
@@ -15,7 +15,7 @@ const LoadingSpinner = ({ loading }: PropsType): Element<*> | false =>
         </div>;
 
 export default connect(
-    (state: State): PropsType => ({
+    (state: State): Props => ({
         loading: state.loading,
     })
 )(LoadingSpinner);

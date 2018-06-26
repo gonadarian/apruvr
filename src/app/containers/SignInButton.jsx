@@ -5,20 +5,21 @@ import { bindActionCreators } from 'redux';
 import { userSignIn, userSignOut } from '../actions';
 import type { State, Dispatch, UserType } from '../flows';
 
-interface StatePropsType {
-    user: ?UserType,
-}
-
-interface PropsType extends StatePropsType {
-    signIn: () => void,
-    signOut: () => void,
-}
-
 const iconStyle = {
     marginLeft: '1em',
 };
 
-const SignInButton = ({ user, signIn, signOut }: PropsType): Element<*> =>
+type StateProps = {|
+    user: ?UserType,
+|};
+
+type Props = {|
+    ...StateProps,
+    signIn: () => void,
+    signOut: () => void,
+|};
+
+const SignInButton = ({ user, signIn, signOut }: Props): Element<*> =>
     user
         ? <div className="pull-right col-xs-2">
             <h3>
@@ -42,7 +43,7 @@ const SignInButton = ({ user, signIn, signOut }: PropsType): Element<*> =>
         </div>;
 
 export default connect(
-    (state: State): StatePropsType => ({
+    (state: State): StateProps => ({
         user: state.user,
     }),
     (dispatch: Dispatch) => bindActionCreators({
