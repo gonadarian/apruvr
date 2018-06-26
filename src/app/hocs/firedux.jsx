@@ -2,29 +2,33 @@
 import React, { Component, type ComponentType } from 'react';
 import { importFirebaseDatabase } from '../imports';
 
-type Props = {|
+type Props = {
     onFiredux: (snapshot: any) => void,
-|};
+};
 
-const firedux = <T: Props>(WrappedComponent: ComponentType<*>, calcPath: (props: T) => string) =>
-    class Firedux extends Component<T> {
-        componentDidMount () {
-            importFirebaseDatabase((firebase) => {
-                const path = calcPath(this.props);
-                this.ref = firebase.database().ref(path);
-                this.ref.on('value', this.props.onFiredux);
-            });
-        }
+const firedux = <T: {}>(
+    WrappedComponent: ComponentType<T>, calcPath: (props: T) => string
+): ComponentType<T & Props> =>
 
-        componentWillUnmount () {
-            this.ref.off();
-        }
+        class Firedux extends Component<T & Props> {
+            componentDidMount () {
+                importFirebaseDatabase((firebase) => {
+                    const path = calcPath(this.props);
+                    this.ref = firebase.database().ref(path);
+                    this.ref.on('value', this.props.onFiredux);
+                });
+            }
 
-        ref: any;
+            componentWillUnmount () {
+                this.ref.off();
+            }
 
-        render () {
-            return <WrappedComponent />;
-        }
-    };
+            ref: any;
+
+            render () {
+                const { onFiredux, ...others } = this.props;
+                return <WrappedComponent {...others} />;
+            }
+        };
 
 export default firedux;

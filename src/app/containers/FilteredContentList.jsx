@@ -24,8 +24,8 @@ type DispatchProps = {|
 |};
 
 type Props = {|
+    ...StateProps,
     ...DispatchProps,
-    ...StateProps
 |};
 
 const FilteredContentList = ({ content, nodes, language, ...other }: Props): Element<'div'> =>
@@ -50,21 +50,21 @@ const FilteredContentList = ({ content, nodes, language, ...other }: Props): Ele
         }
     </div>;
 
-export default firedux(
-    connect(
-        (state: State): StateProps => ({
-            content:     state.content,
-            language:    state.language,
-            nodes:       getVisibleNodes(state),
-            pageSize:    state.pageSize,
-            historySlug: state.history
-                ? state.history.slug
-                : null,
-        }),
-        (dispatch: Dispatch): DispatchProps => bindActionCreators({
-            onPageExpand: pageExpand,
-            onHistory:    fetchHistory,
-        }, dispatch)
-    )(FilteredContentList),
-    ({ language }) => `status/${language.code}`
-);
+export default connect(
+    (state: State): StateProps => ({
+        content:     state.content,
+        language:    state.language,
+        nodes:       getVisibleNodes(state),
+        pageSize:    state.pageSize,
+        historySlug: state.history
+            ? state.history.slug
+            : null,
+    }),
+    (dispatch: Dispatch): DispatchProps => bindActionCreators({
+        onPageExpand: pageExpand,
+        onHistory:    fetchHistory,
+    }, dispatch),
+)(firedux(
+    FilteredContentList,
+    ({ language }) => `status/${language.code}`,
+));
