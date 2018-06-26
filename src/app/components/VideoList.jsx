@@ -3,16 +3,24 @@ import React, { Fragment, type Element } from 'react';
 import { map, transform, keys, pick, take, size } from 'lodash';
 import { iif, seconds, words, percent } from '../utils';
 import { HistoryList } from '../containers';
-import { VideoItem, PageExpander, type ContentListType } from '.';
+import { VideoItem, PageExpander, type ContentListProps } from '.';
 import type { VideoNodeType, NodeMapType } from '../flows';
 
-type StatType = { cnt: number, sum: number };
-type StatsType = { totl: StatType, subd: StatType, dubd: StatType }
+type Stat = {|
+    cnt: number,
+    sum: number
+|};
 
-const calcStats = (nodes: NodeMapType): StatsType =>
+type Stats = {|
+    totl: Stat,
+    subd: Stat,
+    dubd: Stat
+|};
+
+const calcStats = (nodes: NodeMapType): Stats =>
     transform(
         nodes,
-        (mem: StatsType, { subdub: [subbed, dubbed], duration }: VideoNodeType) => {
+        (mem: Stats, { subdub: [subbed, dubbed], duration }: VideoNodeType) => {
             mem.totl.cnt += 1;
             mem.subd.cnt += iif(subbed, 1, 0);
             mem.dubd.cnt += iif(dubbed, 1, 0);
@@ -27,11 +35,11 @@ const calcStats = (nodes: NodeMapType): StatsType =>
         },
     );
 
-type PropsStatsType = {
-    stats: StatsType,
-};
+type VideoStatsProps = {|
+    stats: Stats,
+|};
 
-const VideoStats = ({ stats: { totl, subd, dubd } }: PropsStatsType): Element<*> | false =>
+const VideoStats = ({ stats: { totl, subd, dubd } }: VideoStatsProps): Element<*> | false =>
     totl !== 0 &&
         <tr className="active">
             <th />
@@ -63,8 +71,8 @@ const VideoStats = ({ stats: { totl, subd, dubd } }: PropsStatsType): Element<*>
         </tr>;
 
 const VideoList = ({
-    nodes, historySlug, pageSize, onPageExpand, ...other
-}: ContentListType): Element<*> =>
+    nodes, historySlug, pageSize, onPageExpand, type, ...other
+}: ContentListProps): Element<*> =>
     <table className="table table-condensed">
         <thead>
             <tr className="active">

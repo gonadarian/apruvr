@@ -7,15 +7,15 @@ const getName = (state: string, nameMap?: ?{[id: string]: string}): string =>
         ? nameMap[state]
         : state;
 
-type PropsType = {
+type Props = {|
     states: Array<?string>,
     current: ?string,
     pickable: boolean,
     nameMap?: ?{[id: string]: string},
     onChoose: (state: ?string) => void,
-};
+|};
 
-const Picker = ({ states, current, pickable, nameMap, onChoose }: PropsType): Element<*> =>
+const Picker = ({ states, current, pickable, nameMap, onChoose }: Props): Element<*> =>
     <div className="btn-group" role="group">
         <button type="button" className="btn btn-primary">
             <span className="badge">

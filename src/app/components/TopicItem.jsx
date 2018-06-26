@@ -11,18 +11,18 @@ const { khan } = urls;
 const getPercent = (total: number, done: number): number =>
     iif(total === 0, 0, Math.floor(100 * done / total));
 
-type PropsType = {
+type Props = {|
     content: TopicNodeType,
     language: ItemType,
     code: string,
     historySlug: ?string,
     onHistory: (slug: ?string) => void,
-};
+|};
 
 const TopicItem = ({
     content: { slug, title, meta: [, totl, trns, appr] },
     language, code, ...other
-}: PropsType): Element<*> => {
+}: Props): Element<*> => {
     const trnsp = iif(totl === 0, 0, trns / totl * 100);
     const apprp = iif(totl === 0, 0, appr / totl * 100);
     const className = iif(apprp === 100, 'success',

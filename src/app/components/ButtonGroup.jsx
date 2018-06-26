@@ -4,13 +4,13 @@ import { map } from 'lodash';
 import type { ItemType } from '../flows';
 import Button from './Button';
 
-type PropsType = {
+type Props = {|
     buttons: ItemType[],
     current: ItemType,
     onChoose: (code: string) => void,
-};
+|};
 
-const ButtonGroup = ({ buttons, current, onChoose }: PropsType): Element<*> =>
+const ButtonGroup = ({ buttons, current, onChoose }: Props): Element<*> =>
     <div className="btn-group">
         {map(
             buttons,

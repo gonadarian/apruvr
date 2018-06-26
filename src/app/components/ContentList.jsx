@@ -12,7 +12,7 @@ const LISTS = {
     topics:  TopicList,
 };
 
-export type ContentListType = {
+export type ContentListProps = {|
     type: ContentCodeType,
     nodes: NodeMapType,
     language: ItemType,
@@ -20,9 +20,9 @@ export type ContentListType = {
     onHistory: (slug: ?string) => void,
     pageSize: ?number,
     onPageExpand: (fullExpand: boolean) => void,
-};
+|};
 
-const ContentList = ({ type, ...other }: ContentListType): Element<*> => {
+const ContentList = ({ type, ...other }: ContentListProps): Element<*> => {
     const group = CONTENT_GROUPS[type];
     const List = LISTS[group];
     return <List

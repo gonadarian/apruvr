@@ -1,11 +1,11 @@
 /* @flow */
 import React, { type Element } from 'react';
 
-type PropsType = {
+type Props = {|
     onPageExpand: (fullExpand: boolean) => void,
-};
+|};
 
-const PageExpander = ({ onPageExpand }: PropsType): Element<'tr'> =>
+const PageExpander = ({ onPageExpand }: Props): Element<'tr'> =>
     <tr>
         <td colSpan="6">
             <a className="btn btn-primary"

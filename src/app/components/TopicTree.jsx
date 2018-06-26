@@ -5,38 +5,38 @@ import styles from '../styles/main.less';
 
 const TOPIC_INDENT = 20;
 
-type TopicType = {
+type Topic = {|
     slug: string,
     title: string,
-    topics: {[id: string]: TopicType},
-};
+    topics: {[id: string]: Topic},
+|};
 
-export type TopicTreeType = {
-    tree: {root: TopicType},
+export type TopicTreeProps = {
+    tree: {root: Topic},
     selected: string,
     onChoose: (path: string) => void,
 };
 
-const TopicTree = ({ tree, ...other }: TopicTreeType): Element<*> =>
+const TopicTree = ({ tree, ...other }: TopicTreeProps): Element<*> =>
     <TopicList
         {...other}
         path="root"
         level={1}
         topics={tree.root.topics} />;
 
-type ListPropsType = {
-    topics: {[id: string]: TopicType},
+type TopicListProps = {|
+    topics: {[id: string]: Topic},
     path: string,
     selected: string,
     level: number,
     onChoose: (path: string) => void,
-};
+|};
 
-const TopicList = ({ topics, path, ...other }: ListPropsType): Element<*> =>
+const TopicList = ({ topics, path, ...other }: TopicListProps): Element<*> =>
     <div className="btn-group-vertical btn-group-justified">
         {map(
             topics,
-            (topic: TopicType, key: string): Element<*> =>
+            (topic: Topic, key: string): Element<*> =>
                 <TopicItem
                     {...other}
                     key={key}
@@ -56,15 +56,15 @@ const getItemClass = (selected: string, path: string): string => {
     return style;
 };
 
-type ItemPropsType = {
-    topic: TopicType,
+type TopicItemProps = {|
+    topic: Topic,
     path: string,
     selected: string,
     level: number,
     onChoose: (path: string) => void,
-};
+|};
 
-const TopicItem = ({ topic, path, selected, level, onChoose }: ItemPropsType): Element<*> =>
+const TopicItem = ({ topic, path, selected, level, onChoose }: TopicItemProps): Element<*> =>
     <div>
         <div
             className={getItemClass(selected, path)}

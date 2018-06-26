@@ -4,16 +4,24 @@ import { map, transform, keys, pick, take, size } from 'lodash';
 import { iif, localize, percent } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import { HistoryList } from '../containers';
-import { CrowdinItem, PageExpander, type ContentListType } from '.';
+import { CrowdinItem, PageExpander, type ContentListProps } from '.';
 import type { CrowdinNodeType, NodeMapType } from '../flows';
 
-type StatType = { cnt: number, sum: number };
-type StatsType = { totl: StatType, trns: StatType, appr: StatType };
+type Stat = {|
+    cnt: number,
+    sum: number
+|};
 
-const calcStats = (nodes: NodeMapType): StatsType =>
+type Stats = {|
+    totl: Stat,
+    trns: Stat,
+    appr: Stat
+|};
+
+const calcStats = (nodes: NodeMapType): Stats =>
     transform(
         nodes,
-        (mem: StatsType, { data: [, totl, trns, appr] }: CrowdinNodeType) => {
+        (mem: Stats, { data: [, totl, trns, appr] }: CrowdinNodeType) => {
             mem.totl.cnt += 1;
             mem.totl.sum += totl;
             mem.trns.cnt += iif(trns === totl, 1, 0);
@@ -28,11 +36,11 @@ const calcStats = (nodes: NodeMapType): StatsType =>
         }
     );
 
-type PropsStatsType = {
-    stats: StatsType,
-};
+type CrowdinStatsProps = {|
+    stats: Stats,
+|};
 
-const CrowdinStats = ({ stats: { totl, trns, appr } }: PropsStatsType): Element<*> | false =>
+const CrowdinStats = ({ stats: { totl, trns, appr } }: CrowdinStatsProps): Element<*> | false =>
     totl.cnt !== 0 &&
         <tr className="active">
             <th />
@@ -60,7 +68,7 @@ const CrowdinStats = ({ stats: { totl, trns, appr } }: PropsStatsType): Element<
 
 const CrowdinList = ({
     type, nodes, historySlug, pageSize, onPageExpand, ...other
-}: ContentListType): Element<*> =>
+}: ContentListProps): Element<*> =>
     <table className="table table-condensed">
         <thead>
             <tr className="active">

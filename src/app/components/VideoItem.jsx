@@ -12,17 +12,17 @@ const getRowClass = (subbed: boolean, dubbed: boolean): string =>
     iif(dubbed, 'success',
         iif(subbed, 'info', 'danger'));
 
-type PropsType = {
+type Props = {|
     content: VideoNodeType,
     language: ItemType,
     historySlug: ?string,
     onHistory: (slug: ?string) => void,
-};
+|};
 
 const VideoItem = ({
     content: { slug, title, subdub: [subbed, dubbed], duration },
     language, ...other
-}: PropsType): Element<*> =>
+}: Props): Element<*> =>
     <tr className={getRowClass(subbed, dubbed)}>
         <td style={{ verticalAlign: 'middle' }}>
             <DetailsButton {...other} slug={slug} />

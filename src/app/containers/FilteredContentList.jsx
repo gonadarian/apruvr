@@ -40,8 +40,7 @@ const FilteredContentList = ({ content, nodes, language, ...other }: PropsType):
                 {...other}
                 nodes={nodes}
                 language={language}
-                type={content.code}
-                title={content.name} />
+                type={content.code} />
             : <small className="text-muted">
                 no content found
             </small>

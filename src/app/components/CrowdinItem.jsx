@@ -21,18 +21,18 @@ const getPercent = (total: number, done: number): number =>
 const getLangCode = ({ crowdin, code }: ItemType): string =>
     crowdin || code;
 
-type PropsType = {
+type Props = {|
     content: CrowdinNodeType,
     language: ItemType,
     code: string,
     historySlug: ?string,
     onHistory: (slug: ?string) => void,
-};
+|};
 
 const CrowdinItem = ({
     content: { slug, title, data: [, totl, trns, appr] },
     language, code, ...other
-}: PropsType): Element<*> =>
+}: Props): Element<*> =>
     <tr className={getRowClass(totl, trns, appr)}>
         <td style={{ verticalAlign: 'middle' }}>
             <DetailsButton {...other} slug={slug} />

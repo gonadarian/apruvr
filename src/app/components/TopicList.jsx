@@ -4,16 +4,23 @@ import { map, transform, keys, pick, take, size } from 'lodash';
 import { iif, percent } from '../utils';
 import { CONTENT_LETTERS } from '../consts';
 import { HistoryList } from '../containers';
-import { TopicItem, PageExpander, type ContentListType } from '.';
+import { TopicItem, PageExpander, type ContentListProps } from '.';
 import type { TopicNodeType, NodeMapType } from '../flows';
 
-type StatType = { cnt: number, sum: number };
-type StatsType = { totl: StatType, trns: StatType };
+type Stat = {|
+    cnt: number,
+    sum: number
+|};
 
-const calcStats = (nodes: NodeMapType): StatsType =>
+type Stats = {|
+    totl: Stat,
+    trns: Stat
+|};
+
+const calcStats = (nodes: NodeMapType): Stats =>
     transform(
         nodes,
-        (mem: StatsType, { meta: [, totl, trns] }: TopicNodeType) => {
+        (mem: Stats, { meta: [, totl, trns] }: TopicNodeType) => {
             mem.totl.cnt += 1;
             mem.totl.sum += totl;
             mem.trns.cnt += iif(trns === totl, 1, 0);
@@ -25,11 +32,11 @@ const calcStats = (nodes: NodeMapType): StatsType =>
         }
     );
 
-type PropsStatsType = {
-    stats: StatsType,
-};
+type TopicStatsProps = {|
+    stats: Stats,
+|};
 
-const TopicStats = ({ stats: { totl, trns } }: PropsStatsType): Element<*> | false =>
+const TopicStats = ({ stats: { totl, trns } }: TopicStatsProps): Element<*> | false =>
     totl.cnt !== 0 &&
         <tr className="active">
             <th />
@@ -49,7 +56,7 @@ const TopicStats = ({ stats: { totl, trns } }: PropsStatsType): Element<*> | fal
 
 const TopicList = ({
     type, nodes, historySlug, pageSize, onPageExpand, ...other
-}: ContentListType): Element<*> =>
+}: ContentListProps): Element<*> =>
     <div>
         <table className="table table-condensed">
             <thead>

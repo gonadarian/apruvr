@@ -2,13 +2,13 @@
 import React, { type Element } from 'react';
 import { iif } from '../utils';
 
-type PropsType = {
+type Props = {|
     name: string,
     isActive?: boolean,
     onClick: () => void,
-};
+|};
 
-export const Button = ({ name, isActive = false, onClick }: PropsType): Element<*> =>
+export const Button = ({ name, isActive = false, onClick }: Props): Element<*> =>
     <div
         className={iif(isActive, 'btn btn-primary', 'btn btn-default')}
         onClick={onClick}>
