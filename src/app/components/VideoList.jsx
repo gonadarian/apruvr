@@ -97,8 +97,7 @@ const VideoList = ({
                             historySlug={historySlug}
                             content={node} />
                         {historySlug === slug &&
-                             <HistoryList
-                                 history={history} />
+                             <HistoryList />
                         }
                     </Fragment>
             )}

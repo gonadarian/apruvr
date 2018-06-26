@@ -22,22 +22,22 @@ export type ItemType = {
 export type NodeType = {
     slug: string;
     title: string;
-}
+};
 
 export type CrowdinNodeType = NodeType & {
     data: number[];
-}
+};
 
 export type VideoNodeType = NodeType & {
     subdub: boolean[];
     duration?: number;
-}
+};
 
 export type TopicNodeType = NodeType & {
     meta: number[];
     children: Array<Array<string>>,
     topics?: ?{[slug: string]: TopicNodeType}
-}
+};
 
 export type NodeMapType = {[slug: string]: NodeType};
 
@@ -60,12 +60,12 @@ export type HistoryRecordType = {
     time: number;
     uid: ?string;
     status: ?string;
-}
+};
 
 export type HistoryType = {
     slug: string;
     timeline: ?{[key: string]: HistoryRecordType};
-}
+};
 
 export type DurationsType = {[ytid: string]: number};
 

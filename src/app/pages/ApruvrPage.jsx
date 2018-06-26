@@ -29,28 +29,30 @@ const footerStyle = {
     left:     0,
 };
 
-interface OwnPropsType {
+type OwnProps = {|
     match: Match,
     history: RouterHistory,
     location: Location,
-}
+|};
 
-interface StatePropsType {
+type StateProps = {|
     pathname: string,
     language: ?LanguageType,
     content: ContentKindType,
     topic: string,
-}
+|};
 
-interface PropsType extends OwnPropsType, StatePropsType {
+type Props = {|
+    ...OwnProps,
+    ...StateProps,
     onRouteChange: (route: RouteParamsType) => void,
     onUserAuth: (user: UserType) => void,
     onUsersLoad: () => void,
     onDuratiosLoad: () => void,
-}
+|};
 
-class ApruvrPage extends Component<PropsType> {
-    constructor (props: PropsType) {
+class ApruvrPage extends Component<Props> {
+    constructor (props: Props) {
         super(props);
         importFirebaseAuth((firebase) => {
             // initialize user session, store user data in database
@@ -78,7 +80,7 @@ class ApruvrPage extends Component<PropsType> {
         }
     }
 
-    componentDidUpdate (prevProps: PropsType) {
+    componentDidUpdate (prevProps: Props) {
         const { pathname, match: { params } } = this.props;
         const prevParams = prevProps.match.params;
         if (pathname === prevProps.pathname) {
@@ -140,7 +142,7 @@ class ApruvrPage extends Component<PropsType> {
 }
 
 export default connect(
-    (state: State, props: OwnPropsType): StatePropsType => ({
+    (state: State, props: OwnProps): StateProps => ({
         pathname: props.location.pathname,
         language: state.language,
         content:  state.content,

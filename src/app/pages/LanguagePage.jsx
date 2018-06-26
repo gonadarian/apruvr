@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import type { Match } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isNil } from 'lodash';
 import {
     ContentKindPicker, VisibilityButtons, SelectedTopicList,
     FilteredContentList, ExporterButton,
@@ -11,26 +12,28 @@ import { fetchNodes, fetchWorkflow } from '../actions';
 import { languageLookup, type LanguageType } from '../consts';
 import type { State, WorkflowMapType } from '../flows';
 
-interface OwnPropsType {
+type OwnProps = {|
     match: Match,
-}
+|};
 
-interface StatePropsType {
+type StateProps = {|
     lang: ?string,
     visible: boolean,
-}
+|};
 
-interface PropsType extends OwnPropsType, StatePropsType {
+type Props = {|
+    ...OwnProps,
+    ...StateProps,
     onLanguageChange: (language: LanguageType) => void,
     onFiredux: (snapshot: WorkflowMapType) => void,
-}
+|};
 
-class LanguagePage extends Component<PropsType> {
+class LanguagePage extends Component<Props> {
     componentDidMount () {
         this.fetching();
     }
 
-    componentDidUpdate (prevProps: PropsType) {
+    componentDidUpdate (prevProps: Props) {
         const { lang } = this.props;
         if (lang === prevProps.lang) {
             return;
@@ -61,9 +64,9 @@ class LanguagePage extends Component<PropsType> {
 }
 
 export default connect(
-    (state: State, props: OwnPropsType): StatePropsType => ({
+    (state: State, props: OwnProps): StateProps => ({
         lang:    props.match.params.lang,
-        visible: state.nodes !== null,
+        visible: !isNil(state.nodes),
     }),
     (dispatch: Dispatch) => bindActionCreators({
         onLanguageChange: fetchNodes,

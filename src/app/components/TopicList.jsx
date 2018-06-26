@@ -81,8 +81,7 @@ const TopicList = ({
                                 code={CONTENT_LETTERS[type]}
                                 content={node} />
                             {historySlug === slug &&
-                                 <HistoryList
-                                     history={history} />
+                                 <HistoryList />
                             }
                         </Fragment>
                 )}
