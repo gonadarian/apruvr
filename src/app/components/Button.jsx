@@ -8,7 +8,7 @@ type Props = {|
     onClick: () => void,
 |};
 
-export const Button = ({ name, isActive = false, onClick }: Props): Element<*> =>
+export const Button = ({ name, isActive = false, onClick }: Props): Element<'div'> =>
     <div
         className={iif(isActive, 'btn btn-primary', 'btn btn-default')}
         onClick={onClick}>
