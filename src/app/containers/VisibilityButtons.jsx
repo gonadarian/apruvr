@@ -26,9 +26,9 @@ const VisibilityButtons = ({ choices, used, ...other }: Props): Element<*> =>
         <h3>States</h3>
         <ButtonChoice
             {...other}
-            choices={mapKeys(choices, (key) => VISIBLITY_CODES[key])}
-            used={map(used, (item) => VISIBLITY_CODES[item])}
-            names={mapKeys(VISIBILITY_NAMES, (key) => VISIBLITY_CODES[key])} />
+            choices={mapKeys(choices, (value, key) => VISIBLITY_CODES[key])}
+            names={mapKeys(VISIBILITY_NAMES, (value, key) => VISIBLITY_CODES[key])}
+            used={map(used, (item) => VISIBLITY_CODES[item])} />
     </div>;
 
 export default connect(
