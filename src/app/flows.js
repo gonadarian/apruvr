@@ -3,14 +3,17 @@ import type { Store } from './store';
 import type { Action, Dispatch } from './actions';
 import type { State, GetState } from './reducers';
 
-export type UserType = {
-    uid: string,
+export type BaseUserType = {
     displayName: string,
     email: string,
     photoURL: string,
 };
 
-export type UserMapType = {[uid: string]: UserType};
+export type UserType = BaseUserType & {
+    uid: string,
+};
+
+export type UserMapType = {[uid: string]: BaseUserType};
 
 export type ItemType = {
     code: string,
