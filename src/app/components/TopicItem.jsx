@@ -37,10 +37,10 @@ const TopicItem = ({
                     href={`${khan}/${code}/${slug}`}
                     target="_blank" rel="noreferrer noopener">
                     {`${title} `}
-                    <span className="badge">
-                        {totl}
-                    </span>
                 </a>
+                <small className="text-muted">
+                    {`${totl}  words`}
+                </small>
             </td>
             <td>
                 <AgentPicker

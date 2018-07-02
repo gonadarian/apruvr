@@ -1,6 +1,6 @@
 /* @flow */
 import React, { type Element } from 'react';
-import { iif, words } from '../utils';
+import { iif, localize } from '../utils';
 import { STATUSES, urls } from '../consts';
 import { StatusPicker, AgentPicker } from '../containers';
 import { DetailsButton } from './';
@@ -42,7 +42,7 @@ const CrowdinItem = ({
                 {`${title} `}
             </a>
             <small className="text-muted">
-                {`${words(totl)} words`}
+                {`${localize(totl)} words`}
             </small>
         </td>
         <td>
