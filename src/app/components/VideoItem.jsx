@@ -6,7 +6,7 @@ import { StatusPicker, AgentPicker } from '../containers';
 import { DetailsButton } from './';
 import type { VideoNodeType, ItemType } from '../flows';
 
-const { khan } = urls;
+const { khan, timedtext } = urls;
 
 const getRowClass = (subbed: boolean, dubbed: boolean): string =>
     iif(dubbed, 'success',
@@ -20,9 +20,9 @@ type Props = {|
 |};
 
 const VideoItem = ({
-    content: { slug, title, subdub: [subbed, dubbed], duration },
+    content: { slug, title, subdub: [subbed, dubbed], duration, yt: [ytid] },
     language, ...other
-}: Props): Element<*> =>
+}: Props): Element<'tr'> =>
     <tr className={getRowClass(subbed, dubbed)}>
         <td style={{ verticalAlign: 'middle' }}>
             <DetailsButton {...other} slug={slug} />
@@ -56,7 +56,9 @@ const VideoItem = ({
         </td>
         <td>
             <a className="btn btn-default"
-                href={`${khan}/translate/videos/${slug}/subtitle?lang=${language.code}`}
+                href={`${
+                    timedtext
+                }?action_mde_edit_form=1&v=${ytid}&lang=${language.code}&tab=captions`}
                 target="_blank" rel="noreferrer noopener">
                 {'go '}
                 <span className="badge">

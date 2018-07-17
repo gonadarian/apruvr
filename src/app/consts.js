@@ -4,8 +4,10 @@ import { find } from 'lodash';
 const khan = 'https://www.khanacademy.org';
 const api = `${khan}/api/internal`;
 const crowdin = 'https://crowdin.com';
-const proofread = `${crowdin}https://crowdin.com/proofread/khanacademy`;
+const proofread = `${crowdin}/proofread/khanacademy`;
 const translate = 'https://translate.khanacademy.org';
+const youtube = 'https://www.youtube.com';
+const timedtext = `${youtube}/timedtext_editor`;
 
 export const urls = {
     khan,
@@ -13,6 +15,8 @@ export const urls = {
     crowdin,
     proofread,
     translate,
+    youtube,
+    timedtext,
 };
 
 export type LanguageType = {
