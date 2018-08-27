@@ -35,6 +35,7 @@ export const LANGUAGES: LanguageType[] = [
     { code: 'ka', name: 'Georgian' },
     { code: 'de', name: 'German' },
     { code: 'gr', name: 'Greek' },
+    { code: 'hu', name: 'Hungarian' },
     { code: 'it', name: 'Italian' },
     { code: 'ko', name: 'Korean' },
     { code: 'pl', name: 'Polish' },
