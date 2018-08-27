@@ -67,12 +67,12 @@ describe('Utility functions', () => {
         expect(percent(3.2367)).toEqual('323%');
     });
 
-    test('function minsec should return expected values or null', () => {
+    test('function minsec should return expected values', () => {
         expect(minsec(5)).toEqual('0m 5s');
         expect(minsec(145)).toEqual('2m 25s');
     });
 
-    test('function hasValues should return expected values or null', () => {
+    test('function hasValues should return expected values', () => {
         expect(hasValues({ aa: undefined })).toEqual(false);
         expect(hasValues({ aa: null })).toEqual(false);
         expect(hasValues({ aa: 1 })).toEqual(true);
