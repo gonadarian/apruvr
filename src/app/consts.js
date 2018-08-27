@@ -27,24 +27,16 @@ export type LanguageType = {
 };
 
 export const LANGUAGES: LanguageType[] = [
-    { code: 'zh-hans', name: 'Chinese', note: 'Simplified', crowdin: 'zhcn' },
     { code: 'bg', name: 'Bulgarian' },
     { code: 'cs', name: 'Czech' },
     { code: 'nl', name: 'Dutch' },
-    { code: 'fr', name: 'French' },
     { code: 'ka', name: 'Georgian' },
     { code: 'de', name: 'German' },
-    { code: 'gr', name: 'Greek' },
     { code: 'hu', name: 'Hungarian' },
-    { code: 'it', name: 'Italian' },
     { code: 'ko', name: 'Korean' },
-    { code: 'pl', name: 'Polish' },
     { code: 'pt', name: 'Portuguese', note: 'Brazil', crowdin: 'ptbr' },
     { code: 'pt-pt', name: 'Portuguese', note: 'Portugal', crowdin: 'pt' },
-    { code: 'ru', name: 'Russian' },
     { code: 'sr', name: 'Serbian', note: 'Cyrillic' },
-    { code: 'es', name: 'Spanish' },
-    { code: 'tr', name: 'Turkish' },
 ];
 
 export const languageLookup = (langCode: ?string): ?LanguageType =>
