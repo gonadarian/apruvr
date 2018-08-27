@@ -1,7 +1,8 @@
 /* @flow */
 
 const importFirebaseApp = async (): any => {
-    const firebaseApp = await import('@firebase/app');
+    // eslint-disable-next-line no-inline-comments
+    const firebaseApp = await import(/* webpackChunkName: "firebase-app" */ '@firebase/app');
     const firebase = firebaseApp.default;
     if (firebase.apps.length === 0) {
         // initialize firebase
@@ -18,12 +19,14 @@ const importFirebaseApp = async (): any => {
 
 export const importFirebaseDatabase = async (onImport: (any) => void) => {
     const firebase = await importFirebaseApp();
-    await import('@firebase/database');
+    // eslint-disable-next-line no-inline-comments
+    await import(/* webpackChunkName: "firebase-database" */ '@firebase/database');
     onImport(firebase);
 };
 
 export const importFirebaseAuth = async (onImport: (any) => void) => {
     const firebase = await importFirebaseApp();
-    await import('@firebase/auth');
+    // eslint-disable-next-line no-inline-comments
+    await import(/* webpackChunkName: "firebase-auth" */ '@firebase/auth');
     onImport(firebase);
 };
