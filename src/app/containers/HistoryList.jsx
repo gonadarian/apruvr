@@ -12,7 +12,7 @@ type Props = {|
 
 const HistoryList = ({ users, history }: Props): Element<*> =>
     <Fragment>
-        {history && history.timeline
+        {users && history && history.timeline
             ? map(history.timeline, (record) =>
                 <tr key={record.time}>
                     <td>
@@ -21,6 +21,12 @@ const HistoryList = ({ users, history }: Props): Element<*> =>
                                 startOf('day').
                                 fromNow()}
                         </span>
+                        {' by '}
+                        <span className="badge badge-light">
+                            {record.by
+                                ? users[record.by].displayName
+                                : '?'}
+                        </span>
                         <small className="text-muted">
                             {moment(record.time).
                                 format(' dddd, MMMM Do YYYY, h:mm:ss')}
@@ -28,9 +34,9 @@ const HistoryList = ({ users, history }: Props): Element<*> =>
                     </td>
                     <td>
                         <span className="badge badge-primary">
-                            {record.uid && users
+                            {record.uid
                                 ? users[record.uid].displayName
-                                : '...'}
+                                : ''}
                         </span>
                     </td>
                     <td>
