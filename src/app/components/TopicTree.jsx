@@ -9,6 +9,8 @@ type Topic = {|
     slug: string,
     title: string,
     topics: {[id: string]: Topic},
+    meta: number[],
+    children: string[],
 |};
 
 export type TopicTreeProps = {
