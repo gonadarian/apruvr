@@ -1,4 +1,5 @@
 /* @flow */
+import { includes } from 'lodash';
 import { importFirebaseAuth, importFirebaseDatabase } from '../imports';
 import type { ActionType, Dispatch, GetState, UserType, WorkflowMapType } from '../flows';
 import { IMPORTANT_STATUSES, type LanguageType } from '../consts';
@@ -121,13 +122,17 @@ export const userAuth = (user: ?UserType): ActionType =>
 
 export const setWorkflowStatus = (slug: string, status: string): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
-        const { language, user } = getState();
+        const { language, user, roles } = getState();
         if (!language || !user) {
             throw new Error(`Language or user are not set [${slug}, ${status}]`);
         }
         const { uid } = user;
         // save current status and agent
-        let value = { uid, status };
+        let value = { status };
+        // allow advocates to change status w/o assigning it to themselves
+        if (!includes(roles, 'advocate')) {
+            value = { ...value, uid };
+        }
         // if current status is important, keep it with the agent that made it
         if (status in IMPORTANT_STATUSES) {
             value = { ...value, [status]: uid };
@@ -136,20 +141,24 @@ export const setWorkflowStatus = (slug: string, status: string): ActionType =>
             const db = firebase.database();
             db.ref(`status/${language.code}/${slug}`).update(value);
             // keep history of all changes, just in case
-            const history = {
-                uid,
-                status,
+            let history = {
+                by:   uid,
                 time: firebase.database.ServerValue.TIMESTAMP,
+                status,
             };
+            // again, advocates do not automatically change assignments
+            if (!includes(roles, 'advocate')) {
+                history = { ...history, uid };
+            }
             db.ref(`history/${language.code}/${slug}`).push(history);
         });
     };
 
 export const setWorkflowAgent = (slug: string, uid: string): ActionType =>
     (dispatch: Dispatch, getState: GetState) => {
-        const { language } = getState();
-        if (!language) {
-            throw new Error(`Language is not set [${slug}, ${uid}]`);
+        const { language, user } = getState();
+        if (!language || !user) {
+            throw new Error(`Languagee or user are not set [${slug}, ${uid}]`);
         }
         importFirebaseDatabase((firebase) => {
             const db = firebase.database();
@@ -157,8 +166,9 @@ export const setWorkflowAgent = (slug: string, uid: string): ActionType =>
             db.ref(`status/${language.code}/${slug}`).update({ uid });
             // keep this change in history, too
             const history = {
-                uid,
+                by:   user.uid,
                 time: firebase.database.ServerValue.TIMESTAMP,
+                uid,
             };
             db.ref(`history/${language.code}/${slug}`).push(history);
         });
