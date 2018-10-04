@@ -6,12 +6,15 @@ import {
 } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { pickBy, transform } from 'lodash';
+import { pickBy, transform, isNil } from 'lodash';
 import { LanguagePage } from './';
 import { importFirebaseAuth } from '../imports';
 import { routeChange, userAuth, fetchUsers, fetchDurations } from '../actions';
 import { type LanguageType, type ContentKindType } from '../consts';
-import { LanguagePicker, SignInButton, LoadingSpinner } from '../containers';
+import {
+    LanguagePicker, SignInButton, LoadingSpinner,
+    ContentKindPicker, VisibilityButtons, ExporterButton,
+} from '../containers';
 import { hasValues } from '../utils';
 import type { State, UserType, RouteParamsType } from '../flows';
 
@@ -40,6 +43,7 @@ type StateProps = {|
     language: ?LanguageType,
     content: ContentKindType,
     topic: string,
+    visible: boolean,
 |};
 
 type Props = {|
@@ -110,7 +114,7 @@ class ApruvrPage extends Component<Props> {
     }
 
     render () {
-        const { language } = this.props;
+        const { language, visible } = this.props;
         return <Fragment>
             <nav className="navbar navbar-default navbar-fixed-top" style={headerStyle}>
                 <div className="container-fluid">
@@ -123,14 +127,23 @@ class ApruvrPage extends Component<Props> {
                 </div>
             </nav>
             <main className="container-fluid">
-                <LanguagePicker language={language} />
-                <SignInButton />
-                <LoadingSpinner />
-                <Switch>
-                    <Route path="/:lang/:kind/:topic" component={LanguagePage} />
-                    <Redirect exact from="/:lang/:kind" to=":lang/:kind/root.math" />
-                    <Redirect exact from="/:lang" to=":lang/exercises/root.math" />
-                </Switch>
+                <div className="row">
+                    <LanguagePicker language={language} />
+                    {visible && <Fragment>
+                        <ContentKindPicker />
+                        <VisibilityButtons />
+                        <ExporterButton />
+                    </Fragment>}
+                    <SignInButton />
+                </div>
+                <div className="row">
+                    <LoadingSpinner />
+                    <Switch>
+                        <Route path="/:lang/:kind/:topic" component={LanguagePage} />
+                        <Redirect exact from="/:lang/:kind" to=":lang/:kind/root.math" />
+                        <Redirect exact from="/:lang" to=":lang/exercises/root.math" />
+                    </Switch>
+                </div>
             </main>
             <footer style={footerStyle}>
                 <div className="col-xs-12" style={{ textAlign: 'center' }}>
@@ -147,6 +160,7 @@ export default connect(
         language: state.language,
         content:  state.content,
         topic:    state.topic,
+        visible:  !isNil(state.nodes),
     }),
     (dispatch: Dispatch) => bindActionCreators({
         onRouteChange:  routeChange,

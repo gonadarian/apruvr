@@ -1,13 +1,10 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import type { Match } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isNil } from 'lodash';
-import {
-    ContentKindPicker, VisibilityButtons, SelectedTopicList,
-    FilteredContentList, ExporterButton,
-} from '../containers';
+import { SelectedTopicList, FilteredContentList } from '../containers';
 import { fetchNodes, fetchWorkflow } from '../actions';
 import { languageLookup, type LanguageType } from '../consts';
 import type { State, WorkflowMapType } from '../flows';
@@ -53,13 +50,10 @@ class LanguagePage extends Component<Props> {
 
     render () {
         const { visible, onFiredux } = this.props;
-        return visible && <div>
-            <ContentKindPicker />
-            <VisibilityButtons />
-            <ExporterButton />
+        return visible && <Fragment>
             <SelectedTopicList />
             <FilteredContentList onFiredux={onFiredux}/>
-        </div>;
+        </Fragment>;
     }
 }
 
